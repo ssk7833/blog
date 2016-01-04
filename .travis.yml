@@ -1,0 +1,23 @@
+language: node_js
+
+node_js:
+  - "4.0"
+
+env:
+  global:
+    secure: RDGZ+jbT3btk54Rsj2Gi5QigIhNQps/gCa74OhURyYjQgaS1BEPMwBnveP/MuhW+F2xnSxB8z3ypLhpE48ydydaoda8CRBQNdmTwz1eP8gVzGNC2I1DsAD0v/hDgUO+onoK7MylXpIjRsa83h7CFaV0xB/KBVXmJZeI7bt6wIRovXvudgAAoSUBfcoQwWjDWw4oMZ7RtzRxwpL420qaFVmCMiv9yW8th8Ntjfi7lxa1Tuc4m0k6vYxF3uPLfAlinMAsa/GC5JepUySp7WQ4oWzTe4E7mFMak5flF0EQ3Z0Nye41dhS0M/aqflossSadgIEISmC2UiLtg1fEoALnM1qFIyO7R3fo1AJLolD0ZgLF4oOyM5myb2schj/NuyneX9xCFgvJzA4cmTp728WHyYlg6iEXToL5BXyxbxY0QBHpunT3imWu3PevfabLB9JeU7YeS297DO5gXO45lcvBaboPbV3MlNGH+eX9eeZ1W+5wX2Xq1ACGahstqtq5VzJXLJg/wI7lfgtfJIyxm7dxUXLZ4gRM+2rLSn1X9Fh5Gh4T2Km7Fri7EL4R5TzgNgN8JJrTtiI5ZgC62e3vzIw8Mf5sN8Nz9e0sWUwe12OWcdwypVjdcqWDmv6y7w1l1Oa7YJ0Uo0Q55M6Z2jqUBnWT9Rdb9/VBAgiOaRtpU1zDPegM=
+
+install:
+  - npm install
+
+script:
+  # Set Git config
+  - git config --global user.name "North"
+  - git config --global user.email ssk7833@gmail.com
+  - git config --global push.default simple
+  - npm run generate
+  - git checkout gh-pages
+  - mv public/* .
+  - git add -A .
+  - git commit -m "update from Travis"
+  - git push --quiet
