@@ -15,9 +15,10 @@ script:
   - git config --global user.name "North"
   - git config --global user.email ssk7833@gmail.com
   - git config --global push.default simple
-  - npm run generate
-  - git checkout gh-pages
-  - mv public/* .
-  - git add -A .
-  - git commit -m "update from Travis"
-  - git push --quiet
+  - npm run deploy
+  # - npm run generate
+  # - git checkout gh-pages
+  # - mv public/* .
+  # - git add -A .
+  # - git commit -m "update from Travis"
+  # - git push --quiet

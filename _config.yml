@@ -72,4 +72,6 @@ plugins:
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  repo: git@github.com:ssk7833/blog.git
+  branch: gh-pages
