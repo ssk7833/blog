@@ -22,5 +22,5 @@ script:
   - cd public
   - git add -A .
   - DATE=`date +%Y-%m-%d\%H:%M:%S`
-  - git commit -m "Site updated: $DATE"
+  - git commit -m "Site updated:\ $DATE"
   - git push --quiet
