@@ -21,6 +21,6 @@ script:
   # - mv public/* .
   - cd public
   - git add -A .
-  - DATE=`date +%Y-%m-%d\%H:%M:%S`
-  - git commit -m "Site updated{{:}} $DATE"
+  - MESSAGE=`date +\ %Y-%m-%d\ %H:%M:%S`
+  - git commit -m "Site updated:$MESSAGE"
   - git push --quiet
