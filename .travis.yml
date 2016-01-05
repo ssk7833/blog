@@ -15,11 +15,12 @@ script:
   - git config --global user.name "North"
   - git config --global user.email ssk7833@gmail.com
   - git config --global push.default simple
-  - git clone --depth 1 https://$GH_TOKEN@github.com/ssk7833/blog public
+  - git clone --depth 1 --branch gh-pages https://$GH_TOKEN@github.com/ssk7833/blog public
   - npm run generate
   # - git checkout gh-pages
   # - mv public/* .
   - cd public
   - git add -A .
-  - git commit -m "update from Travis"
+  - DATE=`date +%Y-%m-%d\%H:%M:%S`
+  - git commit -m "Site updated: $DATE"
   - git push --quiet
