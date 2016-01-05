@@ -15,8 +15,8 @@ script:
   - git config --global user.name "North"
   - git config --global user.email ssk7833@gmail.com
   - git config --global push.default simple
-  - npm run generate
   - git clone --depth 1 https://$GH_TOKEN@github.com/ssk7833/blog public
+  - npm run generate
   # - git checkout gh-pages
   # - mv public/* .
   - cd public
