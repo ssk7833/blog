@@ -7,6 +7,9 @@ env:
   global:
     secure: RDGZ+jbT3btk54Rsj2Gi5QigIhNQps/gCa74OhURyYjQgaS1BEPMwBnveP/MuhW+F2xnSxB8z3ypLhpE48ydydaoda8CRBQNdmTwz1eP8gVzGNC2I1DsAD0v/hDgUO+onoK7MylXpIjRsa83h7CFaV0xB/KBVXmJZeI7bt6wIRovXvudgAAoSUBfcoQwWjDWw4oMZ7RtzRxwpL420qaFVmCMiv9yW8th8Ntjfi7lxa1Tuc4m0k6vYxF3uPLfAlinMAsa/GC5JepUySp7WQ4oWzTe4E7mFMak5flF0EQ3Z0Nye41dhS0M/aqflossSadgIEISmC2UiLtg1fEoALnM1qFIyO7R3fo1AJLolD0ZgLF4oOyM5myb2schj/NuyneX9xCFgvJzA4cmTp728WHyYlg6iEXToL5BXyxbxY0QBHpunT3imWu3PevfabLB9JeU7YeS297DO5gXO45lcvBaboPbV3MlNGH+eX9eeZ1W+5wX2Xq1ACGahstqtq5VzJXLJg/wI7lfgtfJIyxm7dxUXLZ4gRM+2rLSn1X9Fh5Gh4T2Km7Fri7EL4R5TzgNgN8JJrTtiI5ZgC62e3vzIw8Mf5sN8Nz9e0sWUwe12OWcdwypVjdcqWDmv6y7w1l1Oa7YJ0Uo0Q55M6Z2jqUBnWT9Rdb9/VBAgiOaRtpU1zDPegM=
 
+before_install:
+  - export TZ=Asia/Taipei
+
 install:
   - npm install
 
@@ -17,8 +20,6 @@ script:
   - git config --global push.default simple
   - git clone --depth 1 --branch gh-pages https://$GH_TOKEN@github.com/ssk7833/blog public
   - npm run generate
-  # - git checkout gh-pages
-  # - mv public/* .
   - cd public
   - git add -A .
   - MESSAGE=`date +\ %Y-%m-%d\ %H:%M:%S`
