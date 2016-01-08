@@ -7,9 +7,9 @@ title: 北風筆記
 subtitle: 紀錄一些學習心得、過程及日常
 description: 這裡紀錄個人的一些日常心得
 author: North
-# disqus_shortname: ssk7833
 language: Chinese
 timezone: Asia/Taipei
+disqus_shortname: ssk7833
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
