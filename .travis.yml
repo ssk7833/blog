@@ -15,8 +15,8 @@ install:
 
 script:
   # Set Git config
-  - git config --global user.name "North"
-  - git config --global user.email ssk7833@gmail.com
+  - git config --global user.name "$GIT_NAME"
+  - git config --global user.email "$GIT_EMAIL"
   - git config --global push.default simple
   - git clone --depth 1 --branch gh-pages https://$GH_TOKEN@github.com/ssk7833/blog public
   - npm run generate
