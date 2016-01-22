@@ -96,7 +96,7 @@ node.js 的套件 dependencies 都已先用 package.json 存下，因此在 inst
 
 **注意：git push 時一定要加 `--quiet`，否則先前設定的 Personal Access Token 將會印出，這樣就失去加密意義了。**
 
-結果可以在 Travis CI 的網頁上看到，可以瀏覽各次的狀況，像我最近的 [push 結果](https://travis-ci.org/ssk7833/blog/builds/101307260 )及先前測試的 [失敗結果]( https://travis-ci.org/ssk7833/blog/builds/100311173)都可以在 Build history 中瀏覽到。
+結果可以在 Travis CI 的網頁上看到，可以瀏覽各次的狀況，像我最近的 [push 結果](https://travis-ci.org/ssk7833/blog/builds/101307260 )及先前測試的[失敗結果]( https://travis-ci.org/ssk7833/blog/builds/100311173)都可以在 Build history 中瀏覽到。
 
 ## 在 GitHub 上發佈／編輯
 若是設定無誤，接下來要發佈或編輯文章即可直接利用 GitHub 網頁版來作編輯，不需要擔心作業系統沒有安裝相關環境而無法發佈或編輯文章囉！
