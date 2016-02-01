@@ -1,4 +1,4 @@
-title: Facebook Graph API 回傳指定語言姓名(Language-specific name)
+title: Facebook Graph API 回傳指定語言/地區化姓名
 date: 2015-07-12 18:49:43
 categories:
 - study

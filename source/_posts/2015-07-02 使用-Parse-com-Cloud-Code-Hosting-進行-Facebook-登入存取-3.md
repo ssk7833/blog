@@ -1,4 +1,4 @@
-title: 使用 Parse.com Cloud Code Hosting 進行 Facebook 登入存取 - 3
+title: 使用 Parse.com Cloud Code Hosting 進行 Facebook 登入存取 3
 date: 2015-07-02 00:11:49
 categories:
 - study
