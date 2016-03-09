@@ -2,43 +2,66 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/</loc>
+    
+    <lastmod>2016-03-09T06:41:58.261Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://ssk7833.github.io/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/</loc>
-    <lastmod>2016-02-01T17:54:48.769Z</lastmod>
+    
+    <lastmod>2016-03-09T06:41:58.261Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://ssk7833.github.io/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/</loc>
-    <lastmod>2016-02-01T17:54:48.769Z</lastmod>
+    
+    <lastmod>2016-03-09T06:41:58.261Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://ssk7833.github.io/blog/2015/08/25/facebook-graph-api-get-picture/</loc>
-    <lastmod>2016-02-01T17:54:48.769Z</lastmod>
+    
+    <lastmod>2016-03-09T06:41:58.261Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/</loc>
-    <lastmod>2016-02-01T17:54:48.769Z</lastmod>
+    
+    <lastmod>2016-03-09T06:41:58.261Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://ssk7833.github.io/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/</loc>
-    <lastmod>2016-02-01T17:54:48.769Z</lastmod>
+    
+    <lastmod>2016-03-09T06:41:58.261Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/</loc>
-    <lastmod>2016-02-01T17:54:48.769Z</lastmod>
+    
+    <lastmod>2016-03-09T06:41:58.261Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/</loc>
-    <lastmod>2016-02-01T17:54:48.769Z</lastmod>
+    
+    <lastmod>2016-03-09T06:41:58.261Z</lastmod>
+    
   </url>
   
   <url>
     <loc>http://ssk7833.github.io/blog/2011/01/18/combine-cd-and-ls-into-one-command/</loc>
+    
     <lastmod>2016-01-07T16:47:05.000Z</lastmod>
+    
   </url>
   
 </urlset>

@@ -3,27 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>將 cd 跟 ls 合併為一個指令 | 北風筆記</title>
+  <title>實作 gooey 膠粘效果 | 北風筆記</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="用 alias, script, unix programing 都無法達到更換資料夾後並印出資料夾內容的功能最後測試只有 function 可以。
-若是 bash shell，將 .bashrc 增加下列程式碼後重新載入 .bashrc 即可。
-cds() { cd &amp;quot;$1&amp;quot;; ls; }
-接著只要執行 cds 指令即可。">
+  <meta name="description" content="最近在試著實作 gooey 效果，看了一些介紹後知道了 gooey 的原理，本以為在實作上可以一路順風，但果然沒有這麼簡單，還好最後有找到解決方法。
+先來談談 gooey 的作法，首先要先有兩層 layer，內層將物件模糊 blur，而外層處理亮度 brightness 跟對比度 contrast，接著神奇的事情就會發生了，可以參考以下範例：
+See the Pen Blur vs Contras">
 <meta property="og:type" content="article">
-<meta property="og:title" content="將 cd 跟 ls 合併為一個指令">
-<meta property="og:url" content="http://ssk7833.github.io/blog/2011/01/18/combine-cd-and-ls-into-one-command/index.html">
+<meta property="og:title" content="實作 gooey 膠粘效果">
+<meta property="og:url" content="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/index.html">
 <meta property="og:site_name" content="北風筆記">
-<meta property="og:description" content="用 alias, script, unix programing 都無法達到更換資料夾後並印出資料夾內容的功能最後測試只有 function 可以。
-若是 bash shell，將 .bashrc 增加下列程式碼後重新載入 .bashrc 即可。
-cds() { cd &amp;quot;$1&amp;quot;; ls; }
-接著只要執行 cds 指令即可。">
-<meta property="og:updated_time" content="2016-01-07T16:47:05.000Z">
+<meta property="og:description" content="最近在試著實作 gooey 效果，看了一些介紹後知道了 gooey 的原理，本以為在實作上可以一路順風，但果然沒有這麼簡單，還好最後有找到解決方法。
+先來談談 gooey 的作法，首先要先有兩層 layer，內層將物件模糊 blur，而外層處理亮度 brightness 跟對比度 contrast，接著神奇的事情就會發生了，可以參考以下範例：
+See the Pen Blur vs Contras">
+<meta property="og:updated_time" content="2016-03-09T06:41:58.261Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="將 cd 跟 ls 合併為一個指令">
-<meta name="twitter:description" content="用 alias, script, unix programing 都無法達到更換資料夾後並印出資料夾內容的功能最後測試只有 function 可以。
-若是 bash shell，將 .bashrc 增加下列程式碼後重新載入 .bashrc 即可。
-cds() { cd &amp;quot;$1&amp;quot;; ls; }
-接著只要執行 cds 指令即可。">
+<meta name="twitter:title" content="實作 gooey 膠粘效果">
+<meta name="twitter:description" content="最近在試著實作 gooey 效果，看了一些介紹後知道了 gooey 的原理，本以為在實作上可以一路順風，但果然沒有這麼簡單，還好最後有找到解決方法。
+先來談談 gooey 的作法，首先要先有兩層 layer，內層將物件模糊 blur，而外層處理亮度 brightness 跟對比度 contrast，接著神奇的事情就會發生了，可以參考以下範例：
+See the Pen Blur vs Contras">
   
     <link rel="alternative" href="/blog/atom.xml" title="北風筆記" type="application/atom+xml">
   
@@ -86,10 +83,10 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-combine-cd-and-ls-into-one-command" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-implement-gooey-effect" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/blog/2011/01/18/combine-cd-and-ls-into-one-command/" class="article-date">
-  <time datetime="2011-01-17T17:45:05.000Z" itemprop="datePublished">2011-01-18</time>
+    <a href="/blog/2016/03/09/implement-gooey-effect/" class="article-date">
+  <time datetime="2016-03-09T05:48:05.000Z" itemprop="datePublished">2016-03-09</time>
 </a>
     
   <div class="article-category">
@@ -104,7 +101,7 @@ ga('send', 'pageview');
         
   
     <h1 class="article-title" itemprop="name">
-      將 cd 跟 ls 合併為一個指令
+      實作 gooey 膠粘效果
     </h1>
   
 
@@ -112,20 +109,95 @@ ga('send', 'pageview');
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>用 alias, script, unix programing 都無法達到更換資料夾後並印出資料夾內容的功能<br>最後測試只有 function 可以。</p>
-<p>若是 bash shell，將 .bashrc 增加下列程式碼後重新載入 .bashrc 即可。</p>
-<pre><code>cds() { cd &quot;$1&quot;; ls; }
-</code></pre><p>接著只要執行 cds 指令即可。</p>
+        <p>最近在試著實作 gooey 效果，看了一些介紹後知道了 gooey 的原理，本以為在實作上可以一路順風，但果然沒有這麼簡單，還好最後有找到解決方法。</p>
+<p>先來談談 gooey 的作法，首先要先有兩層 layer，內層將物件模糊 blur，而外層處理亮度 brightness 跟對比度 contrast，接著神奇的事情就會發生了，可以參考以下範例：</p>
+<p></p><p data-height="380" data-theme-id="0" data-slug-hash="lIBAg" data-default-tab="result" data-user="chriscoyier" class="codepen">See the Pen <a href="http://codepen.io/chriscoyier/pen/lIBAg/" target="_blank" rel="external">Blur vs Contrast</a> by Chris Coyier (<a href="http://codepen.io/chriscoyier" target="_blank" rel="external">@chriscoyier</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p>上層是只加了模糊，可以看到因為模糊的關係，物件間的顏色互相疊加在一起；下層則是調整對比後的結果，將模糊過的結果保留重疊及原本顏色較深的部分，濾掉顏色較淺的部分，物件間的部分就因此連起來了，若是加上動畫，效果就會更好：</p>
+<p></p><p data-height="330" data-theme-id="0" data-slug-hash="lFdHu" data-default-tab="result" data-user="lbebber" class="codepen">See the Pen <a href="http://codepen.io/lbebber/pen/lFdHu/" target="_blank" rel="external">Gooey Pagination</a> by Lucas Bebber (<a href="http://codepen.io/lbebber" target="_blank" rel="external">@lbebber</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p>這樣看似已經完成了，但實際上會遇到兩個問題：</p>
+<ol>
+<li>內部物件模糊掉，使用了 <code>filter: blur();</code> 後，子元素無一倖免。</li>
+<li>更改顏色，所有更改顏色都會因對比而偏移掉。</li>
+</ol>
+<p>原本就是卡在這裡，不管怎麼調整都沒辦法有效的解決這兩項，後來看到了 <a href="http://tympanus.net/codrops/2015/03/10/creative-gooey-effects/" target="_blank" rel="external">Creative Gooey Effects</a> 這篇才知道可以利用 <code>fliter: url();</code> 配合 SVG filters 來解決這兩個問題，且用法也很簡單。此方法在 <a href="https://css-tricks.com/gooey-effect/" target="_blank" rel="external">The Gooey Effect</a> 中描述的更加清楚，包含在 <code>feColorMatrix</code> 中的 values 為什麼是下表也有描述，若是對他的敘述不清楚的話可以先看 <a href="http://www.oxxostudio.tw/articles/201406/svg-11-filter-feColorMatrix.html" target="_blank" rel="external">SVG 研究之路 (11) - filter:feColorMatrix</a> 稍微釐清一下。</p>
+<p>簡單來說，若是沒有特別需求，就去調整 color matrix 中的 alpha channel (A) 跟 plus(+) 中值來得到自己想要的結果。</p>
+<table>
+<thead>
+<tr>
+<th>*</th>
+<th>R</th>
+<th>G</th>
+<th>B</th>
+<th>A</th>
+<th>+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>G</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>B</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>A</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>18</td>
+<td>-7</td>
+</tr>
+</tbody>
+</table>
+<p>以下是我在測試時寫的比較：</p>
+<ol>
+<li>用純 CSS 處理，背景與下一項的顏色設定相同，但呈現出 <code>#0000FF</code> 的藍色。<br><p data-height="200" data-theme-id="0" data-slug-hash="mPeEEG" data-default-tab="result" data-user="ssk7833" class="codepen">See the Pen <a href="http://codepen.io/ssk7833/pen/mPeEEG/" target="_blank" rel="external">Rotate loading (bad with and text)</a> by North (<a href="http://codepen.io/ssk7833" target="_blank" rel="external">@ssk7833</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><script async src="//assets.codepen.io/assets/embed/ei.js"></script></li>
+<li>用 SVG 處理，上一版的改良，在元素中放文字將會正常顯示。<br><p data-height="200" data-theme-id="0" data-slug-hash="dMGpXQ" data-default-tab="result" data-user="ssk7833" class="codepen">See the Pen <a href="http://codepen.io/ssk7833/pen/dMGpXQ/" target="_blank" rel="external">Gooey rotate loading (good with background and text)</a> by North (<a href="http://codepen.io/ssk7833" target="_blank" rel="external">@ssk7833</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><script async src="//assets.codepen.io/assets/embed/ei.js"></script></li>
+<li>將第二版的顏色稍加調整，移除 <code>feBlend</code> 後由於失去 <code>SourceGraphic</code> 的關係，文字將不會正常顯示，但此效果我更喜歡。<br><p data-height="200" data-theme-id="0" data-slug-hash="oxbBRy" data-default-tab="result" data-user="ssk7833" class="codepen">See the Pen <a href="http://codepen.io/ssk7833/pen/oxbBRy/" target="_blank" rel="external">Gooey rotate loading (good with only background)</a> by North (<a href="http://codepen.io/ssk7833" target="_blank" rel="external">@ssk7833</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+</li>
+</ol>
+<p>在寫上述三項測試時，自己也試過許多不同的組合，對 SVG filters 也多了許多理解，而在 gooey 相關的效果基本上就是 <code>feGaussianBlur</code>、<code>feColorMatrix</code> 和 <code>feBlend</code> 的變化所組成，未來若遇到類似需求時應該都能迎刃而解～</p>
+<p>參考資料：</p>
+<ol>
+<li><a href="https://css-tricks.com/shape-blobbing-css/" target="_blank" rel="external">Shape Blobbing in CSS</a></li>
+<li><a href="http://www.oxxostudio.tw/articles/201408/sticky-ball.html" target="_blank" rel="external">噁心黏黏球( 純 CSS )</a></li>
+<li><a href="http://tympanus.net/codrops/2015/03/10/creative-gooey-effects/" target="_blank" rel="external">Creative Gooey Effects</a>  底下有幾個動畫範例值得一看</li>
+<li><a href="https://css-tricks.com/gooey-effect/" target="_blank" rel="external">The Gooey Effect</a></li>
+<li><a href="http://www.oxxostudio.tw/articles/201406/svg-11-filter-feColorMatrix.html" target="_blank" rel="external">SVG 研究之路 (11) - filter:feColorMatrix</a></li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2011/01/18/combine-cd-and-ls-into-one-command/" data-id="cilkhabv700003ze6mizyqggo" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/" data-id="cilkhabw700053ze6e9oo9b9g" class="article-share-link">Share</a>
       
-        <a href="http://ssk7833.github.io/blog/2011/01/18/combine-cd-and-ls-into-one-command/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/shell-script/">shell script</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/SVG/">SVG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/gooey/">gooey</a></li></ul>
 
     </footer>
   </div>
@@ -133,15 +205,11 @@ ga('send', 'pageview');
     
 <nav id="article-nav">
   
-    <a href="/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          使用 Parse.com Cloud Code Hosting 進行 Facebook 登入存取 1
-        
-      </div>
-    </a>
   
+    <a href="/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">使用 Travis CI 自動部署 GitHub Pages</div>
+    </a>
   
 </nav>
 
@@ -249,7 +317,7 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'ssk7833';
   
-  var disqus_url = 'http://ssk7833.github.io/blog/2011/01/18/combine-cd-and-ls-into-one-command/';
+  var disqus_url = 'http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/';
   
   (function(){
     var dsq = document.createElement('script');
