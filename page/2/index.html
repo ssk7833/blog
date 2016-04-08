@@ -78,6 +78,57 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-facebook-graph-api-get-picture" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2015/08/25/facebook-graph-api-get-picture/" class="article-date">
+  <time datetime="2015-08-24T19:11:56.000Z" itemprop="datePublished">2015-08-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/study/">study</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2015/08/25/facebook-graph-api-get-picture/">Facebook Graph API 取得大頭貼照</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>要取得大頭貼照，如果使用 API request ，加上 picture 即可得到大頭貼照，如：<code>me?fields=id,name,picture</code>，即可在回傳的 JSON 中取得圖片的位址，但這時取回來的圖片會比正常大小還要小，而且此方法還需要 access_token。</p>
+<p>要取得不同大小的大頭貼照，有個更輕鬆的方法：<code>http://graph.facebook.com/{id}/picture?type=normal</code> 直接使用此網址，將 id 換成想呈現的 userId 即可，此網址將會 redirect 到對應的圖片位址，且此方法不需要 access_token。</p>
+<p>在這個網址中，type 可為 <code>small</code>, <code>normal</code>, <code>album</code>, <code>large</code>, <code>square</code>，分別為不同解析度的照片大小。</p>
+<p>以 Facebook 的創始人 Mark Zuckerberg 為例，userId 為 4，則要顯示的網址如下：<br>50*50:<br><code>http://graph.facebook.com/4/picture?type=small</code><br><img src="http://graph.facebook.com/4/picture?type=small" alt="Small" title="Mark Zuckerberg"><br><code>http://graph.facebook.com/4/picture?type=album</code><br><img src="http://graph.facebook.com/4/picture?type=album" alt="Album" title="Mark Zuckerberg"><br><code>http://graph.facebook.com/4/picture?type=square</code><br><img src="http://graph.facebook.com/4/picture?type=square" alt="Square" title="Mark Zuckerberg"></p>
+<p>100*100:<br><code>http://graph.facebook.com/4/picture?type=normal</code><br><img src="http://graph.facebook.com/4/picture?type=normal" alt="Normal" title="Mark Zuckerberg"></p>
+<p>200*200:<br><code>http://graph.facebook.com/4/picture?type=large</code><br><img src="http://graph.facebook.com/4/picture?type=large" alt="Large" title="Mark Zuckerberg"></p>
+<p>不能理解的是為什麼 small, album, square 所得到的大小都一樣，還不知道差在哪。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ssk7833.github.io/blog/2015/08/25/facebook-graph-api-get-picture/" data-id="cimr5wgs9001689d3iefikx2b" class="article-share-link">Share</a>
+      
+        <a href="http://ssk7833.github.io/blog/2015/08/25/facebook-graph-api-get-picture/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Facebook/">Facebook</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Facebook-Graph-API/">Facebook-Graph-API</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-facebook-graph-api-returns-language-specific-name" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/" class="article-date">
@@ -110,7 +161,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/" data-id="cimejah9c00123yfwxbfnhc8g" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/" data-id="cimr5wgsd001c89d3l9u9bfb9" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -171,7 +222,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/" data-id="cimejah9g00183yfwlhsr3en1" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/" data-id="cimr5wgsi001i89d3mib408a9" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -220,7 +271,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/" data-id="cimejah9s001h3yfwtu717qo7" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/" data-id="cimr5wgsl001o89d357xtmos3" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -272,7 +323,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/" data-id="cimejah9v001n3yfw79n5z76z" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/" data-id="cimr5wgso001u89d3g1tguiew" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -286,57 +337,9 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-combine-cd-and-ls-into-one-command" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2011/01/18/combine-cd-and-ls-into-one-command/" class="article-date">
-  <time datetime="2011-01-17T17:45:05.000Z" itemprop="datePublished">2011-01-18</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/study/">study</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2011/01/18/combine-cd-and-ls-into-one-command/">將 cd 跟 ls 合併為一個指令</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>用 alias, script, unix programing 都無法達到更換資料夾後並印出資料夾內容的功能<br>最後測試只有 function 可以。</p>
-<p>若是 bash shell，將 .bashrc 增加下列程式碼後重新載入 .bashrc 即可。</p>
-<pre><code>cds() { cd &quot;$1&quot;; ls; }
-</code></pre><p>接著只要執行 cds 指令即可。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2011/01/18/combine-cd-and-ls-into-one-command/" data-id="cimejah7k00003yfwdg64v8p8" class="article-share-link">Share</a>
-      
-        <a href="http://ssk7833.github.io/blog/2011/01/18/combine-cd-and-ls-into-one-command/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/shell-script/">shell script</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="extend next" rel="next" href="/blog/page/3/">Next &raquo;</a>
     </nav>
   
 </section>
@@ -347,7 +350,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/study/">study</a><span class="category-list-count">10</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/study/">study</a><span class="category-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -356,7 +359,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook/">Facebook</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook-Graph-API/">Facebook-Graph-API</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SASS/">SASS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SCSS/">SCSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SVG/">SVG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gf-pages/">gf-pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gooey/">gooey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/localization/">localization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/node-js/">node.js</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/shell-script/">shell script</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/travis-ci/">travis ci</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook/">Facebook</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook-Graph-API/">Facebook-Graph-API</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-server/">Parse server</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SASS/">SASS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SCSS/">SCSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SVG/">SVG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gf-pages/">gf-pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gooey/">gooey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/localization/">localization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/node-js/">node.js</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/shell-script/">shell script</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/travis-ci/">travis ci</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -365,7 +368,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/CSS/" style="font-size: 13.33px;">CSS</a> <a href="/blog/tags/CloudCode/" style="font-size: 16.67px;">CloudCode</a> <a href="/blog/tags/Facebook/" style="font-size: 20px;">Facebook</a> <a href="/blog/tags/Facebook-Graph-API/" style="font-size: 13.33px;">Facebook-Graph-API</a> <a href="/blog/tags/Parse-com/" style="font-size: 16.67px;">Parse.com</a> <a href="/blog/tags/SASS/" style="font-size: 10px;">SASS</a> <a href="/blog/tags/SCSS/" style="font-size: 10px;">SCSS</a> <a href="/blog/tags/SVG/" style="font-size: 10px;">SVG</a> <a href="/blog/tags/gf-pages/" style="font-size: 10px;">gf-pages</a> <a href="/blog/tags/gooey/" style="font-size: 10px;">gooey</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/blog/tags/localization/" style="font-size: 10px;">localization</a> <a href="/blog/tags/node-js/" style="font-size: 16.67px;">node.js</a> <a href="/blog/tags/shell-script/" style="font-size: 10px;">shell script</a> <a href="/blog/tags/travis-ci/" style="font-size: 10px;">travis ci</a>
+      <a href="/blog/tags/CSS/" style="font-size: 13.33px;">CSS</a> <a href="/blog/tags/CloudCode/" style="font-size: 16.67px;">CloudCode</a> <a href="/blog/tags/Facebook/" style="font-size: 20px;">Facebook</a> <a href="/blog/tags/Facebook-Graph-API/" style="font-size: 13.33px;">Facebook-Graph-API</a> <a href="/blog/tags/Parse-server/" style="font-size: 10px;">Parse server</a> <a href="/blog/tags/Parse-com/" style="font-size: 16.67px;">Parse.com</a> <a href="/blog/tags/SASS/" style="font-size: 10px;">SASS</a> <a href="/blog/tags/SCSS/" style="font-size: 10px;">SCSS</a> <a href="/blog/tags/SVG/" style="font-size: 10px;">SVG</a> <a href="/blog/tags/gf-pages/" style="font-size: 10px;">gf-pages</a> <a href="/blog/tags/gooey/" style="font-size: 10px;">gooey</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/blog/tags/localization/" style="font-size: 10px;">localization</a> <a href="/blog/tags/node-js/" style="font-size: 16.67px;">node.js</a> <a href="/blog/tags/shell-script/" style="font-size: 10px;">shell script</a> <a href="/blog/tags/travis-ci/" style="font-size: 10px;">travis ci</a>
     </div>
   </div>
 
@@ -374,7 +377,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/03/">March 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/01/">January 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/07/">July 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2011/01/">January 2011</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/03/">March 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/01/">January 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/07/">July 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2011/01/">January 2011</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -384,6 +387,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2016/04/09/setup-parse-server/">Parse Server 架設教學</a>
+          </li>
         
           <li>
             <a href="/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/">Do it smart, a better way to write CSS - SASS/SCSS</a>
@@ -399,10 +406,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/">HTML5 fullscreen API 將 iframe 以全螢幕顯示</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2015/08/25/facebook-graph-api-get-picture/">Facebook Graph API 取得大頭貼照</a>
           </li>
         
       </ul>
