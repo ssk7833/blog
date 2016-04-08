@@ -71,6 +71,12 @@ plugins:
   - hexo-generator-feed
   - hexo-generator-sitemap
 
+archive_generator:
+  per_page: 0
+  yearly: true
+  monthly: true
+  daily: false
+
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
