@@ -5,7 +5,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="http://ssk7833.github.io/blog/"/>
-  <updated>2016-04-08T03:51:06.137Z</updated>
+  <updated>2016-04-11T08:08:22.659Z</updated>
   <id>http://ssk7833.github.io/blog/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/"/>
     <id>http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/</id>
     <published>2016-04-09T03:33:05.000Z</published>
-    <updated>2016-04-08T03:51:06.137Z</updated>
+    <updated>2016-04-11T08:08:22.659Z</updated>
     
     <content type="html">&lt;p&gt;在今年一月底時 &lt;a href=&quot;http://parse.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Parse&lt;/a&gt; 突然丟下了一枚震撼彈(&lt;a href=&quot;http://blog.parse.com/announcements/moving-on/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Moving On&lt;/a&gt;)，隨著 Parse 服務將在一年後關閉的消息，同時也提到將會把 Parse Server open source 出來，如今兩個月過去了，釋出的 Parse Server 也趨於完善，不只提供了許多雲端服務的整合方案，連 Parse Dashboard 也在三月初時 open source 了(&lt;a href=&quot;http://blog.parse.com/announcements/introducing-the-parse-server-dashboard/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Introducing the Parse Server Dashboard&lt;/a&gt;)，雖然這個 Dashboard 目前並不像 Parse 線上服務的功能一樣完整，但在短短一個月內間又多了推播(push notification)功能頁面(&lt;a href=&quot;http://blog.parse.com/announcements/push-and-config-come-to-the-parse-dashboard/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Push and Config come to the Parse Dashboard&lt;/a&gt;)，可以預見未來功能會越來越完整。&lt;/p&gt;
 &lt;p&gt;單純架設 Parse Server 的難度不高，在 &lt;a href=&quot;https://github.com/ParsePlatform/parse-server&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub&lt;/a&gt; 有對於要在 local 架設或是部屬到其他服務上如 Heroku 的範例教學，&lt;a href=&quot;https://github.com/ParsePlatform/parse-server/wiki&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;wiki&lt;/a&gt; 頁面也有更完整的解說，但從這裡開始我個人認為不是個好選擇，以指令方式去帶 appId 及 masterKey 總有可能會發生什麼意外。Parse 另外提供了 &lt;a href=&quot;https://github.com/ParsePlatform/parse-server-example&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;parse-server-example&lt;/a&gt;，這個對於入門來說會比較方便。&lt;/p&gt;
@@ -95,7 +95,7 @@
     <link href="http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/"/>
     <id>http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/</id>
     <published>2016-03-30T06:49:50.000Z</published>
-    <updated>2016-04-08T03:51:06.137Z</updated>
+    <updated>2016-04-11T08:08:22.659Z</updated>
     
     <content type="html">&lt;p&gt;最近在會議中分享了以下這份投影片，算是一個 SASS/SCSS 的入門。我擷取了部分常用的基礎功能及寫法範例，希望對入門者有些幫助。&lt;/p&gt;
 &lt;p&gt;&lt;iframe src=&quot;https://ssk7833.github.io/slides/SCSS/&quot; width=&quot;640&quot; height=&quot;480&quot; style=&quot;width:100%;&quot;&gt;&lt;/iframe&gt;&lt;br&gt;&lt;a href=&quot;https://ssk7833.github.io/slides/SCSS/&quot;&gt;Do it smart, a better way to write CSS - SASS/SCSS&lt;/a&gt;&lt;/p&gt;
@@ -124,7 +124,7 @@
     <link href="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/"/>
     <id>http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/</id>
     <published>2016-03-09T05:48:05.000Z</published>
-    <updated>2016-04-08T03:51:06.137Z</updated>
+    <updated>2016-04-11T08:08:22.659Z</updated>
     
     <content type="html">&lt;p&gt;最近在試著實作 gooey 效果，看了一些介紹後知道了 gooey 的原理，本以為在實作上可以一路順風，但果然沒有這麼簡單，還好最後有找到解決方法。&lt;/p&gt;
 &lt;p&gt;先來談談 gooey 的作法，首先要先有兩層 layer，內層將物件模糊 blur，而外層處理亮度 brightness 跟對比度 contrast，接著神奇的事情就會發生了，可以參考以下範例：&lt;/p&gt;
@@ -230,7 +230,7 @@
     <link href="http://ssk7833.github.io/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/"/>
     <id>http://ssk7833.github.io/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/</id>
     <published>2016-01-21T08:23:05.000Z</published>
-    <updated>2016-04-08T03:51:06.137Z</updated>
+    <updated>2016-04-11T08:08:22.659Z</updated>
     
     <content type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;先前看到了&lt;a href=&quot;https://samkuo.me/post/2015/09/why-developers-should-have-a-blog/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;程式人就該有個部落格&lt;/a&gt;，想想這個主意不錯，之前有在 Blogger 及 Logdown 零星寫了幾篇文章，也曾經想過自己架靜態或動態網站，只是一直沒有去做，看完這篇讓我更有動力去做這件事。研究一陣子後我選擇直接利用 Github pages 來發佈網站，於是開始調查 &lt;a href=&quot;https://www.staticgen.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;StaticGen&lt;/a&gt; 上排名較高的幾個，而最後挑選了 &lt;a href=&quot;https://hexo.io&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;：是台灣人寫的，而且是 javascript。&lt;/p&gt;
 &lt;p&gt;自己完成 Hexo 初步設定，產生第一版頁面後不久就遇到兩個問題：&lt;/p&gt;
@@ -297,7 +297,7 @@
     <link href="http://ssk7833.github.io/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/"/>
     <id>http://ssk7833.github.io/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/</id>
     <published>2016-01-09T20:10:05.000Z</published>
-    <updated>2016-04-08T03:51:06.137Z</updated>
+    <updated>2016-04-11T08:08:22.659Z</updated>
     
     <content type="html">&lt;p&gt;最近因為有把 iframe 內容以全螢幕顯示的需求，因此研究了一下 HTML5 fullscreen API。已有現成的 library 可以用如 &lt;a href=&quot;https://sindresorhus.com/screenfull.js/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;screenfull.js&lt;/a&gt; 及 &lt;a href=&quot;https://brad.is/coding/BigScreen/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;BigScreen&lt;/a&gt;，但大致上並不難，因此我選擇了純 javascript 來撰寫看看。&lt;/p&gt;
 &lt;p&gt;要全螢幕其實並不難，只要呼叫 &lt;code&gt;requestFullscreen()&lt;/code&gt; 即可做到，以下是簡易範例：&lt;/p&gt;
@@ -333,7 +333,7 @@
     <link href="http://ssk7833.github.io/blog/2015/08/25/facebook-graph-api-get-picture/"/>
     <id>http://ssk7833.github.io/blog/2015/08/25/facebook-graph-api-get-picture/</id>
     <published>2015-08-24T19:11:56.000Z</published>
-    <updated>2016-04-08T03:51:06.137Z</updated>
+    <updated>2016-04-11T08:08:22.659Z</updated>
     
     <content type="html">&lt;p&gt;要取得大頭貼照，如果使用 API request ，加上 picture 即可得到大頭貼照，如：&lt;code&gt;me?fields=id,name,picture&lt;/code&gt;，即可在回傳的 JSON 中取得圖片的位址，但這時取回來的圖片會比正常大小還要小，而且此方法還需要 access_token。&lt;/p&gt;
 &lt;p&gt;要取得不同大小的大頭貼照，有個更輕鬆的方法：&lt;code&gt;http://graph.facebook.com/{id}/picture?type=normal&lt;/code&gt; 直接使用此網址，將 id 換成想呈現的 userId 即可，此網址將會 redirect 到對應的圖片位址，且此方法不需要 access_token。&lt;/p&gt;
@@ -364,7 +364,7 @@
     <link href="http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/"/>
     <id>http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/</id>
     <published>2015-07-12T10:49:43.000Z</published>
-    <updated>2016-04-08T03:51:06.137Z</updated>
+    <updated>2016-04-11T08:08:22.659Z</updated>
     
     <content type="html">&lt;p&gt;玩 Facebook Graph API 玩了一陣子才發現回傳的姓名總是是英文的，才想到若是有回傳中文姓名的需求時該怎麼辦，如此下去一找才發現關鍵字是 &lt;a href=&quot;https://www.facebook.com/help/217868321565724&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Language-specific name&lt;/a&gt;，而要如何在 Facebook Graph API 中顯示為中文則可以參考這篇中的 locale：&lt;a href=&quot;https://developers.facebook.com/docs/graph-api/using-graph-api/v2.0#readmodifiers&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Modifying API Requests&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;其實只要在 API request 中加上 &lt;code&gt;&amp;amp;locale=zh_TW&lt;/code&gt; 即可得到中文姓名，如：&lt;code&gt;me?fields=id,name&amp;amp;locale=zh_TW&lt;/code&gt;，只是有趣的是我稍微測了一下 locale 給以開頭 &lt;code&gt;en_&lt;/code&gt; 以外的任何值都會取得中文名稱，還以為預設會以英文為主。&lt;/p&gt;
@@ -392,7 +392,7 @@
     <link href="http://ssk7833.github.io/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/"/>
     <id>http://ssk7833.github.io/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/</id>
     <published>2015-07-01T16:11:49.000Z</published>
-    <updated>2016-04-08T03:51:06.137Z</updated>
+    <updated>2016-04-11T08:08:22.659Z</updated>
     
     <content type="html">&lt;p&gt;繼上一篇成功截取出使用者資料後，發現除了基本資料外，朋友、按讚的資訊等資料其實都抓不出來，原因是因為沒有給予 app 存取這些資訊的權限。要求權限的話可以透過 OAuth 來索取 access token ，其範例網址如下：&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;https://www.facebook.com/dialog/oauth?client_id={appId}&amp;amp;redirect_uri={redirectURI}&lt;/code&gt;&lt;/p&gt;
@@ -438,7 +438,7 @@
     <link href="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/"/>
     <id>http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/</id>
     <published>2015-06-20T15:43:39.000Z</published>
-    <updated>2016-04-08T03:51:06.137Z</updated>
+    <updated>2016-04-11T08:08:22.659Z</updated>
     
     <content type="html">&lt;p&gt;延續上一篇，成功使用 Facebook 登入 Parse.com 的使用者資訊後，接著就是怎麼從使用者資訊中取得 Facebook 的資料了。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/blog/images/user.png&quot; alt=&quot;User&quot; title=&quot;User&quot;&gt;&lt;br&gt;以上圖的 Facebook Test Users 為例，建立完的使用者可以由 Parse.com 的 Data 中看到，不過 authData 卻只顯示了 Facebook 的 ID，因此我們可以先透過 API Console 來對 users 作存取，這裡要注意的是 Use Master Key 記得要選 Yes，否則會沒有權限看 authData 的內容；users 後面的參數為 objectId，若不放置則會列出全部符合的資料。&lt;br&gt;&lt;img src=&quot;/blog/images/APIconsole.png&quot; alt=&quot;API console&quot; title=&quot;API console&quot;&gt;&lt;br&gt;在 Response 中的內容：&lt;br&gt;&lt;figure class=&quot;highlight clojure&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;collection&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;string&quot;&gt;&quot;authData&quot;&lt;/span&gt;: &lt;span class=&quot;collection&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;string&quot;&gt;&quot;facebook&quot;&lt;/span&gt;: &lt;span class=&quot;collection&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      // 不要想對這組 access_token 亂來，因為是 test user XD&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;string&quot;&gt;&quot;access_token&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;CAAMCk3Pv7SkBAEjfvRaG4SrC8k3CXak1843iisuUJiIK9gYV9PNFRraXi9gxYVBJO83zsvzFO91dcACevKwinxAVPNCUeEv0UPWsmv7DZBlqPjtZCCnEBcMBKpU7ikoj9OKo1ZCwzi3wmTycsB2avHT1SiBxLUF5ZAHTaT9XDNtz1phGZCk0lltOY5agj0JGQ9ezNGmOsvUmdpKFASx5K&quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;string&quot;&gt;&quot;expiration_date&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;2015-08-15T17:52:46.495Z&quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;string&quot;&gt;&quot;id&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;118563748477765&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;string&quot;&gt;&quot;createdAt&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;2015-06-16T17:52:48.623Z&quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;string&quot;&gt;&quot;name&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;Super Mario&quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;string&quot;&gt;&quot;objectId&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;wmVm7Qb1Fc&quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;string&quot;&gt;&quot;sessionToken&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;jEKKzfbDcIN0CmBIvsdZR9Aoc&quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;string&quot;&gt;&quot;updatedAt&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;2015-06-17T07:57:08.934Z&quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;string&quot;&gt;&quot;username&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;3GwDpgmuqmfnyGYINNI27W9fO&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
@@ -472,7 +472,7 @@
     <link href="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/"/>
     <id>http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/</id>
     <published>2015-06-20T14:13:10.000Z</published>
-    <updated>2016-04-08T03:51:06.133Z</updated>
+    <updated>2016-04-11T08:08:22.659Z</updated>
     
     <content type="html">&lt;p&gt;&lt;a href=&quot;http://parse.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Parse.com&lt;/a&gt; 在 &lt;a href=&quot;https://parse.com/docs/tw/js/guide&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;javascript SDK&lt;/a&gt; 中提供了使用者的存取，其中包含 Facebook 的整合，但 javascript 終究是前端，有些不想讓 client end知道的還是放在後端處理比較好。然而 Parse.com 所提供的 cloud code 所使用的目前雖是 node.js，會讓開發者很想直接把 javascript SDK 的 Facebook 部分塞進去看能不能跑，乍看之下很合理，但實際上就是不行，因為以 Parse.com Javascript SDK在要求登入時會跳出另一個瀏覽器視窗以要求登入 Facebook 及權限給予，而這個視窗當然沒有辦法在 server end 中呈現並要求 client end 進行認證。&lt;/p&gt;
 &lt;p&gt;在官方論壇上也有人發表過此問題：&lt;a href=&quot;https://www.parse.com/questions/interacting-with-the-facebook-api-in-cloud-code&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Interacting with the Facebook API in Cloud Code&lt;/a&gt;&lt;br&gt;所得到的回答是：&lt;br&gt;&lt;strong&gt;Unfortunately, the Facebook JavaScript SDK is not made to work outside of a browser, so using it directly from Cloud Code is not supported at the moment.&lt;/strong&gt;&lt;/p&gt;
