@@ -5,7 +5,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="http://ssk7833.github.io/blog/"/>
-  <updated>2016-04-19T07:19:17.090Z</updated>
+  <updated>2016-04-19T08:00:33.352Z</updated>
   <id>http://ssk7833.github.io/blog/</id>
   
   <author>
@@ -16,11 +16,78 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Parse Server APNS(iOS) 推播通知設定</title>
+    <link href="http://ssk7833.github.io/blog/2016/04/19/parse-server-push-notification-APNS/"/>
+    <id>http://ssk7833.github.io/blog/2016/04/19/parse-server-push-notification-APNS/</id>
+    <published>2016-04-19T07:56:37.000Z</published>
+    <updated>2016-04-19T08:00:33.352Z</updated>
+    
+    <content type="html">&lt;p&gt;Parse 的一大方便之處，即是他提供了推播通知(push notification)的整合，使開發者可以在短時間內完成推播功能；而推播通知也已經移植到 Parse Server 版本上，步驟與先前在 Parse 上差不了多少，在這裡紀錄一下 APNS(iOS) 設定的步驟。&lt;/p&gt;
+&lt;h2 id=&quot;建立-SSL-憑證&quot;&gt;&lt;a href=&quot;#建立-SSL-憑證&quot; class=&quot;headerlink&quot; title=&quot;建立 SSL 憑證&quot;&gt;&lt;/a&gt;建立 SSL 憑證&lt;/h2&gt;&lt;p&gt;在發送推播前必須給予 Parse Server 推播的權限，因此要先建立對應的 App ID 及 SSL 憑證。&lt;/p&gt;
+&lt;h3 id=&quot;1-建立-Explicit-App-ID&quot;&gt;&lt;a href=&quot;#1-建立-Explicit-App-ID&quot; class=&quot;headerlink&quot; title=&quot;1. 建立 Explicit App ID&quot;&gt;&lt;/a&gt;1. 建立 Explicit App ID&lt;/h3&gt;&lt;p&gt;如果原本就已經有建立 Explicit App ID 的話，請跳過此步驟到 &lt;a href=&quot;#2-設定推播通知&quot;&gt;2. 設定推播通知&lt;/a&gt;。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;到 &lt;a href=&quot;https://developer.apple.com/membercenter/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Apple Developer Member Center&lt;/a&gt; 登入，點選 &lt;a href=&quot;https://developer.apple.com/account/ios/certificate/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Certificates, Identifiers &amp;amp; Profiles&lt;/a&gt;。&lt;/li&gt;
+&lt;li&gt;點選左欄中 Identifiers 底下的 &lt;a href=&quot;https://developer.apple.com/account/ios/identifier/bundle&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;App IDs&lt;/a&gt;。&lt;/li&gt;
+&lt;li&gt;點選右上角 + 的按鈕。&lt;br&gt;&lt;img src=&quot;/blog/images/2016-04-19-Parse-server-APNS/01.png&quot; alt=&quot;建立 App ID&quot; title=&quot;建立 App ID&quot;&gt;&lt;/li&gt;
+&lt;li&gt;在 App ID Description 填上想要的名稱。&lt;/li&gt;
+&lt;li&gt;選擇 App ID Prefix，我的只有一組，好像預設就會自己選了～&lt;/li&gt;
+&lt;li&gt;App ID suffix 要注意選擇 Explicit App ID，而 Bundle ID 可參考 Apple 推薦的填法或是自己偏好的格式，須注意這組之後會在 Xcode 中使用到。&lt;br&gt;&lt;img src=&quot;/blog/images/2016-04-19-Parse-server-APNS/02.png&quot; alt=&quot;Explicit App ID&quot; title=&quot;Explicit App ID&quot;&gt;&lt;/li&gt;
+&lt;li&gt;將有需要用到的服務打勾，Push Notifications 記得要打勾！其餘就看自己有沒有要用到再開啟。&lt;br&gt;&lt;img src=&quot;/blog/images/2016-04-19-Parse-server-APNS/03.png&quot; alt=&quot;Apple Services&quot; title=&quot;Apple Services&quot;&gt;&lt;/li&gt;
+&lt;li&gt;點選 Contiune 進行下一步，確認無誤後就可以送出了。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;2-設定推播通知&quot;&gt;&lt;a href=&quot;#2-設定推播通知&quot; class=&quot;headerlink&quot; title=&quot;2. 設定推播通知&quot;&gt;&lt;/a&gt;2. 設定推播通知&lt;/h3&gt;&lt;p&gt;到這裡，應該已經建立好一個 Explicit App ID。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;點開  &lt;a href=&quot;https://developer.apple.com/account/ios/identifier/bundle&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;App IDs&lt;/a&gt; 底下已建立的 App ID，再點選 Edit。&lt;br&gt;&lt;img src=&quot;/blog/images/2016-04-19-Parse-server-APNS/04.png&quot; alt=&quot;App IDs Edit&quot; title=&quot;App IDs Edit&quot;&gt;&lt;/li&gt;
+&lt;li&gt;找到 Push Notifications 項目，若沒 Enable 則將他打勾，可以在此建立 Development 跟 Production 的憑證，建議先從開發模式開始，點選 Development SSL Certificate 中底下的 Create Certificate…。&lt;br&gt;&lt;img src=&quot;/blog/images/2016-04-19-Parse-server-APNS/05.png&quot; alt=&quot;Create Certificate&quot; title=&quot;Create Certificate&quot;&gt;&lt;/li&gt;
+&lt;li&gt;接下來他會教你怎麼做，然後要你做完再點選 Contiune，因為我英文對應中文 MAC OS 不太熟，所以在這裡也把步驟打出來了，開啟 MAC 中的「鑰匙圈存取」。&lt;br&gt;&lt;img src=&quot;/blog/images/2016-04-19-Parse-server-APNS/06.png&quot; alt=&quot;鑰匙圈存取&quot; title=&quot;鑰匙圈存取&quot;&gt;&lt;/li&gt;
+&lt;li&gt;點選「鑰匙圈存取」→「憑證輔助程式」→「從憑證授權要求憑證…」（蠻饒舌的）。&lt;br&gt;&lt;img src=&quot;/blog/images/2016-04-19-Parse-server-APNS/07.png&quot; alt=&quot;從憑證授權要求憑證…&quot; title=&quot;從憑證授權要求憑證…&quot;&gt;&lt;/li&gt;
+&lt;li&gt;在「使用者電子郵件位址」輸入自己的 Email，「一般名稱」輸入自己想要的名稱，「CA 電子郵件位址」留白，「已將要求」選擇「儲存到硬碟」，接著點選「繼續」來產生 CSR 檔。&lt;br&gt;&lt;img src=&quot;/blog/images/2016-04-19-Parse-server-APNS/08.png&quot; alt=&quot;憑證輔助程式&quot; title=&quot;憑證輔助程式&quot;&gt;&lt;/li&gt;
+&lt;li&gt;將剛剛儲存的 CSR 檔案上傳。&lt;br&gt;&lt;img src=&quot;/blog/images/2016-04-19-Parse-server-APNS/09.png&quot; alt=&quot;Upload CSR file&quot; title=&quot;Upload CSR file&quot;&gt;&lt;/li&gt;
+&lt;li&gt;下載憑證，下載完成後點選兩下此檔案，使檔案安裝到「鑰匙圈存取」中。&lt;br&gt;&lt;img src=&quot;/blog/images/2016-04-19-Parse-server-APNS/10.png&quot; alt=&quot;Download certificate&quot; title=&quot;Download certificate&quot;&gt;&lt;/li&gt;
+&lt;li&gt;開啟「鑰匙圈存取」，在左欄點選「我的憑證」，你可能會看到 Apple Development Push Services: 及 Apple Push Services:，這兩個分別對應了 development 憑證及 production 憑證，端看你使用哪一個。&lt;br&gt;&lt;img src=&quot;/blog/images/2016-04-19-Parse-server-APNS/11.png&quot; alt=&quot;Apple Development Push Services: &amp;amp; Apple Push Services:&quot; title=&quot;Apple Development Push Services: &amp;amp; Apple Push Services:&quot;&gt;&lt;/li&gt;
+&lt;li&gt;在要使用的憑證上點選右鍵，選擇「輸出」項目，儲存名稱依自己喜歡而定。&lt;br&gt;&lt;img src=&quot;/blog/images/2016-04-19-Parse-server-APNS/12.png&quot; alt=&quot;Export certificate&quot; title=&quot;Export certificate&quot;&gt;&lt;/li&gt;
+&lt;li&gt;在按儲存時會跳出密碼詢問的視窗，記得&lt;strong&gt;留白&lt;/strong&gt;！&lt;br&gt;&lt;img src=&quot;/blog/images/2016-04-19-Parse-server-APNS/13.png&quot; alt=&quot;Leave it blank&quot; title=&quot;Leave it blank&quot;&gt;&lt;/li&gt;
+&lt;li&gt;最後產生的檔案，將此檔案放到 Parse Server 的目錄內。&lt;br&gt;&lt;img src=&quot;/blog/images/2016-04-19-Parse-server-APNS/14.png&quot; alt=&quot;.p12&quot; title=&quot;.p12&quot;&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;Parse-Server-設定-APNS&quot;&gt;&lt;a href=&quot;#Parse-Server-設定-APNS&quot; class=&quot;headerlink&quot; title=&quot;Parse Server 設定 APNS&quot;&gt;&lt;/a&gt;Parse Server 設定 APNS&lt;/h2&gt;&lt;p&gt;延續 &lt;a href=&quot;/blog/2016/04/09/setup-parse-server/&quot;&gt;Parse Server 架設教學&lt;/a&gt;中所使用的程式碼，在 &lt;code&gt;new ParseServer&lt;/code&gt; 中加入 push 相關的程式碼，如下：&lt;br&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; api = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; ParseServer(&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  databaseURI: databaseUri || &lt;span class=&quot;string&quot;&gt;&#39;mongodb://localhost:27017/dev&#39;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  cloud: process.env.CLOUD_CODE_MAIN || __dirname + &lt;span class=&quot;string&quot;&gt;&#39;/cloud/main.js&#39;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  appId: process.env.APP_ID || &lt;span class=&quot;string&quot;&gt;&#39;7c6a1d1470fed0313b5044c4eb83def0&#39;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  masterKey: process.env.MASTER_KEY || &lt;span class=&quot;string&quot;&gt;&#39;98584a6e0a2592c274d1e4eae44b0a7b&#39;&lt;/span&gt;, &lt;span class=&quot;comment&quot;&gt;// Add your master key here. Keep it secret!&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  serverURL: process.env.SERVER_URL || &lt;span class=&quot;string&quot;&gt;&#39;http://localhost:1337/parse&#39;&lt;/span&gt;,  &lt;span class=&quot;comment&quot;&gt;// Don&#39;t forget to change to https if needed&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  liveQuery: &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    classNames: [&lt;span class=&quot;string&quot;&gt;&quot;Posts&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;Comments&quot;&lt;/span&gt;] &lt;span class=&quot;comment&quot;&gt;// List of classes to support for query subscriptions&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;comment&quot;&gt;// 以下為新增部分&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  push: &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;// 此篇未提到 Android，因此註解掉&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;// android: &amp;#123;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;//   senderId: &#39;...&#39;,&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;//   apiKey: &#39;...&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;// &amp;#125;,&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ios: &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      pfx: &lt;span class=&quot;string&quot;&gt;&#39;pushDevelopmentCertificate.p12&#39;&lt;/span&gt;, &lt;span class=&quot;comment&quot;&gt;// 與 index.js 目錄同層&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      bundleId: &lt;span class=&quot;string&quot;&gt;&#39;com.pushTest&#39;&lt;/span&gt;, &lt;span class=&quot;comment&quot;&gt;// 填入先前填的 Bundle ID&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      production: &lt;span class=&quot;literal&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;// false: development, true: production&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;而若需要同時使用 development 及 production 的 APNS 時，可以將設定改為這樣：&lt;br&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;push: &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  ios: [&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      pfx: &lt;span class=&quot;string&quot;&gt;&#39;&#39;&lt;/span&gt;, &lt;span class=&quot;comment&quot;&gt;// Dev PFX or P12&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      bundleId: &lt;span class=&quot;string&quot;&gt;&#39;&#39;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      production: &lt;span class=&quot;literal&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;// development&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      pfx: &lt;span class=&quot;string&quot;&gt;&#39;&#39;&lt;/span&gt;, &lt;span class=&quot;comment&quot;&gt;// Prod PFX or P12&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      bundleId: &lt;span class=&quot;string&quot;&gt;&#39;&#39;&lt;/span&gt;,  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      production: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;// production&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  ]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;設定-client-apps&quot;&gt;&lt;a href=&quot;#設定-client-apps&quot; class=&quot;headerlink&quot; title=&quot;設定 client apps&quot;&gt;&lt;/a&gt;設定 client apps&lt;/h2&gt;&lt;p&gt;App 部分的設定與先前 Parse 的設定一樣，因此在這裡省略，可以參考 &lt;a href=&quot;https://github.com/ParsePlatform/Parse-Server/wiki/Push-Configuring-Clients&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Push Configuring Clients&lt;/a&gt; 尋找自己需要的程式語言寫法。&lt;/p&gt;
+&lt;h2 id=&quot;測試推播通知&quot;&gt;&lt;a href=&quot;#測試推播通知&quot; class=&quot;headerlink&quot; title=&quot;測試推播通知&quot;&gt;&lt;/a&gt;測試推播通知&lt;/h2&gt;&lt;p&gt;推播傳送的方式一樣可用 curl 或是 cloud code，唯一要注意的是傳送推播通知需要 &lt;code&gt;masterKey&lt;/code&gt;，可以參考 &lt;a href=&quot;https://github.com/ParsePlatform/parse-server/wiki/Push#4-send-push-notifications&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Send Push Notifications&lt;/a&gt;。而 &lt;a href=&quot;https://github.com/ParsePlatform/parse-dashboard&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Parse Dashboard&lt;/a&gt;目前也可以傳送推播通知了，只可惜目前只可以傳而不能看傳送紀錄，下圖為 parse-dashboard 1.0.8 的畫面。&lt;br&gt;&lt;img src=&quot;/blog/images/2016-04-19-Parse-server-APNS/15.png&quot; alt=&quot;Parse Dashboard send push&quot; title=&quot;Parse Dashboard send push&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;疑難雜症&quot;&gt;&lt;a href=&quot;#疑難雜症&quot; class=&quot;headerlink&quot; title=&quot;疑難雜症&quot;&gt;&lt;/a&gt;疑難雜症&lt;/h2&gt;&lt;p&gt;正常來說過沒多久就 app 就能收到推播通知，如果沒有成功的話可以新增這兩個環境變數 &lt;code&gt;VERBOSE=1&lt;/code&gt; 及 &lt;code&gt;DEBUG=apn&lt;/code&gt;，若 &lt;code&gt;VERBOSE=1&lt;/code&gt; 看不出結果再觀察 &lt;code&gt;DEBUG=apn&lt;/code&gt;，其餘問題可能就要爬 issues 了。&lt;/p&gt;
+&lt;p&gt;筆者遇到的問題很蠢，就是所在的網路環境中 port 2195 被鎖了，因此試了半天都推播失敗 Orz，請先確定自己到 &lt;code&gt;gateway.sandbox.push.apple.com:2195&lt;/code&gt; (development) 及 &lt;code&gt;gateway.push.apple.com:2195&lt;/code&gt; (production) 是否能通～&lt;/p&gt;
+&lt;p&gt;參考資料：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/ParsePlatform/parse-server/wiki/Push&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;parse-server wiki - push&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/ParsePlatform/PushTutorial/blob/master/iOS/README.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;PushTutorial - Push Notification Sample App&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/ParsePlatform/parse-dashboard&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Parse Dashboard&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Parse 的一大方便之處，即是他提供了推播通知(push notification)的整合，使開發者可以在短時間內完成推播功能；而推播通知也已經移植到 Parse Server 版本上，步驟與先前在 Parse 上差不了多少，在這裡紀錄一下 APNS(iOS) 設定的步驟
+    
+    </summary>
+    
+      <category term="study" scheme="http://ssk7833.github.io/blog/categories/study/"/>
+    
+    
+      <category term="APNS" scheme="http://ssk7833.github.io/blog/tags/APNS/"/>
+    
+      <category term="Parse server" scheme="http://ssk7833.github.io/blog/tags/Parse-server/"/>
+    
+      <category term="node.js" scheme="http://ssk7833.github.io/blog/tags/node-js/"/>
+    
+      <category term="push notification" scheme="http://ssk7833.github.io/blog/tags/push-notification/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Parse Server 架設教學</title>
     <link href="http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/"/>
     <id>http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/</id>
     <published>2016-04-09T03:33:05.000Z</published>
-    <updated>2016-04-19T07:19:17.090Z</updated>
+    <updated>2016-04-19T08:00:33.348Z</updated>
     
     <content type="html">&lt;p&gt;在今年一月底時 &lt;a href=&quot;http://parse.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Parse&lt;/a&gt; 突然丟下了一枚震撼彈(&lt;a href=&quot;http://blog.parse.com/announcements/moving-on/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Moving On&lt;/a&gt;)，隨著 Parse 服務將在一年後關閉的消息，同時也提到將會把 Parse Server open source 出來，如今兩個月過去了，釋出的 Parse Server 也趨於完善，不只提供了許多雲端服務的整合方案，連 Parse Dashboard 也在三月初時 open source 了(&lt;a href=&quot;http://blog.parse.com/announcements/introducing-the-parse-server-dashboard/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Introducing the Parse Server Dashboard&lt;/a&gt;)，雖然這個 Dashboard 目前並不像 Parse 線上服務的功能一樣完整，但在短短一個月內間又多了推播(push notification)功能頁面(&lt;a href=&quot;http://blog.parse.com/announcements/push-and-config-come-to-the-parse-dashboard/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Push and Config come to the Parse Dashboard&lt;/a&gt;)，可以預見未來功能會越來越完整。&lt;/p&gt;
 &lt;p&gt;單純架設 Parse Server 的難度不高，在 &lt;a href=&quot;https://github.com/ParsePlatform/parse-server&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub&lt;/a&gt; 有對於要在 local 架設或是部屬到其他服務上如 Heroku 的範例教學，&lt;a href=&quot;https://github.com/ParsePlatform/parse-server/wiki&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;wiki&lt;/a&gt; 頁面也有更完整的解說，但從這裡開始我個人認為不是個好選擇，以指令方式去帶 appId 及 masterKey 總有可能會發生什麼意外。Parse 另外提供了 &lt;a href=&quot;https://github.com/ParsePlatform/parse-server-example&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;parse-server-example&lt;/a&gt;，這個對於入門來說會比較方便。&lt;/p&gt;
@@ -95,7 +162,7 @@
     <link href="http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/"/>
     <id>http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/</id>
     <published>2016-03-30T06:49:50.000Z</published>
-    <updated>2016-04-19T07:19:17.090Z</updated>
+    <updated>2016-04-19T08:00:33.348Z</updated>
     
     <content type="html">&lt;p&gt;最近在會議中分享了以下這份投影片，算是一個 SASS/SCSS 的入門。我擷取了部分常用的基礎功能及寫法範例，希望對入門者有些幫助。&lt;/p&gt;
 &lt;p&gt;&lt;iframe src=&quot;https://ssk7833.github.io/slides/SCSS/&quot; width=&quot;640&quot; height=&quot;480&quot; style=&quot;width:100%;&quot;&gt;&lt;/iframe&gt;&lt;br&gt;&lt;a href=&quot;https://ssk7833.github.io/slides/SCSS/&quot;&gt;Do it smart, a better way to write CSS - SASS/SCSS&lt;/a&gt;&lt;/p&gt;
@@ -124,7 +191,7 @@
     <link href="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/"/>
     <id>http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/</id>
     <published>2016-03-09T05:48:05.000Z</published>
-    <updated>2016-04-19T07:19:17.090Z</updated>
+    <updated>2016-04-19T08:00:33.348Z</updated>
     
     <content type="html">&lt;p&gt;最近在試著實作 gooey 效果，看了一些介紹後知道了 gooey 的原理，本以為在實作上可以一路順風，但果然沒有這麼簡單，還好最後有找到解決方法。&lt;/p&gt;
 &lt;p&gt;先來談談 gooey 的作法，首先要先有兩層 layer，內層將物件模糊 blur，而外層處理亮度 brightness 跟對比度 contrast，接著神奇的事情就會發生了，可以參考以下範例：&lt;/p&gt;
@@ -230,7 +297,7 @@
     <link href="http://ssk7833.github.io/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/"/>
     <id>http://ssk7833.github.io/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/</id>
     <published>2016-01-21T08:23:05.000Z</published>
-    <updated>2016-04-19T07:19:17.090Z</updated>
+    <updated>2016-04-19T08:00:33.348Z</updated>
     
     <content type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;先前看到了&lt;a href=&quot;https://samkuo.me/post/2015/09/why-developers-should-have-a-blog/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;程式人就該有個部落格&lt;/a&gt;，想想這個主意不錯，之前有在 Blogger 及 Logdown 零星寫了幾篇文章，也曾經想過自己架靜態或動態網站，只是一直沒有去做，看完這篇讓我更有動力去做這件事。研究一陣子後我選擇直接利用 Github pages 來發佈網站，於是開始調查 &lt;a href=&quot;https://www.staticgen.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;StaticGen&lt;/a&gt; 上排名較高的幾個，而最後挑選了 &lt;a href=&quot;https://hexo.io&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;：是台灣人寫的，而且是 javascript。&lt;/p&gt;
 &lt;p&gt;自己完成 Hexo 初步設定，產生第一版頁面後不久就遇到兩個問題：&lt;/p&gt;
@@ -297,7 +364,7 @@
     <link href="http://ssk7833.github.io/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/"/>
     <id>http://ssk7833.github.io/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/</id>
     <published>2016-01-09T20:10:05.000Z</published>
-    <updated>2016-04-19T07:19:17.090Z</updated>
+    <updated>2016-04-19T08:00:33.348Z</updated>
     
     <content type="html">&lt;p&gt;最近因為有把 iframe 內容以全螢幕顯示的需求，因此研究了一下 HTML5 fullscreen API。已有現成的 library 可以用如 &lt;a href=&quot;https://sindresorhus.com/screenfull.js/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;screenfull.js&lt;/a&gt; 及 &lt;a href=&quot;https://brad.is/coding/BigScreen/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;BigScreen&lt;/a&gt;，但大致上並不難，因此我選擇了純 javascript 來撰寫看看。&lt;/p&gt;
 &lt;p&gt;要全螢幕其實並不難，只要呼叫 &lt;code&gt;requestFullscreen()&lt;/code&gt; 即可做到，以下是簡易範例：&lt;/p&gt;
@@ -333,7 +400,7 @@
     <link href="http://ssk7833.github.io/blog/2015/08/25/facebook-graph-api-get-picture/"/>
     <id>http://ssk7833.github.io/blog/2015/08/25/facebook-graph-api-get-picture/</id>
     <published>2015-08-24T19:11:56.000Z</published>
-    <updated>2016-04-19T07:19:17.090Z</updated>
+    <updated>2016-04-19T08:00:33.348Z</updated>
     
     <content type="html">&lt;p&gt;要取得大頭貼照，如果使用 API request ，加上 picture 即可得到大頭貼照，如：&lt;code&gt;me?fields=id,name,picture&lt;/code&gt;，即可在回傳的 JSON 中取得圖片的位址，但這時取回來的圖片會比正常大小還要小，而且此方法還需要 access_token。&lt;/p&gt;
 &lt;p&gt;要取得不同大小的大頭貼照，有個更輕鬆的方法：&lt;code&gt;http://graph.facebook.com/{id}/picture?type=normal&lt;/code&gt; 直接使用此網址，將 id 換成想呈現的 userId 即可，此網址將會 redirect 到對應的圖片位址，且此方法不需要 access_token。&lt;/p&gt;
@@ -364,7 +431,7 @@
     <link href="http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/"/>
     <id>http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/</id>
     <published>2015-07-12T10:49:43.000Z</published>
-    <updated>2016-04-19T07:19:17.090Z</updated>
+    <updated>2016-04-19T08:00:33.348Z</updated>
     
     <content type="html">&lt;p&gt;玩 Facebook Graph API 玩了一陣子才發現回傳的姓名總是是英文的，才想到若是有回傳中文姓名的需求時該怎麼辦，如此下去一找才發現關鍵字是 &lt;a href=&quot;https://www.facebook.com/help/217868321565724&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Language-specific name&lt;/a&gt;，而要如何在 Facebook Graph API 中顯示為中文則可以參考這篇中的 locale：&lt;a href=&quot;https://developers.facebook.com/docs/graph-api/using-graph-api/v2.0#readmodifiers&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Modifying API Requests&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;其實只要在 API request 中加上 &lt;code&gt;&amp;amp;locale=zh_TW&lt;/code&gt; 即可得到中文姓名，如：&lt;code&gt;me?fields=id,name&amp;amp;locale=zh_TW&lt;/code&gt;，只是有趣的是我稍微測了一下 locale 給以開頭 &lt;code&gt;en_&lt;/code&gt; 以外的任何值都會取得中文名稱，還以為預設會以英文為主。&lt;/p&gt;
@@ -392,7 +459,7 @@
     <link href="http://ssk7833.github.io/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/"/>
     <id>http://ssk7833.github.io/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/</id>
     <published>2015-07-01T16:11:49.000Z</published>
-    <updated>2016-04-19T07:19:17.090Z</updated>
+    <updated>2016-04-19T08:00:33.348Z</updated>
     
     <content type="html">&lt;p&gt;繼上一篇成功截取出使用者資料後，發現除了基本資料外，朋友、按讚的資訊等資料其實都抓不出來，原因是因為沒有給予 app 存取這些資訊的權限。要求權限的話可以透過 OAuth 來索取 access token ，其範例網址如下：&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;https://www.facebook.com/dialog/oauth?client_id={appId}&amp;amp;redirect_uri={redirectURI}&lt;/code&gt;&lt;/p&gt;
@@ -438,7 +505,7 @@
     <link href="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/"/>
     <id>http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/</id>
     <published>2015-06-20T15:43:39.000Z</published>
-    <updated>2016-04-19T07:19:17.090Z</updated>
+    <updated>2016-04-19T08:00:33.348Z</updated>
     
     <content type="html">&lt;p&gt;延續上一篇，成功使用 Facebook 登入 Parse.com 的使用者資訊後，接著就是怎麼從使用者資訊中取得 Facebook 的資料了。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/blog/images/user.png&quot; alt=&quot;User&quot; title=&quot;User&quot;&gt;&lt;br&gt;以上圖的 Facebook Test Users 為例，建立完的使用者可以由 Parse.com 的 Data 中看到，不過 authData 卻只顯示了 Facebook 的 ID，因此我們可以先透過 API Console 來對 users 作存取，這裡要注意的是 Use Master Key 記得要選 Yes，否則會沒有權限看 authData 的內容；users 後面的參數為 objectId，若不放置則會列出全部符合的資料。&lt;br&gt;&lt;img src=&quot;/blog/images/APIconsole.png&quot; alt=&quot;API console&quot; title=&quot;API console&quot;&gt;&lt;br&gt;在 Response 中的內容：&lt;br&gt;&lt;figure class=&quot;highlight clojure&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;collection&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;string&quot;&gt;&quot;authData&quot;&lt;/span&gt;: &lt;span class=&quot;collection&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;string&quot;&gt;&quot;facebook&quot;&lt;/span&gt;: &lt;span class=&quot;collection&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      // 不要想對這組 access_token 亂來，因為是 test user XD&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;string&quot;&gt;&quot;access_token&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;CAAMCk3Pv7SkBAEjfvRaG4SrC8k3CXak1843iisuUJiIK9gYV9PNFRraXi9gxYVBJO83zsvzFO91dcACevKwinxAVPNCUeEv0UPWsmv7DZBlqPjtZCCnEBcMBKpU7ikoj9OKo1ZCwzi3wmTycsB2avHT1SiBxLUF5ZAHTaT9XDNtz1phGZCk0lltOY5agj0JGQ9ezNGmOsvUmdpKFASx5K&quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;string&quot;&gt;&quot;expiration_date&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;2015-08-15T17:52:46.495Z&quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;string&quot;&gt;&quot;id&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;118563748477765&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;string&quot;&gt;&quot;createdAt&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;2015-06-16T17:52:48.623Z&quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;string&quot;&gt;&quot;name&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;Super Mario&quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;string&quot;&gt;&quot;objectId&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;wmVm7Qb1Fc&quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;string&quot;&gt;&quot;sessionToken&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;jEKKzfbDcIN0CmBIvsdZR9Aoc&quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;string&quot;&gt;&quot;updatedAt&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;2015-06-17T07:57:08.934Z&quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;string&quot;&gt;&quot;username&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;3GwDpgmuqmfnyGYINNI27W9fO&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
@@ -472,7 +539,7 @@
     <link href="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/"/>
     <id>http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/</id>
     <published>2015-06-20T14:13:10.000Z</published>
-    <updated>2016-04-19T07:19:17.090Z</updated>
+    <updated>2016-04-19T08:00:33.348Z</updated>
     
     <content type="html">&lt;p&gt;&lt;a href=&quot;http://parse.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Parse.com&lt;/a&gt; 在 &lt;a href=&quot;https://parse.com/docs/tw/js/guide&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;javascript SDK&lt;/a&gt; 中提供了使用者的存取，其中包含 Facebook 的整合，但 javascript 終究是前端，有些不想讓 client end知道的還是放在後端處理比較好。然而 Parse.com 所提供的 cloud code 所使用的目前雖是 node.js，會讓開發者很想直接把 javascript SDK 的 Facebook 部分塞進去看能不能跑，乍看之下很合理，但實際上就是不行，因為以 Parse.com Javascript SDK在要求登入時會跳出另一個瀏覽器視窗以要求登入 Facebook 及權限給予，而這個視窗當然沒有辦法在 server end 中呈現並要求 client end 進行認證。&lt;/p&gt;
 &lt;p&gt;在官方論壇上也有人發表過此問題：&lt;a href=&quot;https://www.parse.com/questions/interacting-with-the-facebook-api-in-cloud-code&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Interacting with the Facebook API in Cloud Code&lt;/a&gt;&lt;br&gt;所得到的回答是：&lt;br&gt;&lt;strong&gt;Unfortunately, the Facebook JavaScript SDK is not made to work outside of a browser, so using it directly from Cloud Code is not supported at the moment.&lt;/strong&gt;&lt;/p&gt;

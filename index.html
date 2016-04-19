@@ -78,6 +78,89 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-parse-server-push-notification-APNS" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2016/04/19/parse-server-push-notification-APNS/" class="article-date">
+  <time datetime="2016-04-19T07:56:37.000Z" itemprop="datePublished">2016-04-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/study/">study</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2016/04/19/parse-server-push-notification-APNS/">Parse Server APNS(iOS) 推播通知設定</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Parse 的一大方便之處，即是他提供了推播通知(push notification)的整合，使開發者可以在短時間內完成推播功能；而推播通知也已經移植到 Parse Server 版本上，步驟與先前在 Parse 上差不了多少，在這裡紀錄一下 APNS(iOS) 設定的步驟。</p>
+<h2 id="建立-SSL-憑證"><a href="#建立-SSL-憑證" class="headerlink" title="建立 SSL 憑證"></a>建立 SSL 憑證</h2><p>在發送推播前必須給予 Parse Server 推播的權限，因此要先建立對應的 App ID 及 SSL 憑證。</p>
+<h3 id="1-建立-Explicit-App-ID"><a href="#1-建立-Explicit-App-ID" class="headerlink" title="1. 建立 Explicit App ID"></a>1. 建立 Explicit App ID</h3><p>如果原本就已經有建立 Explicit App ID 的話，請跳過此步驟到 <a href="#2-設定推播通知">2. 設定推播通知</a>。</p>
+<ol>
+<li>到 <a href="https://developer.apple.com/membercenter/" target="_blank" rel="external">Apple Developer Member Center</a> 登入，點選 <a href="https://developer.apple.com/account/ios/certificate/" target="_blank" rel="external">Certificates, Identifiers &amp; Profiles</a>。</li>
+<li>點選左欄中 Identifiers 底下的 <a href="https://developer.apple.com/account/ios/identifier/bundle" target="_blank" rel="external">App IDs</a>。</li>
+<li>點選右上角 + 的按鈕。<br><img src="/blog/images/2016-04-19-Parse-server-APNS/01.png" alt="建立 App ID" title="建立 App ID"></li>
+<li>在 App ID Description 填上想要的名稱。</li>
+<li>選擇 App ID Prefix，我的只有一組，好像預設就會自己選了～</li>
+<li>App ID suffix 要注意選擇 Explicit App ID，而 Bundle ID 可參考 Apple 推薦的填法或是自己偏好的格式，須注意這組之後會在 Xcode 中使用到。<br><img src="/blog/images/2016-04-19-Parse-server-APNS/02.png" alt="Explicit App ID" title="Explicit App ID"></li>
+<li>將有需要用到的服務打勾，Push Notifications 記得要打勾！其餘就看自己有沒有要用到再開啟。<br><img src="/blog/images/2016-04-19-Parse-server-APNS/03.png" alt="Apple Services" title="Apple Services"></li>
+<li>點選 Contiune 進行下一步，確認無誤後就可以送出了。</li>
+</ol>
+<h3 id="2-設定推播通知"><a href="#2-設定推播通知" class="headerlink" title="2. 設定推播通知"></a>2. 設定推播通知</h3><p>到這裡，應該已經建立好一個 Explicit App ID。</p>
+<ol>
+<li>點開  <a href="https://developer.apple.com/account/ios/identifier/bundle" target="_blank" rel="external">App IDs</a> 底下已建立的 App ID，再點選 Edit。<br><img src="/blog/images/2016-04-19-Parse-server-APNS/04.png" alt="App IDs Edit" title="App IDs Edit"></li>
+<li>找到 Push Notifications 項目，若沒 Enable 則將他打勾，可以在此建立 Development 跟 Production 的憑證，建議先從開發模式開始，點選 Development SSL Certificate 中底下的 Create Certificate…。<br><img src="/blog/images/2016-04-19-Parse-server-APNS/05.png" alt="Create Certificate" title="Create Certificate"></li>
+<li>接下來他會教你怎麼做，然後要你做完再點選 Contiune，因為我英文對應中文 MAC OS 不太熟，所以在這裡也把步驟打出來了，開啟 MAC 中的「鑰匙圈存取」。<br><img src="/blog/images/2016-04-19-Parse-server-APNS/06.png" alt="鑰匙圈存取" title="鑰匙圈存取"></li>
+<li>點選「鑰匙圈存取」→「憑證輔助程式」→「從憑證授權要求憑證…」（蠻饒舌的）。<br><img src="/blog/images/2016-04-19-Parse-server-APNS/07.png" alt="從憑證授權要求憑證…" title="從憑證授權要求憑證…"></li>
+<li>在「使用者電子郵件位址」輸入自己的 Email，「一般名稱」輸入自己想要的名稱，「CA 電子郵件位址」留白，「已將要求」選擇「儲存到硬碟」，接著點選「繼續」來產生 CSR 檔。<br><img src="/blog/images/2016-04-19-Parse-server-APNS/08.png" alt="憑證輔助程式" title="憑證輔助程式"></li>
+<li>將剛剛儲存的 CSR 檔案上傳。<br><img src="/blog/images/2016-04-19-Parse-server-APNS/09.png" alt="Upload CSR file" title="Upload CSR file"></li>
+<li>下載憑證，下載完成後點選兩下此檔案，使檔案安裝到「鑰匙圈存取」中。<br><img src="/blog/images/2016-04-19-Parse-server-APNS/10.png" alt="Download certificate" title="Download certificate"></li>
+<li>開啟「鑰匙圈存取」，在左欄點選「我的憑證」，你可能會看到 Apple Development Push Services: 及 Apple Push Services:，這兩個分別對應了 development 憑證及 production 憑證，端看你使用哪一個。<br><img src="/blog/images/2016-04-19-Parse-server-APNS/11.png" alt="Apple Development Push Services: &amp; Apple Push Services:" title="Apple Development Push Services: &amp; Apple Push Services:"></li>
+<li>在要使用的憑證上點選右鍵，選擇「輸出」項目，儲存名稱依自己喜歡而定。<br><img src="/blog/images/2016-04-19-Parse-server-APNS/12.png" alt="Export certificate" title="Export certificate"></li>
+<li>在按儲存時會跳出密碼詢問的視窗，記得<strong>留白</strong>！<br><img src="/blog/images/2016-04-19-Parse-server-APNS/13.png" alt="Leave it blank" title="Leave it blank"></li>
+<li>最後產生的檔案，將此檔案放到 Parse Server 的目錄內。<br><img src="/blog/images/2016-04-19-Parse-server-APNS/14.png" alt=".p12" title=".p12"></li>
+</ol>
+<h2 id="Parse-Server-設定-APNS"><a href="#Parse-Server-設定-APNS" class="headerlink" title="Parse Server 設定 APNS"></a>Parse Server 設定 APNS</h2><p>延續 <a href="/blog/2016/04/09/setup-parse-server/">Parse Server 架設教學</a>中所使用的程式碼，在 <code>new ParseServer</code> 中加入 push 相關的程式碼，如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> api = <span class="keyword">new</span> ParseServer(&#123;</span><br><span class="line">  databaseURI: databaseUri || <span class="string">'mongodb://localhost:27017/dev'</span>,</span><br><span class="line">  cloud: process.env.CLOUD_CODE_MAIN || __dirname + <span class="string">'/cloud/main.js'</span>,</span><br><span class="line">  appId: process.env.APP_ID || <span class="string">'7c6a1d1470fed0313b5044c4eb83def0'</span>,</span><br><span class="line">  masterKey: process.env.MASTER_KEY || <span class="string">'98584a6e0a2592c274d1e4eae44b0a7b'</span>, <span class="comment">// Add your master key here. Keep it secret!</span></span><br><span class="line">  serverURL: process.env.SERVER_URL || <span class="string">'http://localhost:1337/parse'</span>,  <span class="comment">// Don't forget to change to https if needed</span></span><br><span class="line">  liveQuery: &#123;</span><br><span class="line">    classNames: [<span class="string">"Posts"</span>, <span class="string">"Comments"</span>] <span class="comment">// List of classes to support for query subscriptions</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 以下為新增部分</span></span><br><span class="line">  push: &#123;</span><br><span class="line">    <span class="comment">// 此篇未提到 Android，因此註解掉</span></span><br><span class="line">    <span class="comment">// android: &#123;</span></span><br><span class="line">    <span class="comment">//   senderId: '...',</span></span><br><span class="line">    <span class="comment">//   apiKey: '...'</span></span><br><span class="line">    <span class="comment">// &#125;,</span></span><br><span class="line">    ios: &#123;</span><br><span class="line">      pfx: <span class="string">'pushDevelopmentCertificate.p12'</span>, <span class="comment">// 與 index.js 目錄同層</span></span><br><span class="line">      bundleId: <span class="string">'com.pushTest'</span>, <span class="comment">// 填入先前填的 Bundle ID</span></span><br><span class="line">      production: <span class="literal">false</span> <span class="comment">// false: development, true: production</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>而若需要同時使用 development 及 production 的 APNS 時，可以將設定改為這樣：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">push: &#123;</span><br><span class="line">  ios: [</span><br><span class="line">    &#123;</span><br><span class="line">      pfx: <span class="string">''</span>, <span class="comment">// Dev PFX or P12</span></span><br><span class="line">      bundleId: <span class="string">''</span>,</span><br><span class="line">      production: <span class="literal">false</span> <span class="comment">// development</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      pfx: <span class="string">''</span>, <span class="comment">// Prod PFX or P12</span></span><br><span class="line">      bundleId: <span class="string">''</span>,  </span><br><span class="line">      production: <span class="literal">true</span> <span class="comment">// production</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="設定-client-apps"><a href="#設定-client-apps" class="headerlink" title="設定 client apps"></a>設定 client apps</h2><p>App 部分的設定與先前 Parse 的設定一樣，因此在這裡省略，可以參考 <a href="https://github.com/ParsePlatform/Parse-Server/wiki/Push-Configuring-Clients" target="_blank" rel="external">Push Configuring Clients</a> 尋找自己需要的程式語言寫法。</p>
+<h2 id="測試推播通知"><a href="#測試推播通知" class="headerlink" title="測試推播通知"></a>測試推播通知</h2><p>推播傳送的方式一樣可用 curl 或是 cloud code，唯一要注意的是傳送推播通知需要 <code>masterKey</code>，可以參考 <a href="https://github.com/ParsePlatform/parse-server/wiki/Push#4-send-push-notifications" target="_blank" rel="external">Send Push Notifications</a>。而 <a href="https://github.com/ParsePlatform/parse-dashboard" target="_blank" rel="external">Parse Dashboard</a>目前也可以傳送推播通知了，只可惜目前只可以傳而不能看傳送紀錄，下圖為 parse-dashboard 1.0.8 的畫面。<br><img src="/blog/images/2016-04-19-Parse-server-APNS/15.png" alt="Parse Dashboard send push" title="Parse Dashboard send push"></p>
+<h2 id="疑難雜症"><a href="#疑難雜症" class="headerlink" title="疑難雜症"></a>疑難雜症</h2><p>正常來說過沒多久就 app 就能收到推播通知，如果沒有成功的話可以新增這兩個環境變數 <code>VERBOSE=1</code> 及 <code>DEBUG=apn</code>，若 <code>VERBOSE=1</code> 看不出結果再觀察 <code>DEBUG=apn</code>，其餘問題可能就要爬 issues 了。</p>
+<p>筆者遇到的問題很蠢，就是所在的網路環境中 port 2195 被鎖了，因此試了半天都推播失敗 Orz，請先確定自己到 <code>gateway.sandbox.push.apple.com:2195</code> (development) 及 <code>gateway.push.apple.com:2195</code> (production) 是否能通～</p>
+<p>參考資料：</p>
+<ol>
+<li><a href="https://github.com/ParsePlatform/parse-server/wiki/Push" target="_blank" rel="external">parse-server wiki - push</a></li>
+<li><a href="https://github.com/ParsePlatform/PushTutorial/blob/master/iOS/README.md" target="_blank" rel="external">PushTutorial - Push Notification Sample App</a></li>
+<li><a href="https://github.com/ParsePlatform/parse-dashboard" target="_blank" rel="external">Parse Dashboard</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ssk7833.github.io/blog/2016/04/19/parse-server-push-notification-APNS/" data-id="cin755fo500058jfjbpfx072w" class="article-share-link">Share</a>
+      
+        <a href="http://ssk7833.github.io/blog/2016/04/19/parse-server-push-notification-APNS/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/APNS/">APNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Parse-server/">Parse server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/push-notification/">push notification</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-setup-parse-server" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2016/04/09/setup-parse-server/" class="article-date">
@@ -155,7 +238,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/" data-id="cin73oipe00058gicrxkpe2x6" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/" data-id="cin755foa000f8jfj82bbz6o3" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -201,7 +284,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/" data-id="cin73oipl000f8gicqwheo8ho" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/" data-id="cin755foe000n8jfjyqmbqf08" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -324,7 +407,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/" data-id="cin73oipr000n8gicpj83fbsg" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/" data-id="cin755fok000v8jfjk2r81f9c" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -409,70 +492,12 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/" data-id="cin73oipy000u8gicye69d41i" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/" data-id="cin755foq00128jfjvjl39m9z" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/gf-pages/">gf-pages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/travis-ci/">travis ci</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-show-iframe-in-fullscreen-by-html5-fullscreen-api" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/" class="article-date">
-  <time datetime="2016-01-09T20:10:05.000Z" itemprop="datePublished">2016-01-10</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/study/">study</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/">HTML5 fullscreen API 將 iframe 以全螢幕顯示</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近因為有把 iframe 內容以全螢幕顯示的需求，因此研究了一下 HTML5 fullscreen API。已有現成的 library 可以用如 <a href="https://sindresorhus.com/screenfull.js/" target="_blank" rel="external">screenfull.js</a> 及 <a href="https://brad.is/coding/BigScreen/" target="_blank" rel="external">BigScreen</a>，但大致上並不難，因此我選擇了純 javascript 來撰寫看看。</p>
-<p>要全螢幕其實並不難，只要呼叫 <code>requestFullscreen()</code> 即可做到，以下是簡易範例：</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> button = <span class="built_in">document</span>.<span class="built_in">querySelector</span>(<span class="string">'#container .button'</span>);</span><br><span class="line">button.addEventListener(<span class="string">'click'</span>, fullscreen);</span><br><span class="line"></span><br><span class="line">function fullscreen() &#123;</span><br><span class="line">  <span class="comment">// check if fullscreen mode is available</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">document</span>.fullscreenEnabled ||</span><br><span class="line">    <span class="built_in">document</span>.webkitFullscreenEnabled ||</span><br><span class="line">    <span class="built_in">document</span>.mozFullScreenEnabled ||</span><br><span class="line">    <span class="built_in">document</span>.msFullscreenEnabled) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// which element will be fullscreen</span></span><br><span class="line">    <span class="keyword">var</span> iframe = <span class="built_in">document</span>.<span class="built_in">querySelector</span>(<span class="string">'#container iframe'</span>);</span><br><span class="line">    <span class="comment">// Do fullscreen</span></span><br><span class="line">    <span class="keyword">if</span> (iframe.requestFullscreen) &#123;</span><br><span class="line">      iframe.requestFullscreen();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (iframe.webkitRequestFullscreen) &#123;</span><br><span class="line">      iframe.webkitRequestFullscreen();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (iframe.mozRequestFullScreen) &#123;</span><br><span class="line">      iframe.mozRequestFullScreen();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (iframe.msRequestFullscreen) &#123;</span><br><span class="line">      iframe.msRequestFullscreen();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">document</span>.<span class="built_in">querySelector</span>(<span class="string">'.error'</span>).innerHTML = <span class="string">'Your browser is not supported'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此範例即可讓當所選擇的 <code>#container .button</code> 被點擊時，讓 <code>#container iframe</code> 全螢幕。</p>
-<p>但因為 iframe 的內容並非我可以控制的，有些 iframe 的內容沒有處理 RWD，因此當頁面縮放時可能會呈現未預期的效果，如：<a href="http://codepen.io/kanaparty/pen/eJYXeZ" target="_blank" rel="external">ぶつからないように動くビークル</a>（找了一下 codepen 才找到一個可用範例）。要做到這點，我目前選擇當 iframe 被全螢幕時則重新載入一次，當然，當 iframe 從全螢幕離開時也會再 resize 一次，因此也要注意離開全螢幕時也得處理。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// reload</span></span><br><span class="line"><span class="tag">iframe</span><span class="class">.src</span> = <span class="tag">iframe</span>.src</span><br></pre></td></tr></table></figure>
-<p>原本我認為應將重新載入寫在 request fullscreen 之後，而當觸發 keydown event 時再觸發一次重新載入，後來發現在全螢幕時按下 ESC 時 keydown event 都不會被觸發(chrome, firefox)，而按下 F11 則是 Firefox 會觸發而 Chrome 不會，因此認為這應該不是個好寫法。</p>
-<p>後來在 <a href="http://www.sitepoint.com/use-html5-full-screen-api/" target="_blank" rel="external">How to Use the HTML5 Full-Screen API (Again)</a> 發現有 fullscreenchange event 可以用，因此也改用這個，原本放在全螢幕後的重新載入也改成放於 event listener 內，程式碼也簡潔多了！</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// when you are in fullscreen, ESC and F11 may not be trigger by keydown listener.</span></span><br><span class="line"><span class="comment">// so don't use it to detect exit fullscreen</span></span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'keydown'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'key press'</span> + e.keyCode);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// detect enter or exit fullscreen mode</span></span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'webkitfullscreenchange'</span>, fullscreenChange);</span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'mozfullscreenchange'</span>, fullscreenChange);</span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'fullscreenchange'</span>, fullscreenChange);</span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'MSFullscreenChange'</span>, fullscreenChange);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fullscreenChange</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">document</span>.fullscreenEnabled ||</span><br><span class="line">       <span class="built_in">document</span>.webkitIsFullScreen ||</span><br><span class="line">       <span class="built_in">document</span>.mozFullScreen ||</span><br><span class="line">       <span class="built_in">document</span>.msFullscreenElement) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'enter fullscreen'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'exit fullscreen'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// force to reload iframe once to prevent the iframe source didn't care about trying to resize the window</span></span><br><span class="line">  <span class="comment">// comment this line and you will see</span></span><br><span class="line">  <span class="keyword">var</span> iframe = <span class="built_in">document</span>.querySelector(<span class="string">'iframe'</span>);</span><br><span class="line">  iframe.src = iframe.src;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>以下為測試的範例，可以試著把 <code>iframe.src = iframe.src;</code> 註解掉，即可看到改造前後的差異：</p>
-<p></p><p data-height="268" data-theme-id="0" data-slug-hash="mVOXXp" data-default-tab="result" data-user="ssk7833" class="codepen">See the Pen <a href="http://codepen.io/ssk7833/pen/mVOXXp/" target="_blank" rel="external">Fullscreen API on iframe</a> by North (<a href="http://codepen.io/ssk7833" target="_blank" rel="external">@ssk7833</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
-<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
-
-<p>參考資料：<br><a href="http://codepen.io/kanaparty/pen/eJYXeZ" target="_blank" rel="external">ぶつからないように動くビークル</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API" target="_blank" rel="external">Using fullscreen mode - Web APIs | MDN</a><br><a href="http://www.sitepoint.com/use-html5-full-screen-api/" target="_blank" rel="external">How to Use the HTML5 Full-Screen API (Again) - SitePoint</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/" data-id="cin73oiq200128gicvtytq2c2" class="article-share-link">Share</a>
-      
-        <a href="http://ssk7833.github.io/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/">javascript</a></li></ul>
 
     </footer>
   </div>
@@ -494,7 +519,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/study/">study</a><span class="category-list-count">11</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/study/">study</a><span class="category-list-count">12</span></li></ul>
     </div>
   </div>
 
@@ -503,7 +528,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook/">Facebook</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook-Graph-API/">Facebook-Graph-API</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-server/">Parse server</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SASS/">SASS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SCSS/">SCSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SVG/">SVG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gf-pages/">gf-pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gooey/">gooey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/localization/">localization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/node-js/">node.js</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/shell-script/">shell script</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/travis-ci/">travis ci</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/APNS/">APNS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook/">Facebook</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook-Graph-API/">Facebook-Graph-API</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-server/">Parse server</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SASS/">SASS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SCSS/">SCSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SVG/">SVG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gf-pages/">gf-pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gooey/">gooey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/localization/">localization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/node-js/">node.js</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/push-notification/">push notification</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/shell-script/">shell script</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/travis-ci/">travis ci</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -512,7 +537,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/CSS/" style="font-size: 13.33px;">CSS</a> <a href="/blog/tags/CloudCode/" style="font-size: 16.67px;">CloudCode</a> <a href="/blog/tags/Facebook/" style="font-size: 20px;">Facebook</a> <a href="/blog/tags/Facebook-Graph-API/" style="font-size: 13.33px;">Facebook-Graph-API</a> <a href="/blog/tags/Parse-server/" style="font-size: 10px;">Parse server</a> <a href="/blog/tags/Parse-com/" style="font-size: 16.67px;">Parse.com</a> <a href="/blog/tags/SASS/" style="font-size: 10px;">SASS</a> <a href="/blog/tags/SCSS/" style="font-size: 10px;">SCSS</a> <a href="/blog/tags/SVG/" style="font-size: 10px;">SVG</a> <a href="/blog/tags/gf-pages/" style="font-size: 10px;">gf-pages</a> <a href="/blog/tags/gooey/" style="font-size: 10px;">gooey</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/blog/tags/localization/" style="font-size: 10px;">localization</a> <a href="/blog/tags/node-js/" style="font-size: 16.67px;">node.js</a> <a href="/blog/tags/shell-script/" style="font-size: 10px;">shell script</a> <a href="/blog/tags/travis-ci/" style="font-size: 10px;">travis ci</a>
+      <a href="/blog/tags/APNS/" style="font-size: 10px;">APNS</a> <a href="/blog/tags/CSS/" style="font-size: 13.33px;">CSS</a> <a href="/blog/tags/CloudCode/" style="font-size: 16.67px;">CloudCode</a> <a href="/blog/tags/Facebook/" style="font-size: 20px;">Facebook</a> <a href="/blog/tags/Facebook-Graph-API/" style="font-size: 13.33px;">Facebook-Graph-API</a> <a href="/blog/tags/Parse-server/" style="font-size: 13.33px;">Parse server</a> <a href="/blog/tags/Parse-com/" style="font-size: 16.67px;">Parse.com</a> <a href="/blog/tags/SASS/" style="font-size: 10px;">SASS</a> <a href="/blog/tags/SCSS/" style="font-size: 10px;">SCSS</a> <a href="/blog/tags/SVG/" style="font-size: 10px;">SVG</a> <a href="/blog/tags/gf-pages/" style="font-size: 10px;">gf-pages</a> <a href="/blog/tags/gooey/" style="font-size: 10px;">gooey</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/blog/tags/localization/" style="font-size: 10px;">localization</a> <a href="/blog/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/blog/tags/push-notification/" style="font-size: 10px;">push notification</a> <a href="/blog/tags/shell-script/" style="font-size: 10px;">shell script</a> <a href="/blog/tags/travis-ci/" style="font-size: 10px;">travis ci</a>
     </div>
   </div>
 
@@ -521,7 +546,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/03/">March 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/01/">January 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/07/">July 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2011/01/">January 2011</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/04/">April 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/03/">March 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/01/">January 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/07/">July 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2011/01/">January 2011</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -531,6 +556,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2016/04/19/parse-server-push-notification-APNS/">Parse Server APNS(iOS) 推播通知設定</a>
+          </li>
         
           <li>
             <a href="/blog/2016/04/09/setup-parse-server/">Parse Server 架設教學</a>
@@ -546,10 +575,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/">使用 Travis CI 自動部署 GitHub Pages</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/">HTML5 fullscreen API 將 iframe 以全螢幕顯示</a>
           </li>
         
       </ul>
