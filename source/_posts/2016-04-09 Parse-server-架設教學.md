@@ -33,12 +33,12 @@ permalink: setup-parse-server
   - appId: 可填任意字串，用於識別 Parse API 的使用權限。在這裡用了 `md5` 來產生隨機字串。
   - masterKey: 可填任意字串，但不要公開此字串，用於覆寫權限設定。
 
-  ```
+  ```javascript
   var api = new ParseServer({
     databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
     cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
     appId: process.env.APP_ID || '7c6a1d1470fed0313b5044c4eb83def0',
-    masterKey: process.env.MASTER_KEY || '98584a6e0a2592c274d1e4eae44b0a7b', //Add your master key here. Keep it secret!
+    masterKey: process.env.MASTER_KEY || '98584a6e0a2592c274d1e4eae44b0a7b', // Add your master key here. Keep it secret!
     serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
     liveQuery: {
       classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
