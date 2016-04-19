@@ -123,7 +123,7 @@ ga('send', 'pageview');
 <li>appId: 可填任意字串，用於識別 Parse API 的使用權限。在這裡用了 <code>md5</code> 來產生隨機字串。</li>
 <li>masterKey: 可填任意字串，但不要公開此字串，用於覆寫權限設定。</li>
 </ul>
-<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var api = new ParseServer(&#123;</span><br><span class="line">  databaseURI: databaseUri || <span class="string">'mongodb://localhost:27017/dev'</span>,</span><br><span class="line">  cloud: process.<span class="keyword">env</span>.CLOUD_CODE_MAIN || __dirname + <span class="string">'/cloud/main.js'</span>,</span><br><span class="line">  appId: process.<span class="keyword">env</span>.APP_ID || <span class="string">'7c6a1d1470fed0313b5044c4eb83def0'</span>,</span><br><span class="line">  masterKey: process.<span class="keyword">env</span>.MASTER_KEY || <span class="string">'98584a6e0a2592c274d1e4eae44b0a7b'</span>, <span class="comment">//Add your master key here. Keep it secret!</span></span><br><span class="line">  serverURL: process.<span class="keyword">env</span>.SERVER_URL || <span class="string">'http://localhost:1337/parse'</span>,  <span class="comment">// Don't forget to change to https if needed</span></span><br><span class="line">  liveQuery: &#123;</span><br><span class="line">    classNames: [<span class="string">"Posts"</span>, <span class="string">"Comments"</span>] <span class="comment">// List of classes to support for query subscriptions</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> api = <span class="keyword">new</span> ParseServer(&#123;</span><br><span class="line">  databaseURI: databaseUri || <span class="string">'mongodb://localhost:27017/dev'</span>,</span><br><span class="line">  cloud: process.env.CLOUD_CODE_MAIN || __dirname + <span class="string">'/cloud/main.js'</span>,</span><br><span class="line">  appId: process.env.APP_ID || <span class="string">'7c6a1d1470fed0313b5044c4eb83def0'</span>,</span><br><span class="line">  masterKey: process.env.MASTER_KEY || <span class="string">'98584a6e0a2592c274d1e4eae44b0a7b'</span>, <span class="comment">// Add your master key here. Keep it secret!</span></span><br><span class="line">  serverURL: process.env.SERVER_URL || <span class="string">'http://localhost:1337/parse'</span>,  <span class="comment">// Don't forget to change to https if needed</span></span><br><span class="line">  liveQuery: &#123;</span><br><span class="line">    classNames: [<span class="string">"Posts"</span>, <span class="string">"Comments"</span>] <span class="comment">// List of classes to support for query subscriptions</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>到這裡可以先執行看看。</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm <span class="command">run</span> start</span><br></pre></td></tr></table></figure>
@@ -155,7 +155,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/" data-id="cimvpwl6x00058berh59cebai" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/" data-id="cin73oipe00058gicrxkpe2x6" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -201,7 +201,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/" data-id="cimvpwl74000f8berx3tkfhm2" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/" data-id="cin73oipl000f8gicqwheo8ho" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -324,7 +324,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/" data-id="cimvpwl7b000n8berbfsawt9m" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/" data-id="cin73oipr000n8gicpj83fbsg" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -409,7 +409,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/" data-id="cimvpwl7m000u8berai0wukxb" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/" data-id="cin73oipy000u8gicye69d41i" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -467,7 +467,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/" data-id="cimvpwl7q00128ber0ch8s1mz" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/" data-id="cin73oiq200128gicvtytq2c2" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/#disqus_thread" class="article-comment-link">Comments</a>
       
