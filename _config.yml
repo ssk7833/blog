@@ -77,6 +77,12 @@ archive_generator:
   monthly: true
   daily: false
 
+category_generator:
+  per_page: 0
+
+tag_generator:
+  per_page: 0
+
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
