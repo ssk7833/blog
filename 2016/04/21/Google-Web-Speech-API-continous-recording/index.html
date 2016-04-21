@@ -3,21 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Facebook Graph API 回傳指定語言/地區化姓名 | 北風筆記</title>
+  <title>Google Web Speech API 語音辨識 持續收音 | 北風筆記</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="玩 Facebook Graph API 玩了一陣子才發現回傳的姓名總是是英文的，才想到若是有回傳中文姓名的需求時該怎麼辦，如此下去一找才發現關鍵字是 Language-specific name，而要如何在 Facebook Graph API 中顯示為中文則可以參考這篇中的 locale：Modifying API Requests。
-其實只要在 API request 中加上 &amp;amp;lo">
+  <meta name="description" content="Google 的 web speech API 已經推出一段時間了，最近剛好有機會來試試。Web speech API 的操作並不困難，基本上就是 var recognition = new webkitSpeechRecognition();，可以在下方參考資料中看到相關原始碼，唯獨我預設的需求是必須可持續收音，因使用者可能是在不適合任何物理碰觸的環境下操作，所以鍵盤滑鼠及觸控螢幕皆不適合在此當">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Facebook Graph API 回傳指定語言/地區化姓名">
-<meta property="og:url" content="http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/index.html">
+<meta property="og:title" content="Google Web Speech API 語音辨識 持續收音">
+<meta property="og:url" content="http://ssk7833.github.io/blog/2016/04/21/Google-Web-Speech-API-continous-recording/index.html">
 <meta property="og:site_name" content="北風筆記">
-<meta property="og:description" content="玩 Facebook Graph API 玩了一陣子才發現回傳的姓名總是是英文的，才想到若是有回傳中文姓名的需求時該怎麼辦，如此下去一找才發現關鍵字是 Language-specific name，而要如何在 Facebook Graph API 中顯示為中文則可以參考這篇中的 locale：Modifying API Requests。
-其實只要在 API request 中加上 &amp;amp;lo">
+<meta property="og:description" content="Google 的 web speech API 已經推出一段時間了，最近剛好有機會來試試。Web speech API 的操作並不困難，基本上就是 var recognition = new webkitSpeechRecognition();，可以在下方參考資料中看到相關原始碼，唯獨我預設的需求是必須可持續收音，因使用者可能是在不適合任何物理碰觸的環境下操作，所以鍵盤滑鼠及觸控螢幕皆不適合在此當">
+<meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/allowMicrophone.png">
+<meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/microphoneExceptions.png">
 <meta property="og:updated_time" content="2016-04-21T03:20:03.671Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Facebook Graph API 回傳指定語言/地區化姓名">
-<meta name="twitter:description" content="玩 Facebook Graph API 玩了一陣子才發現回傳的姓名總是是英文的，才想到若是有回傳中文姓名的需求時該怎麼辦，如此下去一找才發現關鍵字是 Language-specific name，而要如何在 Facebook Graph API 中顯示為中文則可以參考這篇中的 locale：Modifying API Requests。
-其實只要在 API request 中加上 &amp;amp;lo">
+<meta name="twitter:title" content="Google Web Speech API 語音辨識 持續收音">
+<meta name="twitter:description" content="Google 的 web speech API 已經推出一段時間了，最近剛好有機會來試試。Web speech API 的操作並不困難，基本上就是 var recognition = new webkitSpeechRecognition();，可以在下方參考資料中看到相關原始碼，唯獨我預設的需求是必須可持續收音，因使用者可能是在不適合任何物理碰觸的環境下操作，所以鍵盤滑鼠及觸控螢幕皆不適合在此當">
   
     <link rel="alternative" href="/blog/atom.xml" title="北風筆記" type="application/atom+xml">
   
@@ -80,10 +79,10 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-facebook-graph-api-returns-language-specific-name" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Google-Web-Speech-API-continous-recording" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/" class="article-date">
-  <time datetime="2015-07-12T10:49:43.000Z" itemprop="datePublished">2015-07-12</time>
+    <a href="/blog/2016/04/21/Google-Web-Speech-API-continous-recording/" class="article-date">
+  <time datetime="2016-04-21T02:06:51.000Z" itemprop="datePublished">2016-04-21</time>
 </a>
     
   <div class="article-category">
@@ -98,7 +97,7 @@ ga('send', 'pageview');
         
   
     <h1 class="article-title" itemprop="name">
-      Facebook Graph API 回傳指定語言/地區化姓名
+      Google Web Speech API 語音辨識 持續收音
     </h1>
   
 
@@ -106,18 +105,31 @@ ga('send', 'pageview');
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>玩 Facebook Graph API 玩了一陣子才發現回傳的姓名總是是英文的，才想到若是有回傳中文姓名的需求時該怎麼辦，如此下去一找才發現關鍵字是 <a href="https://www.facebook.com/help/217868321565724" target="_blank" rel="external">Language-specific name</a>，而要如何在 Facebook Graph API 中顯示為中文則可以參考這篇中的 locale：<a href="https://developers.facebook.com/docs/graph-api/using-graph-api/v2.0#readmodifiers" target="_blank" rel="external">Modifying API Requests</a>。</p>
-<p>其實只要在 API request 中加上 <code>&amp;locale=zh_TW</code> 即可得到中文姓名，如：<code>me?fields=id,name&amp;locale=zh_TW</code>，只是有趣的是我稍微測了一下 locale 給以開頭 <code>en_</code> 以外的任何值都會取得中文名稱，還以為預設會以英文為主。</p>
+        <p>Google 的 web speech API 已經推出一段時間了，最近剛好有機會來試試。<br>Web speech API 的操作並不困難，基本上就是 <code>var recognition = new webkitSpeechRecognition();</code>，可以在下方參考資料中看到相關原始碼，唯獨我預設的需求是必須可持續收音，因使用者可能是在不適合任何物理碰觸的環境下操作，所以鍵盤滑鼠及觸控螢幕皆不適合在此當作 input 來源。然而 web speech API 的持續收音 <code>recognition.continuous = true;</code> 若發現麥克風閒置太長的話，一樣會自動停止收音，因此還是要再重新觸發 <code>recognition.start();</code>，所幸我就將 <code>recognition.start();</code> 寫到 <code>onend</code> event handler，天真的以為這樣就解決問題了。</p>
+<p><img src="/blog/images/allowMicrophone.png" alt="要求使用麥克風" title="要求使用麥克風"><br>當每次收音結束後又重新觸發開始時，就會跳出這個允許授權的視窗，而當然此時是不能收音的，可以在下方範例體驗一下。</p>
+<iframe height="300" scrolling="no" src="http://codepen.io/ssk7833/embed/YqepJb/?height=300&theme-id=0&default-tab=js,result&embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="http://codepen.io/ssk7833/pen/YqepJb/" target="_blank" rel="external">Web Speech API Demo</a> by North (<a href="http://codepen.io/ssk7833" target="_blank" rel="external">@ssk7833</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.<br></iframe>
+
+<p>經過一番查證後，發現其實這個問題也不算問題，只是因為 chrome 要求安全性而在 http 上做出每次收音前都須要先確認允許才行，若是使用 https 的話只要允許過第一次後就再也不會詢問了。</p>
+<iframe height="300" scrolling="no" src="https://codepen.io/ssk7833/embed/YqepJb/?height=300&theme-id=0&default-tab=js,result&embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="https://codepen.io/ssk7833/pen/YqepJb/" target="_blank" rel="external">Web Speech API Demo</a> by North (<a href="http://codepen.io/ssk7833" target="_blank" rel="external">@ssk7833</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.<br></iframe>
+
+<p>允許之後就可以在麥克風例外狀況中看到已經預設允許的清單，在此清單中被允許的就再也不會跳出詢問視窗了，而 localhost 也是在允許範圍內，因此就可以做出很多有趣的事情了！<br><img src="/blog/images/microphoneExceptions.png" alt="麥克風例外狀況" title="麥克風例外狀況"></p>
+<p>使用上的話，目前好像也沒看到什麼限制，也沒找到限制相關的文件，自己親自掛了好幾小時也還是活得好好的。</p>
+<p>參考資料：</p>
+<ol>
+<li><a href="https://developers.google.com/web/updates/2013/01/Voice-Driven-Web-Apps-Introduction-to-the-Web-Speech-API" target="_blank" rel="external">Voice Driven Web Apps: Introduction to the Web Speech API</a></li>
+<li><a href="https://www.google.com/intl/en/chrome/demos/speech.html" target="_blank" rel="external">Web Speech API Demonstration</a></li>
+<li><a href="http://www.oxxostudio.tw/articles/201509/web-speech-api.html" target="_blank" rel="external">Google 語音辨識 API</a></li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/" data-id="cin9q0klb001p8ofvf7bhac6s" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/04/21/Google-Web-Speech-API-continous-recording/" data-id="cin9q0kjz00058ofvt6pvnbrl" class="article-share-link">Share</a>
       
-        <a href="http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://ssk7833.github.io/blog/2016/04/21/Google-Web-Speech-API-continous-recording/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Facebook/">Facebook</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Facebook-Graph-API/">Facebook-Graph-API</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/localization/">localization</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/web-speech-API/">web speech API</a></li></ul>
 
     </footer>
   </div>
@@ -125,19 +137,10 @@ ga('send', 'pageview');
     
 <nav id="article-nav">
   
-    <a href="/blog/2015/08/25/facebook-graph-api-get-picture/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Facebook Graph API 取得大頭貼照
-        
-      </div>
-    </a>
   
-  
-    <a href="/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/blog/2016/04/19/parse-server-push-notification-APNS/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">使用 Parse.com Cloud Code Hosting 進行 Facebook 登入存取 3</div>
+      <div class="article-nav-title">Parse Server APNS(iOS) 推播通知設定</div>
     </a>
   
 </nav>
@@ -246,7 +249,7 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'ssk7833';
   
-  var disqus_url = 'http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/';
+  var disqus_url = 'http://ssk7833.github.io/blog/2016/04/21/Google-Web-Speech-API-continous-recording/';
   
   (function(){
     var dsq = document.createElement('script');

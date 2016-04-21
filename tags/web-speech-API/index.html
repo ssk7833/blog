@@ -3,21 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Facebook Graph API 回傳指定語言/地區化姓名 | 北風筆記</title>
+  <title>Tag: web speech API | 北風筆記</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="玩 Facebook Graph API 玩了一陣子才發現回傳的姓名總是是英文的，才想到若是有回傳中文姓名的需求時該怎麼辦，如此下去一找才發現關鍵字是 Language-specific name，而要如何在 Facebook Graph API 中顯示為中文則可以參考這篇中的 locale：Modifying API Requests。
-其實只要在 API request 中加上 &amp;amp;lo">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Facebook Graph API 回傳指定語言/地區化姓名">
-<meta property="og:url" content="http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/index.html">
+  <meta name="description" content="這裡紀錄個人的一些日常心得">
+<meta property="og:type" content="website">
+<meta property="og:title" content="北風筆記">
+<meta property="og:url" content="http://ssk7833.github.io/blog/tags/web-speech-API/index.html">
 <meta property="og:site_name" content="北風筆記">
-<meta property="og:description" content="玩 Facebook Graph API 玩了一陣子才發現回傳的姓名總是是英文的，才想到若是有回傳中文姓名的需求時該怎麼辦，如此下去一找才發現關鍵字是 Language-specific name，而要如何在 Facebook Graph API 中顯示為中文則可以參考這篇中的 locale：Modifying API Requests。
-其實只要在 API request 中加上 &amp;amp;lo">
-<meta property="og:updated_time" content="2016-04-21T03:20:03.671Z">
+<meta property="og:description" content="這裡紀錄個人的一些日常心得">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Facebook Graph API 回傳指定語言/地區化姓名">
-<meta name="twitter:description" content="玩 Facebook Graph API 玩了一陣子才發現回傳的姓名總是是英文的，才想到若是有回傳中文姓名的需求時該怎麼辦，如此下去一找才發現關鍵字是 Language-specific name，而要如何在 Facebook Graph API 中顯示為中文則可以參考這篇中的 locale：Modifying API Requests。
-其實只要在 API request 中加上 &amp;amp;lo">
+<meta name="twitter:title" content="北風筆記">
+<meta name="twitter:description" content="這裡紀錄個人的一些日常心得">
   
     <link rel="alternative" href="/blog/atom.xml" title="北風筆記" type="application/atom+xml">
   
@@ -80,77 +76,39 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-facebook-graph-api-returns-language-specific-name" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/" class="article-date">
-  <time datetime="2015-07-12T10:49:43.000Z" itemprop="datePublished">2015-07-12</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/study/">study</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+        <section id="main">
   
-    <h1 class="article-title" itemprop="name">
-      Facebook Graph API 回傳指定語言/地區化姓名
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/blog/archives/2016" class="archive-year">2016</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/blog/2016/04/21/Google-Web-Speech-API-continous-recording/" class="archive-article-date">
+  <time datetime="2016-04-21T02:06:51.000Z" itemprop="datePublished">Apr 21</time>
+</a>
+      
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/blog/2016/04/21/Google-Web-Speech-API-continous-recording/">Google Web Speech API 語音辨識 持續收音</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>玩 Facebook Graph API 玩了一陣子才發現回傳的姓名總是是英文的，才想到若是有回傳中文姓名的需求時該怎麼辦，如此下去一找才發現關鍵字是 <a href="https://www.facebook.com/help/217868321565724" target="_blank" rel="external">Language-specific name</a>，而要如何在 Facebook Graph API 中顯示為中文則可以參考這篇中的 locale：<a href="https://developers.facebook.com/docs/graph-api/using-graph-api/v2.0#readmodifiers" target="_blank" rel="external">Modifying API Requests</a>。</p>
-<p>其實只要在 API request 中加上 <code>&amp;locale=zh_TW</code> 即可得到中文姓名，如：<code>me?fields=id,name&amp;locale=zh_TW</code>，只是有趣的是我稍微測了一下 locale 給以開頭 <code>en_</code> 以外的任何值都會取得中文名稱，還以為預設會以英文為主。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/" data-id="cin9q0klb001p8ofvf7bhac6s" class="article-share-link">Share</a>
-      
-        <a href="http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Facebook/">Facebook</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Facebook-Graph-API/">Facebook-Graph-API</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/localization/">localization</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/blog/2015/08/25/facebook-graph-api-get-picture/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Facebook Graph API 取得大頭貼照
-        
-      </div>
-    </a>
-  
-  
-    <a href="/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">使用 Parse.com Cloud Code Hosting 進行 Facebook 登入存取 3</div>
-    </a>
-  
-</nav>
-
-  
 </article>
-
-
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
+  
+  
+    </div></section>
+  
 </section>
         
           <aside id="sidebar">
@@ -246,13 +204,11 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'ssk7833';
   
-  var disqus_url = 'http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/';
-  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>

@@ -78,6 +78,65 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-Google-Web-Speech-API-continous-recording" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2016/04/21/Google-Web-Speech-API-continous-recording/" class="article-date">
+  <time datetime="2016-04-21T02:06:51.000Z" itemprop="datePublished">2016-04-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/study/">study</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2016/04/21/Google-Web-Speech-API-continous-recording/">Google Web Speech API 語音辨識 持續收音</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Google 的 web speech API 已經推出一段時間了，最近剛好有機會來試試。<br>Web speech API 的操作並不困難，基本上就是 <code>var recognition = new webkitSpeechRecognition();</code>，可以在下方參考資料中看到相關原始碼，唯獨我預設的需求是必須可持續收音，因使用者可能是在不適合任何物理碰觸的環境下操作，所以鍵盤滑鼠及觸控螢幕皆不適合在此當作 input 來源。然而 web speech API 的持續收音 <code>recognition.continuous = true;</code> 若發現麥克風閒置太長的話，一樣會自動停止收音，因此還是要再重新觸發 <code>recognition.start();</code>，所幸我就將 <code>recognition.start();</code> 寫到 <code>onend</code> event handler，天真的以為這樣就解決問題了。</p>
+<p><img src="/blog/images/allowMicrophone.png" alt="要求使用麥克風" title="要求使用麥克風"><br>當每次收音結束後又重新觸發開始時，就會跳出這個允許授權的視窗，而當然此時是不能收音的，可以在下方範例體驗一下。</p>
+<iframe height="300" scrolling="no" src="http://codepen.io/ssk7833/embed/YqepJb/?height=300&theme-id=0&default-tab=js,result&embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="http://codepen.io/ssk7833/pen/YqepJb/" target="_blank" rel="external">Web Speech API Demo</a> by North (<a href="http://codepen.io/ssk7833" target="_blank" rel="external">@ssk7833</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.<br></iframe>
+
+<p>經過一番查證後，發現其實這個問題也不算問題，只是因為 chrome 要求安全性而在 http 上做出每次收音前都須要先確認允許才行，若是使用 https 的話只要允許過第一次後就再也不會詢問了。</p>
+<iframe height="300" scrolling="no" src="https://codepen.io/ssk7833/embed/YqepJb/?height=300&theme-id=0&default-tab=js,result&embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="https://codepen.io/ssk7833/pen/YqepJb/" target="_blank" rel="external">Web Speech API Demo</a> by North (<a href="http://codepen.io/ssk7833" target="_blank" rel="external">@ssk7833</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.<br></iframe>
+
+<p>允許之後就可以在麥克風例外狀況中看到已經預設允許的清單，在此清單中被允許的就再也不會跳出詢問視窗了，而 localhost 也是在允許範圍內，因此就可以做出很多有趣的事情了！<br><img src="/blog/images/microphoneExceptions.png" alt="麥克風例外狀況" title="麥克風例外狀況"></p>
+<p>使用上的話，目前好像也沒看到什麼限制，也沒找到限制相關的文件，自己親自掛了好幾小時也還是活得好好的。</p>
+<p>參考資料：</p>
+<ol>
+<li><a href="https://developers.google.com/web/updates/2013/01/Voice-Driven-Web-Apps-Introduction-to-the-Web-Speech-API" target="_blank" rel="external">Voice Driven Web Apps: Introduction to the Web Speech API</a></li>
+<li><a href="https://www.google.com/intl/en/chrome/demos/speech.html" target="_blank" rel="external">Web Speech API Demonstration</a></li>
+<li><a href="http://www.oxxostudio.tw/articles/201509/web-speech-api.html" target="_blank" rel="external">Google 語音辨識 API</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ssk7833.github.io/blog/2016/04/21/Google-Web-Speech-API-continous-recording/" data-id="cin9q0kjz00058ofvt6pvnbrl" class="article-share-link">Share</a>
+      
+        <a href="http://ssk7833.github.io/blog/2016/04/21/Google-Web-Speech-API-continous-recording/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/web-speech-API/">web speech API</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-parse-server-push-notification-APNS" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2016/04/19/parse-server-push-notification-APNS/" class="article-date">
@@ -147,7 +206,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/04/19/parse-server-push-notification-APNS/" data-id="cin755fo500058jfjbpfx072w" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/04/19/parse-server-push-notification-APNS/" data-id="cin9q0kk8000b8ofvjmngxj7s" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/04/19/parse-server-push-notification-APNS/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -238,7 +297,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/" data-id="cin755foa000f8jfj82bbz6o3" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/" data-id="cin9q0kkg000l8ofvizn5shag" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -284,7 +343,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/" data-id="cin755foe000n8jfjyqmbqf08" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/" data-id="cin9q0kkm000t8ofv45v7u9tf" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -407,97 +466,12 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/" data-id="cin755fok000v8jfjk2r81f9c" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/" data-id="cin9q0kkt00118ofvcn7nwy24" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/SVG/">SVG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/gooey/">gooey</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-using-TravisCI-to-deploy-on-GitHub-pages" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/" class="article-date">
-  <time datetime="2016-01-21T08:23:05.000Z" itemprop="datePublished">2016-01-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/study/">study</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/">使用 Travis CI 自動部署 GitHub Pages</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>先前看到了<a href="https://samkuo.me/post/2015/09/why-developers-should-have-a-blog/" target="_blank" rel="external">程式人就該有個部落格</a>，想想這個主意不錯，之前有在 Blogger 及 Logdown 零星寫了幾篇文章，也曾經想過自己架靜態或動態網站，只是一直沒有去做，看完這篇讓我更有動力去做這件事。研究一陣子後我選擇直接利用 Github pages 來發佈網站，於是開始調查 <a href="https://www.staticgen.com/" target="_blank" rel="external">StaticGen</a> 上排名較高的幾個，而最後挑選了 <a href="https://hexo.io" target="_blank" rel="external">Hexo</a>：是台灣人寫的，而且是 javascript。</p>
-<p>自己完成 Hexo 初步設定，產生第一版頁面後不久就遇到兩個問題：</p>
-<ol>
-<li>能不能將每次都要發佈的這個動作自動化。</li>
-<li>如果我換到其他電腦上，而其他電腦可能沒有 Hexo 時會很不方便，可能要選擇安裝一次 node.js 及 hexo，甚至根本沒安裝權限；若是能直接利用 GitHub 線上編輯 markdown 文件就能產生的話有多棒。</li>
-</ol>
-<p>因為這兩點，我決定開始我的 Travis CI 初體驗。</p>
-<h2 id="關於-Travis-CI"><a href="#關於-Travis-CI" class="headerlink" title="關於 Travis CI"></a>關於 Travis CI</h2><p>簡單來說，持續整合 (Continuous integration，縮寫為 CI)是在開發過程中，有任何變更都自動且持續的整合到目前的版本中。整合包含測試及發佈，可根據自訂的測試內容產生可視化的結果，方便開發人員快速找到問題所在，並且在測試通過後自動執行已撰寫的腳本，以達到自動發佈的功能。要達到持續整合，需有一個伺服器專門監聽程式版本的改動，一旦有變動就執行事先撰寫的測試及部署腳本。</p>
-<p>Travis CI 提供在 GitHub 上的任何公開的 repo 都可以免費的使用 CI 服務，Travis CI 與 GitHub 的適性很好（也只提供使用 GitHub 帳號登入），廣受 GitHub 上使用，因此在這裡也使用 Travis CI 所提供的服務來產生靜態網站。</p>
-<p>初次接觸 CI 可以先從官方提供的範例檔開始：<a href="https://docs.travis-ci.com/user/for-beginners" target="_blank" rel="external">Travis CI for Complete Beginners</a>，以便能有一些基礎概念，接著再開始挑選 <a href="https://docs.travis-ci.com/user/getting-started/" target="_blank" rel="external">Getting started</a> 中的項目學習設定與操作。</p>
-<p>我的目標很明確，想要弄出在同一個 repo 下，一個 branch 是放 source code 的 master，另一個 branch 則是發佈用的 gh-pages。每當我 master 有更新時 gh-pages 也會自動透過 Travis CI 更新，如下圖，經過幾次測試後終於成功，最後 branch 的點呈現交錯成長：</p>
-<p><img src="/blog/images/sourceTree.png" alt="branch" title="branch"></p>
-<h2 id="給予-Travis-CI-push-的權限"><a href="#給予-Travis-CI-push-的權限" class="headerlink" title="給予 Travis CI push 的權限"></a>給予 Travis CI push 的權限</h2><p>由於發佈到 gh-pages 要交給 Travis CI 處理，需要 GitHub 帳號的驗證，而在 public repo 下不可能直接把密碼直接放在 source 中，因此在這裡選擇 GitHub 所提供的 <a href="https://github.com/settings/tokens" target="_blank" rel="external">Personal access tokens</a> 來處理權限的問題，用 Personal access token 的好處在於是個人創建的，可以隨時刪除 token 以取消存取權限，再加上 Travis CI 在文件中提到的 <a href="https://docs.travis-ci.com/user/encryption-keys/" target="_blank" rel="external">Encryption keys</a> 來處理敏感資料，通過環境變數的方式傳遞給腳本，以避免密碼及 token 公開出來。</p>
-<p>首先先產生一個 access token，因為目的只有讓 Travis CI 可以讀取 public repo，因此勾選 public repo 即可。</p>
-<p><img src="/blog/images/personalAccessToken.png" alt="personal access token" title="personal access token"></p>
-<p>接著先將產生的 token 妥善複製，未來只能 regenerate 一組新的 token，再也無法從 GitHub 調出目前這組。</p>
-<p><img src="/blog/images/generatedToken.png" alt="generated token" title="generated token"></p>
-<p>接著利用 Travis CLI 來處理敏感資料，較方便的方式是利用 ruby 的 gem 來安裝 Travis CLI：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem <span class="keyword">install</span> travis</span><br></pre></td></tr></table></figure>
-<p>安裝完畢後，接著到想設定 Travis CI 的 repo 目錄中執行 <code>travis login</code> 來驗證身分，之後執行 <code>travis init</code>，會先詢問使用的語言，且產生 <code>.travis.yml</code>，接著在同一目錄下執行此指令，記得將 <code>&lt;Personal Access Token&gt;</code> 取代成先前複製的那組：</p>
-<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">travis encrypt <span class="attribute">'GIT_NAME</span>=<span class="string">"North"</span> GIT_EMAIL=ssk7833@gmail.com GH_TOKEN=&lt;Personal <span class="keyword">Access</span> Token&gt;' <span class="comment">--add</span></span><br></pre></td></tr></table></figure>
-<p>即可看到在 .travis.yml 中多了</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">env</span>:</span><br><span class="line">  <span class="attribute">global</span>:</span><br><span class="line">    <span class="attribute">secrue</span>: <span class="string">"long secure base64 string"</span></span><br></pre></td></tr></table></figure>
-<p>這一串將在每次 CI 進行時設定環境變數，這邊環境變數即可在接下來的腳本中使用。</p>
-<h2 id="設定-travis-yml-檔"><a href="#設定-travis-yml-檔" class="headerlink" title="設定 .travis.yml 檔"></a>設定 .travis.yml 檔</h2><p>編輯 .travis.yml 前，可以先閱讀一下 Travis CI 的 <a href="https://docs.travis-ci.com/user/customizing-the-build/" target="_blank" rel="external">Build Lifecycle</a>，以下是我粗略的設定：</p>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">language</span>: <span class="string">node_js</span></span><br><span class="line"></span><br><span class="line"><span class="haml">node_js:</span><br><span class="line">  -<span class="ruby"> <span class="string">"4.0"</span></span><br><span class="line"></span></span><br><span class="line">env:</span><br><span class="line">  global:</span><br><span class="line">    secure:  "long secure base64 string"</span><br><span class="line"></span><br><span class="line">install:</span><br><span class="line">  -<span class="ruby"> npm install</span><br><span class="line"></span></span><br><span class="line">script:</span><br><span class="line">  # Set Git config</span><br><span class="line">  -<span class="ruby"> git config --global user.name <span class="string">"$GIT_NAME"</span></span><br><span class="line"></span>  -<span class="ruby"> git config --global user.email <span class="string">"$GIT_EMAIL"</span></span><br><span class="line"></span>  -<span class="ruby"> git config --global push.default simple</span><br><span class="line"></span>  -<span class="ruby"> git clone --depth <span class="number">1</span> --branch gh-pages <span class="symbol">https:</span>/<span class="regexp">/$GH_TOKEN@github.com/ssk</span>7833/blog public</span><br><span class="line"></span>  # Generate Hexo static pages</span><br><span class="line">  -<span class="ruby"> npm run generate</span><br><span class="line"></span>  -<span class="ruby"> cd public</span><br><span class="line"></span>  -<span class="ruby"> git add -<span class="constant">A</span> .</span><br><span class="line"></span>  -<span class="ruby"> <span class="constant">MESSAGE</span>=<span class="string">`date +\ %Y-%m-%d\ %H:%M:%S`</span></span><br><span class="line"></span>  -<span class="ruby"> git commit -m <span class="string">"Site updated:$MESSAGE"</span></span><br><span class="line"></span>  -<span class="ruby"> git push --quiet</span></span></span><br></pre></td></tr></table></figure>
-<p>node.js 的套件 dependencies 都已先用 package.json 存下，因此在 install 的部分只需使用 npm install；在 script 中完成部分指令，但因為沒特殊需求，只有設定 git 及產生靜態頁面，因此讓它一路到底。</p>
-<p><strong>注意：git push 時一定要加 <code>--quiet</code>，否則先前設定的 Personal Access Token 將會印出，這樣就失去加密意義了。</strong></p>
-<p>結果可以在 Travis CI 的網頁上看到，可以瀏覽各次的狀況，像我最近的 <a href="https://travis-ci.org/ssk7833/blog/builds/101307260" target="_blank" rel="external">push 結果</a>及先前測試的<a href="https://travis-ci.org/ssk7833/blog/builds/100311173" target="_blank" rel="external">失敗結果</a>都可以在 Build history 中瀏覽到。</p>
-<h2 id="在-GitHub-上發佈／編輯"><a href="#在-GitHub-上發佈／編輯" class="headerlink" title="在 GitHub 上發佈／編輯"></a>在 GitHub 上發佈／編輯</h2><p>若是設定無誤，接下來要發佈或編輯文章即可直接利用 GitHub 網頁版來作編輯，不需要擔心作業系統沒有安裝相關環境而無法發佈或編輯文章囉！</p>
-<p><img src="/blog/images/editPost.png" alt="edit post" title="edit post"></p>
-<p><strong>UPDATE：</strong>發現 Travis CI 發佈的結果可能會跟實際時間對不起來，如圖：</p>
-<p><img src="/blog/images/TZIncorrect.png" alt="time zone incorrect" title="time zone incorrect"></p>
-<p>後來發現是因為我在 Hexo 中設定了時區為 Asia/Taipei，而 Travis CI 所提供的機器時區不一樣而造成的，將 Travis CI 一樣設定為 Asia/Taipei 即可解決問題。</p>
-<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">before_install:</span><br><span class="line"></span>  - <span class="preprocessor">export</span> TZ<span class="label">=Asia</span>/Taipei</span><br></pre></td></tr></table></figure>
-<p>這是我最後的 <a href="https://github.com/ssk7833/blog/blob/master/.travis.yml" target="_blank" rel="external">.travis.yml 設定</a>。</p>
-<p>參考資料：</p>
-<ol>
-<li><a href="https://farseerfc.me/zhs/travis-push-to-github-pages-blog.html" target="_blank" rel="external">用 Travis-CI 生成 Github Pages 博客 </a></li>
-<li><a href="http://changyuheng.me/2015/when-hexo-static-site-meets-github-pages-and-travis-ci/" target="_blank" rel="external">When Hexo Meets GitHub Pages and Travis CI plus Raspberry Pi</a></li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/" data-id="cin755foq00128jfjvjl39m9z" class="article-share-link">Share</a>
-      
-        <a href="http://ssk7833.github.io/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/gf-pages/">gf-pages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/travis-ci/">travis ci</a></li></ul>
 
     </footer>
   </div>
@@ -519,7 +493,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/study/">study</a><span class="category-list-count">12</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/study/">study</a><span class="category-list-count">13</span></li></ul>
     </div>
   </div>
 
@@ -528,7 +502,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/APNS/">APNS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook/">Facebook</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook-Graph-API/">Facebook-Graph-API</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-server/">Parse server</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SASS/">SASS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SCSS/">SCSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SVG/">SVG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gf-pages/">gf-pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gooey/">gooey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/localization/">localization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/node-js/">node.js</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/push-notification/">push notification</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/shell-script/">shell script</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/travis-ci/">travis ci</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/APNS/">APNS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook/">Facebook</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook-Graph-API/">Facebook-Graph-API</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-server/">Parse server</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SASS/">SASS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SCSS/">SCSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SVG/">SVG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gf-pages/">gf-pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gooey/">gooey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/localization/">localization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/node-js/">node.js</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/push-notification/">push notification</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/shell-script/">shell script</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/travis-ci/">travis ci</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/web-speech-API/">web speech API</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -537,7 +511,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/APNS/" style="font-size: 10px;">APNS</a> <a href="/blog/tags/CSS/" style="font-size: 13.33px;">CSS</a> <a href="/blog/tags/CloudCode/" style="font-size: 16.67px;">CloudCode</a> <a href="/blog/tags/Facebook/" style="font-size: 20px;">Facebook</a> <a href="/blog/tags/Facebook-Graph-API/" style="font-size: 13.33px;">Facebook-Graph-API</a> <a href="/blog/tags/Parse-server/" style="font-size: 13.33px;">Parse server</a> <a href="/blog/tags/Parse-com/" style="font-size: 16.67px;">Parse.com</a> <a href="/blog/tags/SASS/" style="font-size: 10px;">SASS</a> <a href="/blog/tags/SCSS/" style="font-size: 10px;">SCSS</a> <a href="/blog/tags/SVG/" style="font-size: 10px;">SVG</a> <a href="/blog/tags/gf-pages/" style="font-size: 10px;">gf-pages</a> <a href="/blog/tags/gooey/" style="font-size: 10px;">gooey</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/blog/tags/localization/" style="font-size: 10px;">localization</a> <a href="/blog/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/blog/tags/push-notification/" style="font-size: 10px;">push notification</a> <a href="/blog/tags/shell-script/" style="font-size: 10px;">shell script</a> <a href="/blog/tags/travis-ci/" style="font-size: 10px;">travis ci</a>
+      <a href="/blog/tags/APNS/" style="font-size: 10px;">APNS</a> <a href="/blog/tags/CSS/" style="font-size: 13.33px;">CSS</a> <a href="/blog/tags/CloudCode/" style="font-size: 16.67px;">CloudCode</a> <a href="/blog/tags/Facebook/" style="font-size: 20px;">Facebook</a> <a href="/blog/tags/Facebook-Graph-API/" style="font-size: 13.33px;">Facebook-Graph-API</a> <a href="/blog/tags/Parse-server/" style="font-size: 13.33px;">Parse server</a> <a href="/blog/tags/Parse-com/" style="font-size: 16.67px;">Parse.com</a> <a href="/blog/tags/SASS/" style="font-size: 10px;">SASS</a> <a href="/blog/tags/SCSS/" style="font-size: 10px;">SCSS</a> <a href="/blog/tags/SVG/" style="font-size: 10px;">SVG</a> <a href="/blog/tags/gf-pages/" style="font-size: 10px;">gf-pages</a> <a href="/blog/tags/gooey/" style="font-size: 10px;">gooey</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 13.33px;">javascript</a> <a href="/blog/tags/localization/" style="font-size: 10px;">localization</a> <a href="/blog/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/blog/tags/push-notification/" style="font-size: 10px;">push notification</a> <a href="/blog/tags/shell-script/" style="font-size: 10px;">shell script</a> <a href="/blog/tags/travis-ci/" style="font-size: 10px;">travis ci</a> <a href="/blog/tags/web-speech-API/" style="font-size: 10px;">web speech API</a>
     </div>
   </div>
 
@@ -546,7 +520,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/04/">April 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/03/">March 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/01/">January 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/07/">July 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2011/01/">January 2011</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/04/">April 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/03/">March 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/01/">January 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/07/">July 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2011/01/">January 2011</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -556,6 +530,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2016/04/21/Google-Web-Speech-API-continous-recording/">Google Web Speech API 語音辨識 持續收音</a>
+          </li>
         
           <li>
             <a href="/blog/2016/04/19/parse-server-push-notification-APNS/">Parse Server APNS(iOS) 推播通知設定</a>
@@ -571,10 +549,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/blog/2016/03/09/implement-gooey-effect/">實作 gooey 膠粘效果</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/">使用 Travis CI 自動部署 GitHub Pages</a>
           </li>
         
       </ul>
