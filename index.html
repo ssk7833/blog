@@ -105,10 +105,8 @@ ga('send', 'pageview');
     <div class="article-entry" itemprop="articleBody">
       
         <p>Google 的 web speech API 已經推出一段時間了，最近剛好有機會來試試。<br>Web speech API 的操作並不困難，基本上就是 <code>var recognition = new webkitSpeechRecognition();</code>，可以在下方參考資料中看到相關原始碼，唯獨我預設的需求是必須可持續收音，因使用者可能是在不適合任何物理碰觸的環境下操作，所以鍵盤滑鼠及觸控螢幕皆不適合在此當作 input 來源。然而 web speech API 的持續收音 <code>recognition.continuous = true;</code> 若發現麥克風閒置太長的話，一樣會自動停止收音，因此還是要再重新觸發 <code>recognition.start();</code>，所幸我就將 <code>recognition.start();</code> 寫到 <code>onend</code> event handler，天真的以為這樣就解決問題了。</p>
-<p><img src="/blog/images/allowMicrophone.png" alt="要求使用麥克風" title="要求使用麥克風"><br>當每次收音結束後又重新觸發開始時，就會跳出這個允許授權的視窗，而當然此時是不能收音的，可以在下方範例體驗一下。</p>
-<iframe height="300" scrolling="no" src="http://codepen.io/ssk7833/embed/YqepJb/?height=300&theme-id=0&default-tab=js,result&embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="http://codepen.io/ssk7833/pen/YqepJb/" target="_blank" rel="external">Web Speech API Demo</a> by North (<a href="http://codepen.io/ssk7833" target="_blank" rel="external">@ssk7833</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.<br></iframe>
-
-<p>經過一番查證後，發現其實這個問題也不算問題，只是因為 chrome 要求安全性而在 http 上做出每次收音前都須要先確認允許才行，若是使用 https 的話只要允許過第一次後就再也不會詢問了。</p>
+<p><img src="/blog/images/allowMicrophone.png" alt="要求使用麥克風" title="要求使用麥克風"><br>當每次收音結束後又重新觸發開始時，就會跳出這個允許授權的視窗，而當然此時是不能收音的，可以在此<a href="http://codepen.io/ssk7833/pen/YqepJb" target="_blank" rel="external">範例</a>體驗一下。</p>
+<p>經過一番查證後，發現其實這個問題也不算問題，只是因為 chrome 要求安全性而在 http 上做出每次收音前都須要先確認允許才行，若是使用 https 的話只要允許過第一次後就再也不會詢問了，下方範例即是上方同一個範例的 https 版本。</p>
 <iframe height="300" scrolling="no" src="https://codepen.io/ssk7833/embed/YqepJb/?height=300&theme-id=0&default-tab=js,result&embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="https://codepen.io/ssk7833/pen/YqepJb/" target="_blank" rel="external">Web Speech API Demo</a> by North (<a href="http://codepen.io/ssk7833" target="_blank" rel="external">@ssk7833</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.<br></iframe>
 
 <p>允許之後就可以在麥克風例外狀況中看到已經預設允許的清單，在此清單中被允許的就再也不會跳出詢問視窗了，而 localhost 也是在允許範圍內，因此就可以做出很多有趣的事情了！<br><img src="/blog/images/microphoneExceptions.png" alt="麥克風例外狀況" title="麥克風例外狀況"></p>
@@ -123,7 +121,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/04/21/Google-Web-Speech-API-continous-recording/" data-id="cin9q0kjz00058ofvt6pvnbrl" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/04/21/Google-Web-Speech-API-continous-recording/" data-id="cin9qblr600058jh4jcve31oq" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/04/21/Google-Web-Speech-API-continous-recording/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -206,7 +204,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/04/19/parse-server-push-notification-APNS/" data-id="cin9q0kk8000b8ofvjmngxj7s" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/04/19/parse-server-push-notification-APNS/" data-id="cin9qblra000b8jh4awra2nh7" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/04/19/parse-server-push-notification-APNS/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -297,7 +295,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/" data-id="cin9q0kkg000l8ofvizn5shag" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/" data-id="cin9qblrg000l8jh4attcah2n" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -343,7 +341,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/" data-id="cin9q0kkm000t8ofv45v7u9tf" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/" data-id="cin9qblrk000t8jh4l1zixjei" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -466,7 +464,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/" data-id="cin9q0kkt00118ofvcn7nwy24" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/" data-id="cin9qblrq00118jh4uy6nf23b" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/#disqus_thread" class="article-comment-link">Comments</a>
       
