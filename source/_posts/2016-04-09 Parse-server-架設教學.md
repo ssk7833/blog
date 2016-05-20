@@ -20,12 +20,12 @@ permalink: setup-parse-server
 
 ## 架設 Parse Server
 1. 先從 GitHub 上抓一份 parse-server-example 下來。
-  ```
+  ```bash
   $ git clone https://github.com/ParsePlatform/parse-server-example.git --depth 1
   ```
 
 2. 將必要的模組裝上。
-  ```
+  ```bash
   $ npm install
   ```
 
@@ -47,35 +47,35 @@ permalink: setup-parse-server
   ```
 
 4. 到這裡可以先執行看看。
-  ```
+  ```bash
   $ npm run start
   ```
   此時 Parse API 預設會掛在 http://localhost:1337/parse/ 下，有兩種方式可以測試是否運作正常：
   1. 直接到第五步驟，利用此包程式碼中的範例網頁來測試。
   2.  `curl` 來測試 Parse 的 REST API 是否正常運作，`X-Parse-Application-Id` 需改成在 `index.js` 中設定的 `appId`。
 
-  ```
+  ```bash
   curl -X POST \
-  -H "X-Parse-Application-Id: 7c6a1d1470fed0313b5044c4eb83def0" \
-  -H "Content-Type: application/json" \
-  -d '{"score":1337,"playerName":"Sean Plott","cheatMode":false}' \
-  http://localhost:1337/parse/classes/GameScore
+    -H "X-Parse-Application-Id: 7c6a1d1470fed0313b5044c4eb83def0" \
+    -H "Content-Type: application/json" \
+    -d '{"score":1337,"playerName":"Sean Plott","cheatMode":false}' \
+    http://localhost:1337/parse/classes/GameScore
   ```
   若正常無誤會得到以下類似的結果：
-  ```
+  ```javascript
   {
     "objectId": "CT8BWvZ8Fi",
     "createdAt": "2016-04-08T02:55:57.802Z"
   }
   ```
   取值可利用以下指令來測試，`GameScore` 後面需加上剛剛回傳的 `objectId`：
-  ```
+  ```bash
   curl -X GET \
     -H "X-Parse-Application-Id: 7c6a1d1470fed0313b5044c4eb83def0" \
     http://localhost:1337/parse/classes/GameScore/CT8BWvZ8Fi
   ```
   正常的話即可拿回上一步所傳的內容：
-  ```
+  ```javascript
   {
     "objectId": "CT8BWvZ8Fi",
     "score": 1337,
