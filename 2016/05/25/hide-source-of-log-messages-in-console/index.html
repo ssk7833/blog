@@ -3,19 +3,25 @@
 <head>
   <meta charset="utf-8">
   
-  <title>使用 Parse.com Cloud Code Hosting 進行 Facebook 登入存取 1 | 北風筆記</title>
+  <title>隱藏 console 中的 source 來源 | 北風筆記</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Parse.com 在 javascript SDK 中提供了使用者的存取，其中包含 Facebook 的整合，但 javascript 終究是前端，有些不想讓 client end知道的還是放在後端處理比較好。然而 Parse.com 所提供的 cloud code 所使用的目前雖是 node.js，會讓開發者很想直接把 javascript SDK 的 Facebook 部分塞進去看能不能跑，">
+  <meta name="description" content="先前有發現 Facebook 在開發人員工具的 console 中最右邊不會顯示 log 的來源行數，覺得神奇，但並沒有深入了解如何實作此效果。而最近看到有人提問同樣的問題，同樣以 Facebook 的 console 為例來發問，激起了我的求知慾望。
+單純要查到此功能似乎不難，剛好在四個月前有人在 stackoverflow 問了同樣的問題，而方法就是利用下方寫法即可：1setTimeout(c">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用 Parse.com Cloud Code Hosting 進行 Facebook 登入存取 1">
-<meta property="og:url" content="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/index.html">
+<meta property="og:title" content="隱藏 console 中的 source 來源">
+<meta property="og:url" content="http://ssk7833.github.io/blog/2016/05/25/hide-source-of-log-messages-in-console/index.html">
 <meta property="og:site_name" content="北風筆記">
-<meta property="og:description" content="Parse.com 在 javascript SDK 中提供了使用者的存取，其中包含 Facebook 的整合，但 javascript 終究是前端，有些不想讓 client end知道的還是放在後端處理比較好。然而 Parse.com 所提供的 cloud code 所使用的目前雖是 node.js，會讓開發者很想直接把 javascript SDK 的 Facebook 部分塞進去看能不能跑，">
-<meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/userSessions.png">
+<meta property="og:description" content="先前有發現 Facebook 在開發人員工具的 console 中最右邊不會顯示 log 的來源行數，覺得神奇，但並沒有深入了解如何實作此效果。而最近看到有人提問同樣的問題，同樣以 Facebook 的 console 為例來發問，激起了我的求知慾望。
+單純要查到此功能似乎不難，剛好在四個月前有人在 stackoverflow 問了同樣的問題，而方法就是利用下方寫法即可：1setTimeout(c">
+<meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/2016-05-25-hide-source-of-log-messages-in-console/01.png">
+<meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/2016-05-25-hide-source-of-log-messages-in-console/02.png">
+<meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/2016-05-25-hide-source-of-log-messages-in-console/03.png">
+<meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/2016-05-25-hide-source-of-log-messages-in-console/04.png">
 <meta property="og:updated_time" content="2016-05-25T07:06:10.957Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用 Parse.com Cloud Code Hosting 進行 Facebook 登入存取 1">
-<meta name="twitter:description" content="Parse.com 在 javascript SDK 中提供了使用者的存取，其中包含 Facebook 的整合，但 javascript 終究是前端，有些不想讓 client end知道的還是放在後端處理比較好。然而 Parse.com 所提供的 cloud code 所使用的目前雖是 node.js，會讓開發者很想直接把 javascript SDK 的 Facebook 部分塞進去看能不能跑，">
+<meta name="twitter:title" content="隱藏 console 中的 source 來源">
+<meta name="twitter:description" content="先前有發現 Facebook 在開發人員工具的 console 中最右邊不會顯示 log 的來源行數，覺得神奇，但並沒有深入了解如何實作此效果。而最近看到有人提問同樣的問題，同樣以 Facebook 的 console 為例來發問，激起了我的求知慾望。
+單純要查到此功能似乎不難，剛好在四個月前有人在 stackoverflow 問了同樣的問題，而方法就是利用下方寫法即可：1setTimeout(c">
   
     <link rel="alternative" href="/blog/atom.xml" title="北風筆記" type="application/atom+xml">
   
@@ -78,10 +84,10 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-hide-source-of-log-messages-in-console" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/" class="article-date">
-  <time datetime="2015-06-20T14:13:10.000Z" itemprop="datePublished">2015-06-20</time>
+    <a href="/blog/2016/05/25/hide-source-of-log-messages-in-console/" class="article-date">
+  <time datetime="2016-05-25T07:02:30.000Z" itemprop="datePublished">2016-05-25</time>
 </a>
     
   <div class="article-category">
@@ -96,7 +102,7 @@ ga('send', 'pageview');
         
   
     <h1 class="article-title" itemprop="name">
-      使用 Parse.com Cloud Code Hosting 進行 Facebook 登入存取 1
+      隱藏 console 中的 source 來源
     </h1>
   
 
@@ -104,24 +110,35 @@ ga('send', 'pageview');
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="http://parse.com/" target="_blank" rel="external">Parse.com</a> 在 <a href="https://parse.com/docs/tw/js/guide" target="_blank" rel="external">javascript SDK</a> 中提供了使用者的存取，其中包含 Facebook 的整合，但 javascript 終究是前端，有些不想讓 client end知道的還是放在後端處理比較好。然而 Parse.com 所提供的 cloud code 所使用的目前雖是 node.js，會讓開發者很想直接把 javascript SDK 的 Facebook 部分塞進去看能不能跑，乍看之下很合理，但實際上就是不行，因為以 Parse.com Javascript SDK在要求登入時會跳出另一個瀏覽器視窗以要求登入 Facebook 及權限給予，而這個視窗當然沒有辦法在 server end 中呈現並要求 client end 進行認證。</p>
-<p>在官方論壇上也有人發表過此問題：<a href="https://www.parse.com/questions/interacting-with-the-facebook-api-in-cloud-code" target="_blank" rel="external">Interacting with the Facebook API in Cloud Code</a><br>所得到的回答是：<br><strong>Unfortunately, the Facebook JavaScript SDK is not made to work outside of a browser, so using it directly from Cloud Code is not supported at the moment.</strong></p>
-<p><strong>You can, however, get the authData from the current user in cloud code and use that to make a REST call to Facebook’s graph API manually.</strong></p>
-<p>因此我轉而研究使用OAuth方式來登入Facebook，除了跳轉出的頁面比較美觀外（不會產生另一個瀏覽器視窗），也不用擔心暴露資訊給clent end，參考資料有這兩篇：<br><a href="http://sweeteason.pixnet.net/blog/post/40581580-%E7%B6%B2%E7%AB%99%E5%88%A9%E7%94%A8-facebook-%E5%B8%B3%E8%99%9F%E7%99%BB%E5%85%A5-%28%E4%BD%BF%E7%94%A8-oauth%29" target="_blank" rel="external">網站利用 Facebook 帳號登入 (使用 OAuth)</a><br><a href="https://gigenchang.wordpress.com/2014/01/26/10%E5%88%86%E9%90%98%E7%90%86%E8%A7%A3oauth%E5%92%8Cfacebook%E7%99%BB%E5%85%A5%E5%8E%9F%E7%90%86/" target="_blank" rel="external">10分鐘理解OAuth和facebook登入原理</a><br>這篇以python Django framework實作，其實看code好像也蠻容易理解的：<a href="http://nthn.me/posts/2012/facebook-registration.html" target="_blank" rel="external">Ghetto Facebook Registration with Django</a></p>
-<p>後來正當我開始打算實作時，我找到了 <a href="https://github.com/ParsePlatform/parse-facebook-user-session" target="_blank" rel="external">parse-facebook-user-session</a> ，原來 Parse.com 早就把這個寫好了，根本不用自己去寫了，只需要按照他的說明一步一步來就行了（吧）！</p>
-<p>結果證明事情果然不是我想的這麼簡單，不管怎麼弄就是跳出 <strong>209 invalid session token</strong> ，花了一段時間後找到 Parse.com 自己發的文章 <a href="https://www.parse.com/tutorials/session-migration-tutorial" target="_blank" rel="external">Session Migration Tutorial</a> ，才知道把這個選項關掉就行了，我花了這麼久到底在幹麻！</p>
-<p><img src="/blog/images/userSessions.png" alt="User sessions" title="User sessions"><br>總之，關閉這個選項後就成功了， Parse.com 的資料庫也會成功紀錄登入過的使用者，事情完成一半，其餘的就是登入的使用者資料該怎麼讀取出來了～</p>
-<p><strong>UPDATE：</strong>在GitHub上新增了 <a href="https://loginexample.parseapp.com/" target="_blank" rel="external">demo</a>：<a href="https://github.com/ssk7833/Parse-Facebook-OAuth-login-example" target="_blank" rel="external">GitHub</a></p>
+        <p>先前有發現 Facebook 在開發人員工具的 console 中最右邊不會顯示 log 的來源行數，覺得神奇，但並沒有深入了解如何實作此效果。而最近看到有人提問同樣的問題，同樣以 Facebook 的 console 為例來發問，激起了我的求知慾望。<br><img src="/blog/images/2016-05-25-hide-source-of-log-messages-in-console/01.png" alt="Facebook 的 console，最右端沒顯示來源" title="Facebook 的 console，最右端沒顯示來源"><br><img src="/blog/images/2016-05-25-hide-source-of-log-messages-in-console/02.png" alt="正常呼叫 console.log 時，最右端會顯示來源" title="正常呼叫 console.log 時，最右端會顯示來源"></p>
+<p>單純要查到此功能似乎不難，剛好在四個月前有人在 <a href="http://stackoverflow.com/questions/34762774/how-to-hide-source-of-log-messages-in-console" target="_blank" rel="external">stackoverflow</a> 問了同樣的問題，而方法就是利用下方寫法即可：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="built_in">console</span>.log.bind(<span class="built_in">console</span>, <span class="string">"Hello world!"</span>));</span><br></pre></td></tr></table></figure></p>
+<p>看到 Facebook 將 console 的預設樣式改掉，因此我也試著去看該怎麼做，果然樣式是用 CSS 去設定，而要設定的部分前面記得放個 <code>%c</code>，若有多段需要不同樣式則放入多個 <code>%c</code>，每個 <code>%c</code> 都是獨立的，樣式不會互相覆蓋；而 CSS 以額外參數的方式傳遞，若有 N 個 <code>%c</code>，則需要另外傳入 N 個參數。範例如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"%cRed color"</span>, <span class="string">"color:red;"</span>); <span class="comment">// 顯示為紅色字</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"%cRed color with blue background"</span>, <span class="string">"color:red; background:blue;"</span>); <span class="comment">// 顯示紅色字與藍色背景</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"%cRed color and %cgreen color"</span>, <span class="string">"color:red;"</span>, <span class="string">"color:green;"</span>); <span class="comment">// 顯示紅色字即綠色字</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"%cRed color%c and %cgreen color"</span>, <span class="string">"color:red;"</span>, <span class="string">""</span>, <span class="string">"color:green;"</span>); <span class="comment">// 顯示紅色字即綠色字，將 "and" 改回預設樣式</span></span><br></pre></td></tr></table></figure></p>
+<p>兩者結合起來的話，一樣將樣式參數放於之後：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="built_in">console</span>.log.bind(<span class="built_in">console</span>, <span class="string">"%cRed color"</span>, <span class="string">"color:red;"</span>));</span><br></pre></td></tr></table></figure></p>
+<p>因此我寫了一個範例，可以開啟開發人員工具的 console 觀看結果：</p>
+<p></p><p data-height="265" data-theme-id="0" data-slug-hash="JKPYoX" data-default-tab="js,result" data-user="ssk7833" data-embed-version="2" class="codepen">See the Pen <a href="http://codepen.io/ssk7833/pen/JKPYoX/" target="_blank" rel="external">Custom console log messages</a> by North (<a href="http://codepen.io/ssk7833" target="_blank" rel="external">@ssk7833</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p>好，問題解決了！<br>但痛苦來臨，我走不出自己這關 XD，深問 why？為什麼 <code>setTimeout(console.log.bind(console, &quot;something&quot;))</code> 能有如此魔力使來源行數隱藏起來？式了很多方式去包裝 console 還是徒勞無功，且 setTimeout 好像是必要的？自行寫了一個具有 callback function 的 function 也無法達到一樣效果。</p>
+<p>後來想到或許能在 stack trace 中得到一點線索，因此改下 <code>console.error</code> 試試看，結果還是深深地打了我一巴掌，stack trace 竟然完全是空的。<br><img src="/blog/images/2016-05-25-hide-source-of-log-messages-in-console/03.png" alt="比較 error 上下的差別" title="比較 error 上下的差別"></p>
+<p>有人跟我說，會不會是 call 到 browser 的 console 再從 console 下 command 才會這樣顯示出來？結果也不是，也是跳出了來源。<br><img src="/blog/images/2016-05-25-hide-source-of-log-messages-in-console/04.png" alt="使用開發者工具下指令結果一樣" title="使用開發者工具下指令結果一樣"></p>
+<p>真是奇怪啊！百思不得其解後，決定先「不求甚解」了，等待哪一天突然想到再補充吧。</p>
+<p>參考資料：</p>
+<ol>
+<li><a href="http://stackoverflow.com/questions/34762774/how-to-hide-source-of-log-messages-in-console" target="_blank" rel="external">How to hide source of Log messages in Console?</a></li>
+<li><a href="http://stackoverflow.com/questions/7505623/colors-in-javascript-console" target="_blank" rel="external">Colors in JavaScript console</a></li>
+<li><a href="https://developers.google.com/web/tools/chrome-devtools/debug/console/console-reference" target="_blank" rel="external">Console API Reference | Web Tools - Google Developers</a></li>
+<li><a href="https://github.com/DeveloperToolsWG/console-object/blob/master/api.md#format-specifiers" target="_blank" rel="external">Format Specifiers</a></li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/" data-id="ciomj2ae4002f8re06vqaevc5" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/05/25/hide-source-of-log-messages-in-console/" data-id="ciomj2abo00058re0a4msu75v" class="article-share-link">Share</a>
       
-        <a href="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://ssk7833.github.io/blog/2016/05/25/hide-source-of-log-messages-in-console/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Facebook/">Facebook</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/node-js/">node.js</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/">javascript</a></li></ul>
 
     </footer>
   </div>
@@ -129,19 +146,10 @@ ga('send', 'pageview');
     
 <nav id="article-nav">
   
-    <a href="/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          使用 Parse.com Cloud Code Hosting 進行 Facebook 登入存取 2
-        
-      </div>
-    </a>
   
-  
-    <a href="/blog/2011/01/18/combine-cd-and-ls-into-one-command/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/blog/2016/05/20/Parse-push-return-pushStatus-objectId/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">將 cd 跟 ls 合併為一個指令</div>
+      <div class="article-nav-title">Parse 推播回傳 _pushStatus 的 id</div>
     </a>
   
 </nav>
@@ -250,7 +258,7 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'ssk7833';
   
-  var disqus_url = 'http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/';
+  var disqus_url = 'http://ssk7833.github.io/blog/2016/05/25/hide-source-of-log-messages-in-console/';
   
   (function(){
     var dsq = document.createElement('script');
