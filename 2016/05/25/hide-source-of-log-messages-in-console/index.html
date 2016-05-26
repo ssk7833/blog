@@ -17,7 +17,7 @@
 <meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/2016-05-25-hide-source-of-log-messages-in-console/02.png">
 <meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/2016-05-25-hide-source-of-log-messages-in-console/03.png">
 <meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/2016-05-25-hide-source-of-log-messages-in-console/04.png">
-<meta property="og:updated_time" content="2016-05-25T07:19:35.221Z">
+<meta property="og:updated_time" content="2016-05-26T07:39:24.406Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="隱藏 console 中的 source 來源">
 <meta name="twitter:description" content="先前有發現 Facebook 在開發人員工具的 console 中最右邊不會顯示 log 的來源行數，覺得神奇，但並沒有深入了解如何實作此效果。而最近看到有人提問同樣的問題，同樣以 Facebook 的 console 為例來發問，激起了我的求知慾望。
@@ -122,6 +122,8 @@ ga('send', 'pageview');
 <p>後來想到或許能在 stack trace 中得到一點線索，因此改下 <code>console.error</code> 試試看，結果還是深深地打了我一巴掌，stack trace 竟然完全是空的。<br><img src="/blog/images/2016-05-25-hide-source-of-log-messages-in-console/03.png" alt="比較 error 上下的差別" title="比較 error 上下的差別"></p>
 <p>有人跟我說，會不會是 call 到 browser 的 console 再從 console 下 command 才會這樣顯示出來？結果也不是，也是跳出了來源。<br><img src="/blog/images/2016-05-25-hide-source-of-log-messages-in-console/04.png" alt="使用開發者工具下指令結果一樣" title="使用開發者工具下指令結果一樣"></p>
 <p>真是奇怪啊！百思不得其解後，決定先「不求甚解」了，等待哪一天突然想到再補充吧。</p>
+<p>2016-05-26 Update:</p>
+<p>最後跑去 <a href="http://stackoverflow.com/q/37430531/4968420" target="_blank" rel="external">stackoverflow</a> 問了，也有人回答了讓我似懂非懂的答案，因有些不確定性的部分並沒提到，總之可能就先這樣，哪天想到再繼續研究。</p>
 <p>參考資料：</p>
 <ol>
 <li><a href="http://stackoverflow.com/questions/34762774/how-to-hide-source-of-log-messages-in-console" target="_blank" rel="external">How to hide source of Log messages in Console?</a></li>
@@ -133,7 +135,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/05/25/hide-source-of-log-messages-in-console/" data-id="ciomjjkgh00058id0dxhcks09" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/05/25/hide-source-of-log-messages-in-console/" data-id="cionzosan00058hfyd9zgq8hn" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/05/25/hide-source-of-log-messages-in-console/#disqus_thread" class="article-comment-link">Comments</a>
       
