@@ -44,6 +44,11 @@ setTimeout(console.log.bind(console, "%cRed color", "color:red;"));
 
 真是奇怪啊！百思不得其解後，決定先「不求甚解」了，等待哪一天突然想到再補充吧。
 
+2016-05-26 Update:
+
+最後跑去 [stackoverflow](http://stackoverflow.com/q/37430531/4968420) 問了，也有人回答了讓我似懂非懂的答案，因有些不確定性的部分並沒提到，總之可能就先這樣，哪天想到再繼續研究。
+
+
 參考資料：
 1. [How to hide source of Log messages in Console?](http://stackoverflow.com/questions/34762774/how-to-hide-source-of-log-messages-in-console)
 2. [Colors in JavaScript console](http://stackoverflow.com/questions/7505623/colors-in-javascript-console)
