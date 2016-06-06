@@ -78,6 +78,97 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-setup-parse-server" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2016/04/09/setup-parse-server/" class="article-date">
+  <time datetime="2016-04-09T03:33:05.000Z" itemprop="datePublished">2016-04-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/study/">study</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2016/04/09/setup-parse-server/">Parse Server 架設教學</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在今年一月底時 <a href="http://parse.com/" target="_blank" rel="external">Parse</a> 突然丟下了一枚震撼彈(<a href="http://blog.parse.com/announcements/moving-on/" target="_blank" rel="external">Moving On</a>)，隨著 Parse 服務將在一年後關閉的消息，同時也提到將會把 Parse Server open source 出來，如今兩個月過去了，釋出的 Parse Server 也趨於完善，不只提供了許多雲端服務的整合方案，連 Parse Dashboard 也在三月初時 open source 了(<a href="http://blog.parse.com/announcements/introducing-the-parse-server-dashboard/" target="_blank" rel="external">Introducing the Parse Server Dashboard</a>)，雖然這個 Dashboard 目前並不像 Parse 線上服務的功能一樣完整，但在短短一個月內間又多了推播(push notification)功能頁面(<a href="http://blog.parse.com/announcements/push-and-config-come-to-the-parse-dashboard/" target="_blank" rel="external">Push and Config come to the Parse Dashboard</a>)，可以預見未來功能會越來越完整。</p>
+<p>單純架設 Parse Server 的難度不高，在 <a href="https://github.com/ParsePlatform/parse-server" target="_blank" rel="external">GitHub</a> 有對於要在 local 架設或是部屬到其他服務上如 Heroku 的範例教學，<a href="https://github.com/ParsePlatform/parse-server/wiki" target="_blank" rel="external">wiki</a> 頁面也有更完整的解說，但從這裡開始我個人認為不是個好選擇，以指令方式去帶 appId 及 masterKey 總有可能會發生什麼意外。Parse 另外提供了 <a href="https://github.com/ParsePlatform/parse-server-example" target="_blank" rel="external">parse-server-example</a>，這個對於入門來說會比較方便。</p>
+<h2 id="前置環境"><a href="#前置環境" class="headerlink" title="前置環境"></a>前置環境</h2><ul>
+<li>Node 4.3 以上</li>
+<li>MongoDB version 2.6.X or 3.0.X</li>
+<li>Python 2.x (For Windows users, 2.7.1 is the required version)</li>
+</ul>
+<h2 id="架設-Parse-Server"><a href="#架設-Parse-Server" class="headerlink" title="架設 Parse Server"></a>架設 Parse Server</h2><ol>
+<li><p>先從 GitHub 上抓一份 parse-server-example 下來。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/ParsePlatform/parse-server-example.git --depth <span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>將必要的模組裝上。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 <code>index.js</code> 中修改參數，可以選擇修改環境變數或是直接修改後面字串：</p>
+<ul>
+<li>appId: 可填任意字串，用於識別 Parse API 的使用權限。在這裡用了 <code>md5</code> 來產生隨機字串。</li>
+<li>masterKey: 可填任意字串，但不要公開此字串，用於覆寫權限設定。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> api = <span class="keyword">new</span> ParseServer(&#123;</span><br><span class="line">  databaseURI: databaseUri || <span class="string">'mongodb://localhost:27017/dev'</span>,</span><br><span class="line">  cloud: process.env.CLOUD_CODE_MAIN || __dirname + <span class="string">'/cloud/main.js'</span>,</span><br><span class="line">  appId: process.env.APP_ID || <span class="string">'7c6a1d1470fed0313b5044c4eb83def0'</span>,</span><br><span class="line">  masterKey: process.env.MASTER_KEY || <span class="string">'98584a6e0a2592c274d1e4eae44b0a7b'</span>, <span class="comment">// Add your master key here. Keep it secret!</span></span><br><span class="line">  serverURL: process.env.SERVER_URL || <span class="string">'http://localhost:1337/parse'</span>,  <span class="comment">// Don't forget to change to https if needed</span></span><br><span class="line">  liveQuery: &#123;</span><br><span class="line">    classNames: [<span class="string">"Posts"</span>, <span class="string">"Comments"</span>] <span class="comment">// List of classes to support for query subscriptions</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>到這裡可以先執行看看。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm run start</span><br></pre></td></tr></table></figure>
+<p>此時 Parse API 預設會掛在 <a href="http://localhost:1337/parse/" target="_blank" rel="external">http://localhost:1337/parse/</a> 下，有兩種方式可以測試是否運作正常：</p>
+<ol>
+<li>直接到第五步驟，利用此包程式碼中的範例網頁來測試。</li>
+<li><code>curl</code> 來測試 Parse 的 REST API 是否正常運作，<code>X-Parse-Application-Id</code> 需改成在 <code>index.js</code> 中設定的 <code>appId</code>。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST \</span><br><span class="line">  -H <span class="string">"X-Parse-Application-Id: 7c6a1d1470fed0313b5044c4eb83def0"</span> \</span><br><span class="line">  -H <span class="string">"Content-Type: application/json"</span> \</span><br><span class="line">  <span class="operator">-d</span> <span class="string">'&#123;"score":1337,"playerName":"Sean Plott","cheatMode":false&#125;'</span> \</span><br><span class="line">  http://localhost:<span class="number">1337</span>/parse/classes/GameScore</span><br></pre></td></tr></table></figure>
+<p>若正常無誤會得到以下類似的結果：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"objectId"</span>: <span class="string">"CT8BWvZ8Fi"</span>,</span><br><span class="line">  <span class="string">"createdAt"</span>: <span class="string">"2016-04-08T02:55:57.802Z"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>取值可利用以下指令來測試，<code>GameScore</code> 後面需加上剛剛回傳的 <code>objectId</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET \</span><br><span class="line">  -H <span class="string">"X-Parse-Application-Id: 7c6a1d1470fed0313b5044c4eb83def0"</span> \</span><br><span class="line">  http://localhost:<span class="number">1337</span>/parse/classes/GameScore/CT8BWvZ8Fi</span><br></pre></td></tr></table></figure>
+<p>正常的話即可拿回上一步所傳的內容：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"objectId"</span>: <span class="string">"CT8BWvZ8Fi"</span>,</span><br><span class="line">  <span class="string">"score"</span>: <span class="number">1337</span>,</span><br><span class="line">  <span class="string">"playerName"</span>: <span class="string">"Sean Plott"</span>,</span><br><span class="line">  <span class="string">"cheatMode"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="string">"updatedAt"</span>: <span class="string">"2016-04-08T02:55:57.802Z"</span>,</span><br><span class="line">  <span class="string">"createdAt"</span>: <span class="string">"2016-04-08T02:55:57.802Z"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>詳細操作可參考 <a href="https://parse.com/docs/rest/guide/" target="_blank" rel="external">REST API Guide</a>。</p>
+</li>
+<li><p>在這個範例中有提供 REST API 及 Cloud Code 的測試程式碼，可以執行看看功能是否正常。<br>在 <code>public/assets/js/script.js</code> 中，將 <code>myAppId</code> 取代成自己目前的 <code>appId</code>，共有兩處；接著開啟 <a href="http://localhost:1337/public/test.html" target="_blank" rel="external">http://localhost:1337/public/test.html</a> 即可看到測試頁面，依序點選下方的 <code>POST</code>, <code>FETCH</code> 及 <code>TEST</code>，若正確無誤的話應能看到以下結果：<br><img src="/blog/images/ParseServerTest.png" alt="Parse Server Test" title="Parse Server Test"><br>看到這個結果就代表 REST API 及 Cloud Code 都沒有問題，下一步就看自己是不是要加推播通知的設定及 Dashboard 了！</p>
+</li>
+</ol>
+<p>參考資料：</p>
+<ol>
+<li><a href="https://github.com/ParsePlatform/parse-server" target="_blank" rel="external">parse-server</a></li>
+<li><a href="https://github.com/ParsePlatform/parse-server/wiki" target="_blank" rel="external">parse-server wiki</a></li>
+<li><a href="https://github.com/ParsePlatform/parse-server-example" target="_blank" rel="external">parse-server-example</a></li>
+<li><a href="https://github.com/ParsePlatform/parse-server/issues" target="_blank" rel="external">parse-server issues</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/" data-id="cip3gww9e000y8iehian747ox" class="article-share-link">Share</a>
+      
+        <a href="http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Parse-server/">Parse server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/node-js/">node.js</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-do-it-smart-a-better-way-to-write-CSS" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/" class="article-date">
@@ -110,7 +201,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/" data-id="cionzosbb00118hfyrye0nnc2" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/" data-id="cip3gww9i00168iehb5xuxuf7" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -233,7 +324,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/" data-id="cionzosbf00198hfy2x9vk791" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/" data-id="cip3gww9m001e8iehxp7lacha" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -318,7 +409,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/" data-id="cionzosbk001g8hfywhmitpoq" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/" data-id="cip3gww9p001l8ieh3rni2hjs" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -376,7 +467,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/" data-id="cionzosbn001o8hfyyo91ukpr" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/" data-id="cip3gww9u001t8iehh2c7qm0f" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -390,60 +481,9 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-facebook-graph-api-get-picture" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2015/08/25/facebook-graph-api-get-picture/" class="article-date">
-  <time datetime="2015-08-24T19:11:56.000Z" itemprop="datePublished">2015-08-25</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/study/">study</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2015/08/25/facebook-graph-api-get-picture/">Facebook Graph API 取得大頭貼照</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>要取得大頭貼照，如果使用 API request ，加上 picture 即可得到大頭貼照，如：<code>me?fields=id,name,picture</code>，即可在回傳的 JSON 中取得圖片的位址，但這時取回來的圖片會比正常大小還要小，而且此方法還需要 access_token。</p>
-<p>要取得不同大小的大頭貼照，有個更輕鬆的方法：<code>http://graph.facebook.com/{id}/picture?type=normal</code> 直接使用此網址，將 id 換成想呈現的 userId 即可，此網址將會 redirect 到對應的圖片位址，且此方法不需要 access_token。</p>
-<p>在這個網址中，type 可為 <code>small</code>, <code>normal</code>, <code>album</code>, <code>large</code>, <code>square</code>，分別為不同解析度的照片大小。</p>
-<p>以 Facebook 的創始人 Mark Zuckerberg 為例，userId 為 4，則要顯示的網址如下：<br>50*50:<br><code>http://graph.facebook.com/4/picture?type=small</code><br><img src="http://graph.facebook.com/4/picture?type=small" alt="Small" title="Mark Zuckerberg"><br><code>http://graph.facebook.com/4/picture?type=album</code><br><img src="http://graph.facebook.com/4/picture?type=album" alt="Album" title="Mark Zuckerberg"><br><code>http://graph.facebook.com/4/picture?type=square</code><br><img src="http://graph.facebook.com/4/picture?type=square" alt="Square" title="Mark Zuckerberg"></p>
-<p>100*100:<br><code>http://graph.facebook.com/4/picture?type=normal</code><br><img src="http://graph.facebook.com/4/picture?type=normal" alt="Normal" title="Mark Zuckerberg"></p>
-<p>200*200:<br><code>http://graph.facebook.com/4/picture?type=large</code><br><img src="http://graph.facebook.com/4/picture?type=large" alt="Large" title="Mark Zuckerberg"></p>
-<p>不能理解的是為什麼 small, album, square 所得到的大小都一樣，還不知道差在哪。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2015/08/25/facebook-graph-api-get-picture/" data-id="cionzosbq001r8hfybax46pg5" class="article-share-link">Share</a>
-      
-        <a href="http://ssk7833.github.io/blog/2015/08/25/facebook-graph-api-get-picture/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Facebook/">Facebook</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Facebook-Graph-API/">Facebook-Graph-API</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="extend next" rel="next" href="/blog/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="page-number" href="/blog/page/4/">4</a><a class="extend next" rel="next" href="/blog/page/3/">Next &raquo;</a>
     </nav>
   
 </section>
@@ -454,7 +494,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/study/">study</a><span class="category-list-count">15</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/study/">study</a><span class="category-list-count">16</span></li></ul>
     </div>
   </div>
 
@@ -463,7 +503,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/APNS/">APNS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook/">Facebook</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook-Graph-API/">Facebook-Graph-API</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-server/">Parse server</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SASS/">SASS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SCSS/">SCSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SVG/">SVG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gf-pages/">gf-pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gooey/">gooey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/localization/">localization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/node-js/">node.js</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/push-notification/">push notification</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/shell-script/">shell script</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/travis-ci/">travis ci</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/web-speech-API/">web speech API</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/APNS/">APNS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook/">Facebook</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook-Graph-API/">Facebook-Graph-API</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-server/">Parse server</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SASS/">SASS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SCSS/">SCSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SVG/">SVG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gf-pages/">gf-pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gooey/">gooey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/localization/">localization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/node-js/">node.js</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/push-notification/">push notification</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/shell-script/">shell script</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/travis-ci/">travis ci</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/web-speech-API/">web speech API</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -472,7 +512,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/APNS/" style="font-size: 10px;">APNS</a> <a href="/blog/tags/CSS/" style="font-size: 12px;">CSS</a> <a href="/blog/tags/CloudCode/" style="font-size: 16px;">CloudCode</a> <a href="/blog/tags/Facebook/" style="font-size: 18px;">Facebook</a> <a href="/blog/tags/Facebook-Graph-API/" style="font-size: 12px;">Facebook-Graph-API</a> <a href="/blog/tags/Parse-server/" style="font-size: 14px;">Parse server</a> <a href="/blog/tags/Parse-com/" style="font-size: 16px;">Parse.com</a> <a href="/blog/tags/SASS/" style="font-size: 10px;">SASS</a> <a href="/blog/tags/SCSS/" style="font-size: 10px;">SCSS</a> <a href="/blog/tags/SVG/" style="font-size: 10px;">SVG</a> <a href="/blog/tags/gf-pages/" style="font-size: 10px;">gf-pages</a> <a href="/blog/tags/gooey/" style="font-size: 10px;">gooey</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/blog/tags/localization/" style="font-size: 10px;">localization</a> <a href="/blog/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/blog/tags/push-notification/" style="font-size: 12px;">push notification</a> <a href="/blog/tags/shell-script/" style="font-size: 10px;">shell script</a> <a href="/blog/tags/travis-ci/" style="font-size: 10px;">travis ci</a> <a href="/blog/tags/web-speech-API/" style="font-size: 10px;">web speech API</a>
+      <a href="/blog/tags/APNS/" style="font-size: 10px;">APNS</a> <a href="/blog/tags/CSS/" style="font-size: 12px;">CSS</a> <a href="/blog/tags/CloudCode/" style="font-size: 16px;">CloudCode</a> <a href="/blog/tags/Facebook/" style="font-size: 18px;">Facebook</a> <a href="/blog/tags/Facebook-Graph-API/" style="font-size: 12px;">Facebook-Graph-API</a> <a href="/blog/tags/Parse-server/" style="font-size: 16px;">Parse server</a> <a href="/blog/tags/Parse-com/" style="font-size: 16px;">Parse.com</a> <a href="/blog/tags/SASS/" style="font-size: 10px;">SASS</a> <a href="/blog/tags/SCSS/" style="font-size: 10px;">SCSS</a> <a href="/blog/tags/SVG/" style="font-size: 10px;">SVG</a> <a href="/blog/tags/gf-pages/" style="font-size: 10px;">gf-pages</a> <a href="/blog/tags/gooey/" style="font-size: 10px;">gooey</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/blog/tags/localization/" style="font-size: 10px;">localization</a> <a href="/blog/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/blog/tags/push-notification/" style="font-size: 14px;">push notification</a> <a href="/blog/tags/shell-script/" style="font-size: 10px;">shell script</a> <a href="/blog/tags/travis-ci/" style="font-size: 10px;">travis ci</a> <a href="/blog/tags/web-speech-API/" style="font-size: 10px;">web speech API</a>
     </div>
   </div>
 
@@ -481,7 +521,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/04/">April 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/03/">March 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/01/">January 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/07/">July 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2011/01/">January 2011</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/06/">June 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/04/">April 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/03/">March 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/01/">January 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/07/">July 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2011/01/">January 2011</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -491,6 +531,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2016/06/06/retrieve-push-status/">取得 Parse server 推播通知送出狀態</a>
+          </li>
         
           <li>
             <a href="/blog/2016/05/25/hide-source-of-log-messages-in-console/">隱藏 console 中的 source 來源</a>
@@ -506,10 +550,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/blog/2016/04/19/parse-server-push-notification-APNS/">Parse Server APNS(iOS) 推播通知設定</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2016/04/09/setup-parse-server/">Parse Server 架設教學</a>
           </li>
         
       </ul>

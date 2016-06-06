@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>取得 Parse server 推播通知送出狀態 | 北風筆記</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在 Parse REST API Developers Guide 中，可以在 Quick Reference 看到所有使用的方法。在 Push Notification 分類中只有 POST 的方法，不像 Installations 可以透過 GET 方法到 /installations/&amp;lt;objectId&amp;gt; 來獲取已安裝裝置的資訊；然而若需要去擷取推播傳遞的狀態時，可以利用存於 m">
+<meta property="og:type" content="article">
+<meta property="og:title" content="取得 Parse server 推播通知送出狀態">
+<meta property="og:url" content="http://ssk7833.github.io/blog/2016/06/06/retrieve-push-status/index.html">
+<meta property="og:site_name" content="北風筆記">
+<meta property="og:description" content="在 Parse REST API Developers Guide 中，可以在 Quick Reference 看到所有使用的方法。在 Push Notification 分類中只有 POST 的方法，不像 Installations 可以透過 GET 方法到 /installations/&amp;lt;objectId&amp;gt; 來獲取已安裝裝置的資訊；然而若需要去擷取推播傳遞的狀態時，可以利用存於 m">
+<meta property="og:updated_time" content="2016-06-06T03:38:12.004Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="取得 Parse server 推播通知送出狀態">
+<meta name="twitter:description" content="在 Parse REST API Developers Guide 中，可以在 Quick Reference 看到所有使用的方法。在 Push Notification 分類中只有 POST 的方法，不像 Installations 可以透過 GET 方法到 /installations/&amp;lt;objectId&amp;gt; 來獲取已安裝裝置的資訊；然而若需要去擷取推播傳遞的狀態時，可以利用存於 m">
+  
+    <link rel="alternative" href="/blog/atom.xml" title="北風筆記" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/blog/css/style.css" type="text/css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-64338617-2', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">北風筆記</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">紀錄一些學習心得、過程及日常</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://ssk7833.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-retrieve-push-status" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2016/06/06/retrieve-push-status/" class="article-date">
+  <time datetime="2016-06-06T03:02:00.000Z" itemprop="datePublished">2016-06-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/study/">study</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      取得 Parse server 推播通知送出狀態
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在 <a href="https://parse.com/docs/rest/guide" target="_blank" rel="external">Parse REST API Developers Guide</a> 中，可以在 Quick Reference 看到所有使用的方法。在 Push Notification 分類中只有 POST 的方法，不像 Installations 可以透過 GET 方法到 <code>/installations/&lt;objectId&gt;</code> 來獲取已安裝裝置的資訊；然而若需要去擷取推播傳遞的狀態時，可以利用存於 mongoDB 中的 _PushStatus 來取得資訊，既然 push 的方法只有 POST，就繞個路把 _PushStatus 當成 Objects 來處理，Objects 的使用方法就多了。</p>
+<table>
+<thead>
+<tr>
+<th>URL</th>
+<th>HTTP Verb</th>
+<th>Functionality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/classes/&lt;className&gt;</td>
+<td>POST</td>
+<td><a href="https://parse.com/docs/rest/guide#objects-creating-objects" target="_blank" rel="external">Creating Objects</a></td>
+</tr>
+<tr>
+<td>/classes/&lt;className&gt;/&lt;objectId&gt;</td>
+<td>GET</td>
+<td><a href="https://parse.com/docs/rest/guide#objects-retrieving-objects" target="_blank" rel="external">Retrieving Objects</a></td>
+</tr>
+<tr>
+<td>/classes/&lt;className&gt;/&lt;objectId&gt;</td>
+<td>PUT</td>
+<td><a href="https://parse.com/docs/rest/guide#objects-updating-objects" target="_blank" rel="external">Updating Objects</a></td>
+</tr>
+<tr>
+<td>/classes/&lt;className&gt;</td>
+<td>GET</td>
+<td><a href="https://parse.com/docs/rest/guide#queries" target="_blank" rel="external">Queries</a></td>
+</tr>
+<tr>
+<td>/classes/&lt;className&gt;/&lt;objectId&gt;</td>
+<td>DELETE</td>
+<td><a href="https://parse.com/docs/rest/guide#objects-deleting-objects" target="_blank" rel="external">Deleting Objects</a></td>
+</tr>
+</tbody>
+</table>
+<p>要取得推播通知狀態則是利用上表兩個 GET 的功能，若指定 objectId 則只回傳 objectId 那筆資訊，若不指定則回傳最近的幾筆資訊。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET \</span><br><span class="line">  -H <span class="string">"X-Parse-Application-Id: parseAppId"</span> \</span><br><span class="line">  -H <span class="string">"X-Parse-Master-Key: parseMasterKey"</span> \</span><br><span class="line">  http://localhost:<span class="number">1337</span>/parse/classes/_PushStatus/</span><br></pre></td></tr></table></figure>
+<p>正常下會得到：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"results"</span>:[</span><br><span class="line">    &#123;<span class="string">"ACL"</span>:&#123;&#125;, <span class="string">"objectId"</span>: <span class="string">"xzBThEHVyc"</span>, <span class="string">"createdAt"</span>: <span class="string">"2016-05-19T10:00:59.827Z"</span>,…&#125;,</span><br><span class="line">    &#123;<span class="string">"ACL"</span>:&#123;&#125;, <span class="string">"objectId"</span>: <span class="string">"VGo2rHGXjK"</span>, <span class="string">"createdAt"</span>: <span class="string">"2016-05-19T10:01:59.790Z"</span>,…&#125;,</span><br><span class="line">    &#123;<span class="string">"ACL"</span>:&#123;&#125;, <span class="string">"objectId"</span>: <span class="string">"9rnRdakYzD"</span>, <span class="string">"createdAt"</span>: <span class="string">"2016-05-19T10:04:59.798Z"</span>,…&#125;,</span><br><span class="line">    &#123;<span class="string">"ACL"</span>:&#123;&#125;, <span class="string">"objectId"</span>: <span class="string">"7pde1mbqzY"</span>, <span class="string">"createdAt"</span>: <span class="string">"2016-05-19T13:00:09.126Z"</span>,…&#125;,</span><br><span class="line">    &#123;<span class="string">"ACL"</span>:&#123;&#125;, <span class="string">"objectId"</span>: <span class="string">"M2PmduKLH0"</span>, <span class="string">"createdAt"</span>: <span class="string">"2016-05-20T02:26:59.997Z"</span>,…&#125;,</span><br><span class="line">    &#123;<span class="string">"ACL"</span>:&#123;&#125;, <span class="string">"objectId"</span>: <span class="string">"URiaNdDBps"</span>, <span class="string">"createdAt"</span>: <span class="string">"2016-05-20T02:35:59.991Z"</span>,…&#125;,</span><br><span class="line">    &#123;<span class="string">"ACL"</span>:&#123;&#125;, <span class="string">"objectId"</span>: <span class="string">"eN8R4gVDEx"</span>, <span class="string">"createdAt"</span>: <span class="string">"2016-05-20T02:37:00.077Z"</span>,…&#125;,</span><br><span class="line">    &#123;<span class="string">"ACL"</span>:&#123;&#125;, <span class="string">"objectId"</span>: <span class="string">"KRBif8iM6u"</span>, <span class="string">"createdAt"</span>: <span class="string">"2016-05-20T03:13:59.892Z"</span>,…&#125;,</span><br><span class="line">    &#123;<span class="string">"ACL"</span>:&#123;&#125;, <span class="string">"objectId"</span>: <span class="string">"BP5FYt2GVX"</span>, <span class="string">"createdAt"</span>: <span class="string">"2016-05-20T03:24:59.846Z"</span>,…&#125;,</span><br><span class="line">    &#123;<span class="string">"ACL"</span>:&#123;&#125;, <span class="string">"objectId"</span>: <span class="string">"1nSmDpZ3Yz"</span>, <span class="string">"createdAt"</span>: <span class="string">"2016-05-24T02:55:01.595Z"</span>,…&#125;,</span><br><span class="line">    &#123;<span class="string">"ACL"</span>:&#123;&#125;, <span class="string">"objectId"</span>: <span class="string">"FDFjpei6rP"</span>, <span class="string">"createdAt"</span>: <span class="string">"2016-05-24T02:58:01.327Z"</span>,…&#125;,</span><br><span class="line">    &#123;<span class="string">"ACL"</span>:&#123;&#125;, <span class="string">"objectId"</span>: <span class="string">"hTkD1EKO9U"</span>, <span class="string">"createdAt"</span>: <span class="string">"2016-05-24T03:02:01.608Z"</span>,…&#125;,</span><br><span class="line">    &#123;<span class="string">"ACL"</span>:&#123;&#125;, <span class="string">"objectId"</span>: <span class="string">"TDT2bONPEF"</span>, <span class="string">"createdAt"</span>: <span class="string">"2016-05-24T07:51:02.636Z"</span>,…&#125;,</span><br><span class="line">    &#123;<span class="string">"ACL"</span>:&#123;&#125;, <span class="string">"objectId"</span>: <span class="string">"tGuEYvGLbp"</span>, <span class="string">"createdAt"</span>: <span class="string">"2016-05-25T07:35:20.034Z"</span>,…&#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而若加上 objectId，則會取得此 objectId 單筆資訊：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET \</span><br><span class="line">  -H <span class="string">"X-Parse-Application-Id: parseAppId"</span> \</span><br><span class="line">  -H <span class="string">"X-Parse-Master-Key: parseMasterKey"</span> \</span><br><span class="line">  http://localhost:<span class="number">1337</span>/parse/classes/_PushStatus/tGuEYvGLbp</span><br></pre></td></tr></table></figure>
+<p>正常下會得到：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"ACL"</span>: &#123;&#125;,</span><br><span class="line">  <span class="string">"objectId"</span>: <span class="string">"tGuEYvGLbp"</span>,</span><br><span class="line">  <span class="string">"createdAt"</span>: <span class="string">"2016-05-25T07:35:20.034Z"</span>,</span><br><span class="line">  <span class="string">"pushTime"</span>: <span class="string">"2016-05-25T07:35:20.034Z"</span>,</span><br><span class="line">  <span class="string">"query"</span>: <span class="string">"&#123;\"deviceType\":&#123;\"$in\":[\"ios\"]&#125;,\"gender\":&#123;\"$in\":[\"female\"]&#125;&#125;"</span>,</span><br><span class="line">  <span class="string">"payload"</span>: <span class="string">"&#123;\"alert\":\"All work and no play makes Jack a dull boy.\"&#125;"</span>,</span><br><span class="line">  <span class="string">"source"</span>: <span class="string">"rest"</span>,</span><br><span class="line">  <span class="string">"status"</span>: <span class="string">"succeeded"</span>,</span><br><span class="line">  <span class="string">"numSent"</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="string">"pushHash"</span>: <span class="string">"cd3f8c70e6cfecc66ab69a0ee4c3c564"</span>,</span><br><span class="line">  <span class="string">"updatedAt"</span>: <span class="string">"2016-05-25T07:35:22.600Z"</span>,</span><br><span class="line">  <span class="string">"numFailed"</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="string">"sentPerType"</span>: &#123;</span><br><span class="line">    <span class="string">"ios"</span>: <span class="number">1</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>兩者都可取得 <code>numSent</code>, <code>numFailed</code> 及 <code>sentPerType</code>，可利於推播通知的統計分析。</p>
+<p>參考資料：</p>
+<ol>
+<li><a href="https://parse.com/docs/rest/guide" target="_blank" rel="external">REST API Developers Guide | Parse</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ssk7833.github.io/blog/2016/06/06/retrieve-push-status/" data-id="cip3gww8p00058iehs3u2s3ha" class="article-share-link">Share</a>
+      
+        <a href="http://ssk7833.github.io/blog/2016/06/06/retrieve-push-status/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Parse-server/">Parse server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/push-notification/">push notification</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2016/05/25/hide-source-of-log-messages-in-console/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">隱藏 console 中的 source 來源</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/study/">study</a><span class="category-list-count">16</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/APNS/">APNS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook/">Facebook</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook-Graph-API/">Facebook-Graph-API</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-server/">Parse server</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SASS/">SASS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SCSS/">SCSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SVG/">SVG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gf-pages/">gf-pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gooey/">gooey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/localization/">localization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/node-js/">node.js</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/push-notification/">push notification</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/shell-script/">shell script</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/travis-ci/">travis ci</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/web-speech-API/">web speech API</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/APNS/" style="font-size: 10px;">APNS</a> <a href="/blog/tags/CSS/" style="font-size: 12px;">CSS</a> <a href="/blog/tags/CloudCode/" style="font-size: 16px;">CloudCode</a> <a href="/blog/tags/Facebook/" style="font-size: 18px;">Facebook</a> <a href="/blog/tags/Facebook-Graph-API/" style="font-size: 12px;">Facebook-Graph-API</a> <a href="/blog/tags/Parse-server/" style="font-size: 16px;">Parse server</a> <a href="/blog/tags/Parse-com/" style="font-size: 16px;">Parse.com</a> <a href="/blog/tags/SASS/" style="font-size: 10px;">SASS</a> <a href="/blog/tags/SCSS/" style="font-size: 10px;">SCSS</a> <a href="/blog/tags/SVG/" style="font-size: 10px;">SVG</a> <a href="/blog/tags/gf-pages/" style="font-size: 10px;">gf-pages</a> <a href="/blog/tags/gooey/" style="font-size: 10px;">gooey</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/blog/tags/localization/" style="font-size: 10px;">localization</a> <a href="/blog/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/blog/tags/push-notification/" style="font-size: 14px;">push notification</a> <a href="/blog/tags/shell-script/" style="font-size: 10px;">shell script</a> <a href="/blog/tags/travis-ci/" style="font-size: 10px;">travis ci</a> <a href="/blog/tags/web-speech-API/" style="font-size: 10px;">web speech API</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/06/">June 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/04/">April 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/03/">March 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/01/">January 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/07/">July 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2011/01/">January 2011</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2016/06/06/retrieve-push-status/">取得 Parse server 推播通知送出狀態</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2016/05/25/hide-source-of-log-messages-in-console/">隱藏 console 中的 source 來源</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2016/05/20/Parse-push-return-pushStatus-objectId/">Parse 推播回傳 _pushStatus 的 id</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2016/04/21/Google-Web-Speech-API-continous-recording/">Google Web Speech API 語音辨識 持續收音</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2016/04/19/parse-server-push-notification-APNS/">Parse Server APNS(iOS) 推播通知設定</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 North<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'ssk7833';
+  
+  var disqus_url = 'http://ssk7833.github.io/blog/2016/06/06/retrieve-push-status/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/blog/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>
