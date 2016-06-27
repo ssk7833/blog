@@ -5,7 +5,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="http://ssk7833.github.io/blog/"/>
-  <updated>2016-06-27T07:02:50.544Z</updated>
+  <updated>2016-06-27T07:08:00.291Z</updated>
   <id>http://ssk7833.github.io/blog/</id>
   
   <author>
@@ -20,12 +20,12 @@
     <link href="http://ssk7833.github.io/blog/2016/06/27/remove-dashboard-button-in-Logdown-page/"/>
     <id>http://ssk7833.github.io/blog/2016/06/27/remove-dashboard-button-in-Logdown-page/</id>
     <published>2016-06-27T06:55:30.000Z</published>
-    <updated>2016-06-27T07:02:50.544Z</updated>
+    <updated>2016-06-27T07:08:00.291Z</updated>
     
     <content type="html">&lt;p&gt;最近朋友想開個部落格試試，我推薦了 Logdown、Blogger 或是全自己來的 GitHub Pages，最後友人選擇了 Logdown，然而友人跟我說：「Logdown 有個缺點，就是右上方的 Dashboard 很醜，要是能拿掉就太好了。」於是為了讓友人安心使用，我便看了一下 Logdown 原始碼，發現其實要拿掉或隱藏 Dashboard 並不困難。&lt;br&gt;&lt;img src=&quot;/blog/images/2016-06-27-hide-dashboard-button-in-Logdown-page/01.png&quot; alt=&quot;被嫌醜的 Dashboard&quot; title=&quot;被嫌醜的 Dashboard&quot;&gt;&lt;/p&gt;
 &lt;p&gt;到自己的 &lt;a href=&quot;http://logdown.com/dashboard&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Dashboard&lt;/a&gt; 中點選 &lt;code&gt;Blog 設定&lt;/code&gt;，接著點選&lt;code&gt;佈景主題&lt;/code&gt;分頁，點選&lt;code&gt;編輯 HTML&lt;/code&gt;，如下圖位置。&lt;br&gt;&lt;img src=&quot;/blog/images/2016-06-27-hide-dashboard-button-in-Logdown-page/02.png&quot; alt=&quot;Blog 設定→佈景主題→編輯 HTML&quot; title=&quot;Blog 設定→佈景主題→編輯 HTML&quot;&gt;&lt;/p&gt;
 &lt;p&gt;在最下方 &lt;code&gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&lt;/code&gt; 前面空白處插入以下程式碼：&lt;/p&gt;
-&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;script&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;document&lt;/span&gt;.addEventListener(&lt;span class=&quot;string&quot;&gt;&quot;DOMContentLoaded&quot;&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;event&lt;/span&gt;) &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  	&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; elem = &lt;span class=&quot;built_in&quot;&gt;document&lt;/span&gt;.querySelector(&lt;span class=&quot;string&quot;&gt;&#39;iframe[src=&quot;http://logdown.com/pages/top_controls&quot;]&#39;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  	elem.parentNode.removeChild(elem);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;xml&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;javascript&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;document&lt;/span&gt;.addEventListener(&lt;span class=&quot;string&quot;&gt;&quot;DOMContentLoaded&quot;&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;event&lt;/span&gt;) &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; elem = &lt;span class=&quot;built_in&quot;&gt;document&lt;/span&gt;.querySelector(&lt;span class=&quot;string&quot;&gt;&#39;iframe[src=&quot;http://logdown.com/pages/top_controls&quot;]&#39;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    elem.parentNode.removeChild(elem);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;插入後呈現如下：&lt;br&gt;&lt;img src=&quot;/blog/images/2016-06-27-hide-dashboard-button-in-Logdown-page/03.png&quot; alt=&quot;插入 javascript&quot; title=&quot;插入 javascript&quot;&gt;&lt;/p&gt;
 &lt;p&gt;接著重新開啟自己的 Logdown 看看就能看到成果囉！&lt;/p&gt;
 &lt;p&gt;※此段語法不適用於 &lt;a href=&quot;http://caniuse.com/#search=DOMContentLoaded&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;IE8&lt;/a&gt;。&lt;/p&gt;
@@ -51,7 +51,7 @@
     <link href="http://ssk7833.github.io/blog/2016/06/06/retrieve-push-status/"/>
     <id>http://ssk7833.github.io/blog/2016/06/06/retrieve-push-status/</id>
     <published>2016-06-06T03:02:00.000Z</published>
-    <updated>2016-06-27T07:02:50.544Z</updated>
+    <updated>2016-06-27T07:08:00.291Z</updated>
     
     <content type="html">&lt;p&gt;在 &lt;a href=&quot;https://parse.com/docs/rest/guide&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Parse REST API Developers Guide&lt;/a&gt; 中，可以在 Quick Reference 看到所有使用的方法。在 Push Notification 分類中只有 POST 的方法，不像 Installations 可以透過 GET 方法到 &lt;code&gt;/installations/&amp;lt;objectId&amp;gt;&lt;/code&gt; 來獲取已安裝裝置的資訊；然而若需要去擷取推播傳遞的狀態時，可以利用存於 mongoDB 中的 _PushStatus 來取得資訊，既然 push 的方法只有 POST，就繞個路把 _PushStatus 當成 Objects 來處理，Objects 的使用方法就多了。&lt;/p&gt;
 &lt;table&gt;
@@ -127,7 +127,7 @@
     <link href="http://ssk7833.github.io/blog/2016/05/25/hide-source-of-log-messages-in-console/"/>
     <id>http://ssk7833.github.io/blog/2016/05/25/hide-source-of-log-messages-in-console/</id>
     <published>2016-05-25T07:02:30.000Z</published>
-    <updated>2016-06-27T07:02:50.544Z</updated>
+    <updated>2016-06-27T07:08:00.291Z</updated>
     
     <content type="html">&lt;p&gt;先前有發現 Facebook 在開發人員工具的 console 中最右邊不會顯示 log 的來源行數，覺得神奇，但並沒有深入了解如何實作此效果。而最近看到有人提問同樣的問題，同樣以 Facebook 的 console 為例來發問，激起了我的求知慾望。&lt;br&gt;&lt;img src=&quot;/blog/images/2016-05-25-hide-source-of-log-messages-in-console/01.png&quot; alt=&quot;Facebook 的 console，最右端沒顯示來源&quot; title=&quot;Facebook 的 console，最右端沒顯示來源&quot;&gt;&lt;br&gt;&lt;img src=&quot;/blog/images/2016-05-25-hide-source-of-log-messages-in-console/02.png&quot; alt=&quot;正常呼叫 console.log 時，最右端會顯示來源&quot; title=&quot;正常呼叫 console.log 時，最右端會顯示來源&quot;&gt;&lt;/p&gt;
 &lt;p&gt;單純要查到此功能似乎不難，剛好在四個月前有人在 &lt;a href=&quot;http://stackoverflow.com/questions/34762774/how-to-hide-source-of-log-messages-in-console&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;stackoverflow&lt;/a&gt; 問了同樣的問題，而方法就是利用下方寫法即可：&lt;br&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;setTimeout(&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log.bind(&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;Hello world!&quot;&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
@@ -170,7 +170,7 @@
     <link href="http://ssk7833.github.io/blog/2016/05/20/Parse-push-return-pushStatus-objectId/"/>
     <id>http://ssk7833.github.io/blog/2016/05/20/Parse-push-return-pushStatus-objectId/</id>
     <published>2016-05-20T08:28:51.000Z</published>
-    <updated>2016-06-27T07:02:50.544Z</updated>
+    <updated>2016-06-27T07:08:00.291Z</updated>
     
     <content type="html">&lt;p&gt;在使用 parse server REST API 的推播功能時，推播成功送到 parse server 只會時回傳 &lt;code&gt;{&amp;quot;result&amp;quot;:true}&lt;/code&gt;，只有這資訊對於後台串接 parse server 不是很方便，因缺乏 &lt;code&gt;_pushStatus&lt;/code&gt; 中的 id，導致資料送出後就一去無回，不方便針對各個送出到 parse server 的資料做對應。&lt;/p&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;curl -X POST \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  -H &lt;span class=&quot;string&quot;&gt;&quot;X-Parse-Application-Id: parseAppId&quot;&lt;/span&gt; \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  -H &lt;span class=&quot;string&quot;&gt;&quot;X-Parse-Master-Key: parseMasterKey&quot;&lt;/span&gt; \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  -H &lt;span class=&quot;string&quot;&gt;&quot;Content-Type: application/json&quot;&lt;/span&gt; \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;operator&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&#39;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &quot;where&quot;: &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          &quot;deviceType&quot;: &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &quot;$in&quot;: [&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;              &quot;ios&quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            ]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &quot;data&quot;: &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          &quot;title&quot;: &quot;The Shining&quot;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          &quot;alert&quot;: &quot;All work and no play makes Jack a dull boy.&quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &amp;#125;&#39;&lt;/span&gt; \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  http://localhost:&lt;span class=&quot;number&quot;&gt;1337&lt;/span&gt;/parse/push/&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -214,7 +214,7 @@
     <link href="http://ssk7833.github.io/blog/2016/04/21/Google-Web-Speech-API-continous-recording/"/>
     <id>http://ssk7833.github.io/blog/2016/04/21/Google-Web-Speech-API-continous-recording/</id>
     <published>2016-04-21T02:06:51.000Z</published>
-    <updated>2016-06-27T07:02:50.544Z</updated>
+    <updated>2016-06-27T07:08:00.291Z</updated>
     
     <content type="html">&lt;p&gt;Google 的 web speech API 已經推出一段時間了，最近剛好有機會來試試。&lt;br&gt;Web speech API 的操作並不困難，基本上就是 &lt;code&gt;var recognition = new webkitSpeechRecognition();&lt;/code&gt;，可以在下方參考資料中看到相關原始碼，唯獨我預設的需求是必須可持續收音，因使用者可能是在不適合任何物理碰觸的環境下操作，所以鍵盤滑鼠及觸控螢幕皆不適合在此當作 input 來源。然而 web speech API 的持續收音 &lt;code&gt;recognition.continuous = true;&lt;/code&gt; 若發現麥克風閒置太長的話，一樣會自動停止收音，因此還是要再重新觸發 &lt;code&gt;recognition.start();&lt;/code&gt;，所幸我就將 &lt;code&gt;recognition.start();&lt;/code&gt; 寫到 &lt;code&gt;onend&lt;/code&gt; event handler，天真的以為這樣就解決問題了。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/blog/images/allowMicrophone.png&quot; alt=&quot;要求使用麥克風&quot; title=&quot;要求使用麥克風&quot;&gt;&lt;br&gt;當每次收音結束後又重新觸發開始時，就會跳出這個允許授權的視窗，而當然此時是不能收音的，可以在此&lt;a href=&quot;http://codepen.io/ssk7833/pen/YqepJb&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;範例&lt;/a&gt;體驗一下。&lt;/p&gt;
@@ -251,7 +251,7 @@
     <link href="http://ssk7833.github.io/blog/2016/04/19/parse-server-push-notification-APNS/"/>
     <id>http://ssk7833.github.io/blog/2016/04/19/parse-server-push-notification-APNS/</id>
     <published>2016-04-19T07:56:37.000Z</published>
-    <updated>2016-06-27T07:02:50.544Z</updated>
+    <updated>2016-06-27T07:08:00.291Z</updated>
     
     <content type="html">&lt;p&gt;Parse 的一大方便之處，即是他提供了推播通知(push notification)的整合，使開發者可以在短時間內完成推播功能；而推播通知也已經移植到 Parse Server 版本上，步驟與先前在 Parse 上差不了多少，在這裡紀錄一下 APNS(iOS) 設定的步驟。&lt;/p&gt;
 &lt;h2 id=&quot;建立-SSL-憑證&quot;&gt;&lt;a href=&quot;#建立-SSL-憑證&quot; class=&quot;headerlink&quot; title=&quot;建立 SSL 憑證&quot;&gt;&lt;/a&gt;建立 SSL 憑證&lt;/h2&gt;&lt;p&gt;在發送推播前必須給予 Parse Server 推播的權限，因此要先建立對應的 App ID 及 SSL 憑證。&lt;/p&gt;
@@ -318,7 +318,7 @@
     <link href="http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/"/>
     <id>http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/</id>
     <published>2016-04-09T03:33:05.000Z</published>
-    <updated>2016-06-27T07:02:50.544Z</updated>
+    <updated>2016-06-27T07:08:00.291Z</updated>
     
     <content type="html">&lt;p&gt;在今年一月底時 &lt;a href=&quot;http://parse.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Parse&lt;/a&gt; 突然丟下了一枚震撼彈(&lt;a href=&quot;http://blog.parse.com/announcements/moving-on/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Moving On&lt;/a&gt;)，隨著 Parse 服務將在一年後關閉的消息，同時也提到將會把 Parse Server open source 出來，如今兩個月過去了，釋出的 Parse Server 也趨於完善，不只提供了許多雲端服務的整合方案，連 Parse Dashboard 也在三月初時 open source 了(&lt;a href=&quot;http://blog.parse.com/announcements/introducing-the-parse-server-dashboard/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Introducing the Parse Server Dashboard&lt;/a&gt;)，雖然這個 Dashboard 目前並不像 Parse 線上服務的功能一樣完整，但在短短一個月內間又多了推播(push notification)功能頁面(&lt;a href=&quot;http://blog.parse.com/announcements/push-and-config-come-to-the-parse-dashboard/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Push and Config come to the Parse Dashboard&lt;/a&gt;)，可以預見未來功能會越來越完整。&lt;/p&gt;
 &lt;p&gt;單純架設 Parse Server 的難度不高，在 &lt;a href=&quot;https://github.com/ParsePlatform/parse-server&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub&lt;/a&gt; 有對於要在 local 架設或是部屬到其他服務上如 Heroku 的範例教學，&lt;a href=&quot;https://github.com/ParsePlatform/parse-server/wiki&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;wiki&lt;/a&gt; 頁面也有更完整的解說，但從這裡開始我個人認為不是個好選擇，以指令方式去帶 appId 及 masterKey 總有可能會發生什麼意外。Parse 另外提供了 &lt;a href=&quot;https://github.com/ParsePlatform/parse-server-example&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;parse-server-example&lt;/a&gt;，這個對於入門來說會比較方便。&lt;/p&gt;
@@ -393,7 +393,7 @@
     <link href="http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/"/>
     <id>http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/</id>
     <published>2016-03-30T06:49:50.000Z</published>
-    <updated>2016-06-27T07:02:50.544Z</updated>
+    <updated>2016-06-27T07:08:00.291Z</updated>
     
     <content type="html">&lt;p&gt;最近在會議中分享了以下這份投影片，算是一個 SASS/SCSS 的入門。我擷取了部分常用的基礎功能及寫法範例，希望對入門者有些幫助。&lt;/p&gt;
 &lt;p&gt;&lt;iframe src=&quot;https://ssk7833.github.io/slides/SCSS/&quot; width=&quot;640&quot; height=&quot;480&quot; style=&quot;width:100%;&quot;&gt;&lt;/iframe&gt;&lt;br&gt;&lt;a href=&quot;https://ssk7833.github.io/slides/SCSS/&quot;&gt;Do it smart, a better way to write CSS - SASS/SCSS&lt;/a&gt;&lt;/p&gt;
@@ -422,7 +422,7 @@
     <link href="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/"/>
     <id>http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/</id>
     <published>2016-03-09T05:48:05.000Z</published>
-    <updated>2016-06-27T07:02:50.544Z</updated>
+    <updated>2016-06-27T07:08:00.287Z</updated>
     
     <content type="html">&lt;p&gt;最近在試著實作 gooey 效果，看了一些介紹後知道了 gooey 的原理，本以為在實作上可以一路順風，但果然沒有這麼簡單，還好最後有找到解決方法。&lt;/p&gt;
 &lt;p&gt;先來談談 gooey 的作法，首先要先有兩層 layer，內層將物件模糊 blur，而外層處理亮度 brightness 跟對比度 contrast，接著神奇的事情就會發生了，可以參考以下範例：&lt;/p&gt;
@@ -528,7 +528,7 @@
     <link href="http://ssk7833.github.io/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/"/>
     <id>http://ssk7833.github.io/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/</id>
     <published>2016-01-21T08:23:05.000Z</published>
-    <updated>2016-06-27T07:02:50.544Z</updated>
+    <updated>2016-06-27T07:08:00.287Z</updated>
     
     <content type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;先前看到了&lt;a href=&quot;https://samkuo.me/post/2015/09/why-developers-should-have-a-blog/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;程式人就該有個部落格&lt;/a&gt;，想想這個主意不錯，之前有在 Blogger 及 Logdown 零星寫了幾篇文章，也曾經想過自己架靜態或動態網站，只是一直沒有去做，看完這篇讓我更有動力去做這件事。研究一陣子後我選擇直接利用 Github pages 來發佈網站，於是開始調查 &lt;a href=&quot;https://www.staticgen.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;StaticGen&lt;/a&gt; 上排名較高的幾個，而最後挑選了 &lt;a href=&quot;https://hexo.io&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;：是台灣人寫的，而且是 javascript。&lt;/p&gt;
 &lt;p&gt;自己完成 Hexo 初步設定，產生第一版頁面後不久就遇到兩個問題：&lt;/p&gt;
@@ -595,7 +595,7 @@
     <link href="http://ssk7833.github.io/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/"/>
     <id>http://ssk7833.github.io/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/</id>
     <published>2016-01-09T20:10:05.000Z</published>
-    <updated>2016-06-27T07:02:50.544Z</updated>
+    <updated>2016-06-27T07:08:00.287Z</updated>
     
     <content type="html">&lt;p&gt;最近因為有把 iframe 內容以全螢幕顯示的需求，因此研究了一下 HTML5 fullscreen API。已有現成的 library 可以用如 &lt;a href=&quot;https://sindresorhus.com/screenfull.js/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;screenfull.js&lt;/a&gt; 及 &lt;a href=&quot;https://brad.is/coding/BigScreen/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;BigScreen&lt;/a&gt;，但大致上並不難，因此我選擇了純 javascript 來撰寫看看。&lt;/p&gt;
 &lt;p&gt;要全螢幕其實並不難，只要呼叫 &lt;code&gt;requestFullscreen()&lt;/code&gt; 即可做到，以下是簡易範例：&lt;/p&gt;
@@ -631,7 +631,7 @@
     <link href="http://ssk7833.github.io/blog/2015/08/25/facebook-graph-api-get-picture/"/>
     <id>http://ssk7833.github.io/blog/2015/08/25/facebook-graph-api-get-picture/</id>
     <published>2015-08-24T19:11:56.000Z</published>
-    <updated>2016-06-27T07:02:50.544Z</updated>
+    <updated>2016-06-27T07:08:00.287Z</updated>
     
     <content type="html">&lt;p&gt;要取得大頭貼照，如果使用 API request ，加上 picture 即可得到大頭貼照，如：&lt;code&gt;me?fields=id,name,picture&lt;/code&gt;，即可在回傳的 JSON 中取得圖片的位址，但這時取回來的圖片會比正常大小還要小，而且此方法還需要 access_token。&lt;/p&gt;
 &lt;p&gt;要取得不同大小的大頭貼照，有個更輕鬆的方法：&lt;code&gt;http://graph.facebook.com/{id}/picture?type=normal&lt;/code&gt; 直接使用此網址，將 id 換成想呈現的 userId 即可，此網址將會 redirect 到對應的圖片位址，且此方法不需要 access_token。&lt;/p&gt;
@@ -662,7 +662,7 @@
     <link href="http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/"/>
     <id>http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/</id>
     <published>2015-07-12T10:49:43.000Z</published>
-    <updated>2016-06-27T07:02:50.544Z</updated>
+    <updated>2016-06-27T07:08:00.287Z</updated>
     
     <content type="html">&lt;p&gt;玩 Facebook Graph API 玩了一陣子才發現回傳的姓名總是是英文的，才想到若是有回傳中文姓名的需求時該怎麼辦，如此下去一找才發現關鍵字是 &lt;a href=&quot;https://www.facebook.com/help/217868321565724&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Language-specific name&lt;/a&gt;，而要如何在 Facebook Graph API 中顯示為中文則可以參考這篇中的 locale：&lt;a href=&quot;https://developers.facebook.com/docs/graph-api/using-graph-api/v2.0#readmodifiers&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Modifying API Requests&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;其實只要在 API request 中加上 &lt;code&gt;&amp;amp;locale=zh_TW&lt;/code&gt; 即可得到中文姓名，如：&lt;code&gt;me?fields=id,name&amp;amp;locale=zh_TW&lt;/code&gt;，只是有趣的是我稍微測了一下 locale 給以開頭 &lt;code&gt;en_&lt;/code&gt; 以外的任何值都會取得中文名稱，還以為預設會以英文為主。&lt;/p&gt;
@@ -690,7 +690,7 @@
     <link href="http://ssk7833.github.io/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/"/>
     <id>http://ssk7833.github.io/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/</id>
     <published>2015-07-01T16:11:49.000Z</published>
-    <updated>2016-06-27T07:02:50.544Z</updated>
+    <updated>2016-06-27T07:08:00.287Z</updated>
     
     <content type="html">&lt;p&gt;繼上一篇成功截取出使用者資料後，發現除了基本資料外，朋友、按讚的資訊等資料其實都抓不出來，原因是因為沒有給予 app 存取這些資訊的權限。要求權限的話可以透過 OAuth 來索取 access token ，其範例網址如下：&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;https://www.facebook.com/dialog/oauth?client_id={appId}&amp;amp;redirect_uri={redirectURI}&lt;/code&gt;&lt;/p&gt;
@@ -736,7 +736,7 @@
     <link href="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/"/>
     <id>http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/</id>
     <published>2015-06-20T15:43:39.000Z</published>
-    <updated>2016-06-27T07:02:50.544Z</updated>
+    <updated>2016-06-27T07:08:00.287Z</updated>
     
     <content type="html">&lt;p&gt;延續上一篇，成功使用 Facebook 登入 Parse.com 的使用者資訊後，接著就是怎麼從使用者資訊中取得 Facebook 的資料了。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/blog/images/user.png&quot; alt=&quot;User&quot; title=&quot;User&quot;&gt;&lt;br&gt;以上圖的 Facebook Test Users 為例，建立完的使用者可以由 Parse.com 的 Data 中看到，不過 authData 卻只顯示了 Facebook 的 ID，因此我們可以先透過 API Console 來對 users 作存取，這裡要注意的是 Use Master Key 記得要選 Yes，否則會沒有權限看 authData 的內容；users 後面的參數為 objectId，若不放置則會列出全部符合的資料。&lt;br&gt;&lt;img src=&quot;/blog/images/APIconsole.png&quot; alt=&quot;API console&quot; title=&quot;API console&quot;&gt;&lt;br&gt;在 Response 中的內容：&lt;br&gt;&lt;figure class=&quot;highlight clojure&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;collection&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;string&quot;&gt;&quot;authData&quot;&lt;/span&gt;: &lt;span class=&quot;collection&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;string&quot;&gt;&quot;facebook&quot;&lt;/span&gt;: &lt;span class=&quot;collection&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      // 不要想對這組 access_token 亂來，因為是 test user XD&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;string&quot;&gt;&quot;access_token&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;CAAMCk3Pv7SkBAEjfvRaG4SrC8k3CXak1843iisuUJiIK9gYV9PNFRraXi9gxYVBJO83zsvzFO91dcACevKwinxAVPNCUeEv0UPWsmv7DZBlqPjtZCCnEBcMBKpU7ikoj9OKo1ZCwzi3wmTycsB2avHT1SiBxLUF5ZAHTaT9XDNtz1phGZCk0lltOY5agj0JGQ9ezNGmOsvUmdpKFASx5K&quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;string&quot;&gt;&quot;expiration_date&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;2015-08-15T17:52:46.495Z&quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;string&quot;&gt;&quot;id&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;118563748477765&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;string&quot;&gt;&quot;createdAt&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;2015-06-16T17:52:48.623Z&quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;string&quot;&gt;&quot;name&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;Super Mario&quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;string&quot;&gt;&quot;objectId&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;wmVm7Qb1Fc&quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;string&quot;&gt;&quot;sessionToken&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;jEKKzfbDcIN0CmBIvsdZR9Aoc&quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;string&quot;&gt;&quot;updatedAt&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;2015-06-17T07:57:08.934Z&quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;string&quot;&gt;&quot;username&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;3GwDpgmuqmfnyGYINNI27W9fO&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
@@ -770,7 +770,7 @@
     <link href="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/"/>
     <id>http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/</id>
     <published>2015-06-20T14:13:10.000Z</published>
-    <updated>2016-06-27T07:02:50.544Z</updated>
+    <updated>2016-06-27T07:08:00.287Z</updated>
     
     <content type="html">&lt;p&gt;&lt;a href=&quot;http://parse.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Parse.com&lt;/a&gt; 在 &lt;a href=&quot;https://parse.com/docs/tw/js/guide&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;javascript SDK&lt;/a&gt; 中提供了使用者的存取，其中包含 Facebook 的整合，但 javascript 終究是前端，有些不想讓 client end知道的還是放在後端處理比較好。然而 Parse.com 所提供的 cloud code 所使用的目前雖是 node.js，會讓開發者很想直接把 javascript SDK 的 Facebook 部分塞進去看能不能跑，乍看之下很合理，但實際上就是不行，因為以 Parse.com Javascript SDK在要求登入時會跳出另一個瀏覽器視窗以要求登入 Facebook 及權限給予，而這個視窗當然沒有辦法在 server end 中呈現並要求 client end 進行認證。&lt;/p&gt;
 &lt;p&gt;在官方論壇上也有人發表過此問題：&lt;a href=&quot;https://www.parse.com/questions/interacting-with-the-facebook-api-in-cloud-code&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Interacting with the Facebook API in Cloud Code&lt;/a&gt;&lt;br&gt;所得到的回答是：&lt;br&gt;&lt;strong&gt;Unfortunately, the Facebook JavaScript SDK is not made to work outside of a browser, so using it directly from Cloud Code is not supported at the moment.&lt;/strong&gt;&lt;/p&gt;
@@ -806,7 +806,7 @@
     <link href="http://ssk7833.github.io/blog/2012/09/24/show-Chinese-character-and-download-issues-in-PHPWord/"/>
     <id>http://ssk7833.github.io/blog/2012/09/24/show-Chinese-character-and-download-issues-in-PHPWord/</id>
     <published>2012-09-24T11:52:10.000Z</published>
-    <updated>2016-06-27T07:02:50.544Z</updated>
+    <updated>2016-06-27T07:08:00.287Z</updated>
     
     <content type="html">&lt;p&gt;&lt;strong&gt;UPDATE 2016-06-24：&lt;/strong&gt;不曉得當初自己怎麼沒將這篇從 &lt;a href=&quot;http://northzo.blogspot.tw/2012/09/phpword.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Blogger&lt;/a&gt; 轉過來，總之現在是轉過來了，只將內文格式改為 Markdown，不確定內文是否還能使用，請閱讀者再自行斟酌一下（畢竟也是2012時發的文了）。&lt;/p&gt;
 &lt;hr&gt;
