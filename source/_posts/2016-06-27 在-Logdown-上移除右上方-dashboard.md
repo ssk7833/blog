@@ -15,11 +15,11 @@ permalink: remove-dashboard-button-in-Logdown-page
 
 在最下方 `</body></html>` 前面空白處插入以下程式碼：
 
-```javascript
+```html
 <script>
   document.addEventListener("DOMContentLoaded", function(event) {
-  	var elem = document.querySelector('iframe[src="http://logdown.com/pages/top_controls"]');
-  	elem.parentNode.removeChild(elem);
+    var elem = document.querySelector('iframe[src="http://logdown.com/pages/top_controls"]');
+    elem.parentNode.removeChild(elem);
   });
 </script>
 ```
