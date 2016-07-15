@@ -3,19 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>使用 Parse.com Cloud Code Hosting 進行 Facebook 登入存取 1 | 北風筆記</title>
+  <title>Archives: 2016/7 | 北風筆記</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Parse.com 在 javascript SDK 中提供了使用者的存取，其中包含 Facebook 的整合，但 javascript 終究是前端，有些不想讓 client end知道的還是放在後端處理比較好。然而 Parse.com 所提供的 cloud code 所使用的目前雖是 node.js，會讓開發者很想直接把 javascript SDK 的 Facebook 部分塞進去看能不能跑，">
-<meta property="og:type" content="article">
-<meta property="og:title" content="使用 Parse.com Cloud Code Hosting 進行 Facebook 登入存取 1">
-<meta property="og:url" content="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/index.html">
+  <meta name="description" content="這裡紀錄個人的一些日常心得">
+<meta property="og:type" content="website">
+<meta property="og:title" content="北風筆記">
+<meta property="og:url" content="http://ssk7833.github.io/blog/archives/2016/07/index.html">
 <meta property="og:site_name" content="北風筆記">
-<meta property="og:description" content="Parse.com 在 javascript SDK 中提供了使用者的存取，其中包含 Facebook 的整合，但 javascript 終究是前端，有些不想讓 client end知道的還是放在後端處理比較好。然而 Parse.com 所提供的 cloud code 所使用的目前雖是 node.js，會讓開發者很想直接把 javascript SDK 的 Facebook 部分塞進去看能不能跑，">
-<meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/userSessions.png">
-<meta property="og:updated_time" content="2016-07-15T02:30:30.145Z">
+<meta property="og:description" content="這裡紀錄個人的一些日常心得">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用 Parse.com Cloud Code Hosting 進行 Facebook 登入存取 1">
-<meta name="twitter:description" content="Parse.com 在 javascript SDK 中提供了使用者的存取，其中包含 Facebook 的整合，但 javascript 終究是前端，有些不想讓 client end知道的還是放在後端處理比較好。然而 Parse.com 所提供的 cloud code 所使用的目前雖是 node.js，會讓開發者很想直接把 javascript SDK 的 Facebook 部分塞進去看能不能跑，">
+<meta name="twitter:title" content="北風筆記">
+<meta name="twitter:description" content="這裡紀錄個人的一些日常心得">
   
     <link rel="alternative" href="/blog/atom.xml" title="北風筆記" type="application/atom+xml">
   
@@ -78,83 +76,39 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/" class="article-date">
-  <time datetime="2015-06-20T14:13:10.000Z" itemprop="datePublished">2015-06-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/study/">study</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+        <section id="main">
   
-    <h1 class="article-title" itemprop="name">
-      使用 Parse.com Cloud Code Hosting 進行 Facebook 登入存取 1
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/blog/archives/2016" class="archive-year">2016</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/blog/2016/07/15/let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/" class="archive-article-date">
+  <time datetime="2016-07-15T02:28:20.000Z" itemprop="datePublished">Jul 15</time>
+</a>
+      
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/blog/2016/07/15/let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/">當有雙螢幕時，讓觸控螢幕在正確螢幕上觸控</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://parse.com/" target="_blank" rel="external">Parse.com</a> 在 <a href="https://parse.com/docs/tw/js/guide" target="_blank" rel="external">javascript SDK</a> 中提供了使用者的存取，其中包含 Facebook 的整合，但 javascript 終究是前端，有些不想讓 client end知道的還是放在後端處理比較好。然而 Parse.com 所提供的 cloud code 所使用的目前雖是 node.js，會讓開發者很想直接把 javascript SDK 的 Facebook 部分塞進去看能不能跑，乍看之下很合理，但實際上就是不行，因為以 Parse.com Javascript SDK在要求登入時會跳出另一個瀏覽器視窗以要求登入 Facebook 及權限給予，而這個視窗當然沒有辦法在 server end 中呈現並要求 client end 進行認證。</p>
-<p>在官方論壇上也有人發表過此問題：<a href="https://www.parse.com/questions/interacting-with-the-facebook-api-in-cloud-code" target="_blank" rel="external">Interacting with the Facebook API in Cloud Code</a><br>所得到的回答是：<br><strong>Unfortunately, the Facebook JavaScript SDK is not made to work outside of a browser, so using it directly from Cloud Code is not supported at the moment.</strong></p>
-<p><strong>You can, however, get the authData from the current user in cloud code and use that to make a REST call to Facebook’s graph API manually.</strong></p>
-<p>因此我轉而研究使用OAuth方式來登入Facebook，除了跳轉出的頁面比較美觀外（不會產生另一個瀏覽器視窗），也不用擔心暴露資訊給clent end，參考資料有這兩篇：<br><a href="http://sweeteason.pixnet.net/blog/post/40581580-%E7%B6%B2%E7%AB%99%E5%88%A9%E7%94%A8-facebook-%E5%B8%B3%E8%99%9F%E7%99%BB%E5%85%A5-%28%E4%BD%BF%E7%94%A8-oauth%29" target="_blank" rel="external">網站利用 Facebook 帳號登入 (使用 OAuth)</a><br><a href="https://gigenchang.wordpress.com/2014/01/26/10%E5%88%86%E9%90%98%E7%90%86%E8%A7%A3oauth%E5%92%8Cfacebook%E7%99%BB%E5%85%A5%E5%8E%9F%E7%90%86/" target="_blank" rel="external">10分鐘理解OAuth和facebook登入原理</a><br>這篇以python Django framework實作，其實看code好像也蠻容易理解的：<a href="http://nthn.me/posts/2012/facebook-registration.html" target="_blank" rel="external">Ghetto Facebook Registration with Django</a></p>
-<p>後來正當我開始打算實作時，我找到了 <a href="https://github.com/ParsePlatform/parse-facebook-user-session" target="_blank" rel="external">parse-facebook-user-session</a> ，原來 Parse.com 早就把這個寫好了，根本不用自己去寫了，只需要按照他的說明一步一步來就行了（吧）！</p>
-<p>結果證明事情果然不是我想的這麼簡單，不管怎麼弄就是跳出 <strong>209 invalid session token</strong> ，花了一段時間後找到 Parse.com 自己發的文章 <a href="https://www.parse.com/tutorials/session-migration-tutorial" target="_blank" rel="external">Session Migration Tutorial</a> ，才知道把這個選項關掉就行了，我花了這麼久到底在幹麻！</p>
-<p><img src="/blog/images/userSessions.png" alt="User sessions" title="User sessions"><br>總之，關閉這個選項後就成功了， Parse.com 的資料庫也會成功紀錄登入過的使用者，事情完成一半，其餘的就是登入的使用者資料該怎麼讀取出來了～</p>
-<p><strong>UPDATE：</strong>在GitHub上新增了 <a href="https://loginexample.parseapp.com/" target="_blank" rel="external">demo</a>：<a href="https://github.com/ssk7833/Parse-Facebook-OAuth-login-example" target="_blank" rel="external">GitHub</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/" data-id="ciqn4o0kw002t8be55ssgs420" class="article-share-link">Share</a>
-      
-        <a href="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Facebook/">Facebook</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/node-js/">node.js</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          使用 Parse.com Cloud Code Hosting 進行 Facebook 登入存取 2
-        
-      </div>
-    </a>
-  
-  
-    <a href="/blog/2012/09/24/show-Chinese-character-and-download-issues-in-PHPWord/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">PHPWord 中文字顯示與下載問題</div>
-    </a>
-  
-</nav>
-
-  
 </article>
-
-
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
+  
+  
+    </div></section>
+  
 </section>
         
           <aside id="sidebar">
@@ -250,13 +204,11 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'ssk7833';
   
-  var disqus_url = 'http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/';
-  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
