@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>利用 Google Chrome 作為 kiosk 應用時的設定項目 | 北風筆記</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="紀錄一下利用 Google Chrome 作為 kiosk 時，需要注意的地方：本文所使用的 Google Chrome 版本：52.0.2743.82 m
+鎖定右鍵內容當觸控啟用時，預設長按螢幕就會觸發滑鼠右鍵的功能表。如同一般網頁防止滑鼠右鍵內容一樣，於 HTML 中加入 Javascript 來防止右鍵清單的跳出。1window.addEventListener(&apos;contextmenu&apos;,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用 Google Chrome 作為 kiosk 應用時的設定項目">
+<meta property="og:url" content="http://ssk7833.github.io/blog/2016/08/02/setup-Google-Chrome-as-kiosk-application-settings/index.html">
+<meta property="og:site_name" content="北風筆記">
+<meta property="og:description" content="紀錄一下利用 Google Chrome 作為 kiosk 時，需要注意的地方：本文所使用的 Google Chrome 版本：52.0.2743.82 m
+鎖定右鍵內容當觸控啟用時，預設長按螢幕就會觸發滑鼠右鍵的功能表。如同一般網頁防止滑鼠右鍵內容一樣，於 HTML 中加入 Javascript 來防止右鍵清單的跳出。1window.addEventListener(&apos;contextmenu&apos;,">
+<meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/2016-08-02-setup-Google-Chrome-as-kiosk-application-settings/01.png">
+<meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/2016-08-02-setup-Google-Chrome-as-kiosk-application-settings/02.png">
+<meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/2016-08-02-setup-Google-Chrome-as-kiosk-application-settings/03.png">
+<meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/2016-08-02-setup-Google-Chrome-as-kiosk-application-settings/04.png">
+<meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/2016-08-02-setup-Google-Chrome-as-kiosk-application-settings/05.png">
+<meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/2016-08-02-setup-Google-Chrome-as-kiosk-application-settings/06.png">
+<meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/2016-08-02-setup-Google-Chrome-as-kiosk-application-settings/07.png">
+<meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/2016-08-02-setup-Google-Chrome-as-kiosk-application-settings/08.png">
+<meta property="og:updated_time" content="2016-08-02T08:04:58.689Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用 Google Chrome 作為 kiosk 應用時的設定項目">
+<meta name="twitter:description" content="紀錄一下利用 Google Chrome 作為 kiosk 時，需要注意的地方：本文所使用的 Google Chrome 版本：52.0.2743.82 m
+鎖定右鍵內容當觸控啟用時，預設長按螢幕就會觸發滑鼠右鍵的功能表。如同一般網頁防止滑鼠右鍵內容一樣，於 HTML 中加入 Javascript 來防止右鍵清單的跳出。1window.addEventListener(&apos;contextmenu&apos;,">
+  
+    <link rel="alternative" href="/blog/atom.xml" title="北風筆記" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/blog/css/style.css" type="text/css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-64338617-2', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">北風筆記</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">紀錄一些學習心得、過程及日常</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://ssk7833.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-setup-Google-Chrome-as-kiosk-application-settings" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2016/08/02/setup-Google-Chrome-as-kiosk-application-settings/" class="article-date">
+  <time datetime="2016-08-02T08:03:45.000Z" itemprop="datePublished">2016-08-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/study/">study</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      利用 Google Chrome 作為 kiosk 應用時的設定項目
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>紀錄一下利用 Google Chrome 作為 kiosk 時，需要注意的地方：<br>本文所使用的 Google Chrome 版本：52.0.2743.82 m</p>
+<h2 id="鎖定右鍵內容"><a href="#鎖定右鍵內容" class="headerlink" title="鎖定右鍵內容"></a>鎖定右鍵內容</h2><p>當觸控啟用時，預設長按螢幕就會觸發滑鼠右鍵的功能表。如同一般網頁防止滑鼠右鍵內容一樣，於 HTML 中加入 Javascript 來防止右鍵清單的跳出。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'contextmenu'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123; e.preventDefault(); &#125;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="禁止文字被選取"><a href="#禁止文字被選取" class="headerlink" title="禁止文字被選取"></a>禁止文字被選取</h2><p>當長按螢幕時會觸發與滑鼠左鍵按住拖曳來選取文字同樣的效果，如下圖中間搜尋視窗：<br><img src="/blog/images/2016-08-02-setup-Google-Chrome-as-kiosk-application-settings/01.png" alt="長按螢幕字串時" title="長按螢幕字串時"><br>若不想被選取，可以利用 CSS 處理，根據自己不想被選的部分作出篩選，下方範例以整份 HTML 當作範例：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">html</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">-webkit-user-select</span>:<span class="value"> none</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="關閉觸控滑動拖曳到上一頁／下一頁"><a href="#關閉觸控滑動拖曳到上一頁／下一頁" class="headerlink" title="關閉觸控滑動拖曳到上一頁／下一頁"></a>關閉觸控滑動拖曳到上一頁／下一頁</h2><p>若有超連結會導到其他頁面時，導向其他頁面後按著螢幕並往左或往右滑動，可能會觸發如手持裝置般的上下頁功能：<br><img src="/blog/images/2016-08-02-setup-Google-Chrome-as-kiosk-application-settings/02.png" alt="當有歷史分頁時，碰觸畫面並往右滑將會回到上一頁" title="當有歷史分頁時，碰觸畫面並往右滑將會回到上一頁"><br>解決方式有兩種：</p>
+<ol>
+<li><p>利用 CSS 去解決：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">html</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">touch-action</span>:<span class="value"> none</span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">-webkit-user-drag</span>:<span class="value"> none</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+<p><strong>但有缺點！</strong>若在 HTML 內容中有需要橫向卷軸的部分，此橫向卷軸部分不可能套用上方 CSS，需再另外對 <code>touch-action</code> 及 <code>-webkit-user-drag</code> 允許橫向操作，而若允許之後，在此橫向卷軸部分拖曳到最頂／底端時再繼續拖曳，依然會觸發道上下頁的功能。</p>
+</li>
+<li><p>修改 Chrome flags 內的設定：<br>開啟 Chrome 新分頁，在網址列輸入 <code>chrome://flags</code> 並找到 <code>橫向捲動紀錄導覽 Mac, Windows, Linux, Chrome OS, Android</code>，預設為<code>已啟用</code>，把它改成<code>已停用</code>。<br><img src="/blog/images/2016-08-02-setup-Google-Chrome-as-kiosk-application-settings/03.png" alt="更改設定為已停用" title="更改設定為已停用"><br>如此一來連 CSS 也不用寫了，缺點就是這個為全域設定，改成停用後任何網站都不能使用，不過既然是 kiosk，改成已停用理應影響不大。</p>
+</li>
+</ol>
+<hr>
+<p>接下來設定皆與命令列(command line)參數有關，使用方法有：</p>
+<ol>
+<li>利用建立捷徑的方式來填參數：<br><img src="/blog/images/2016-08-02-setup-Google-Chrome-as-kiosk-application-settings/04.png" alt="利用建立捷徑方式填參數" title="利用建立捷徑方式填參數"></li>
+<li>直接開啟執行(Windows + R)並輸入指令及參數：<br><img src="/blog/images/2016-08-02-setup-Google-Chrome-as-kiosk-application-settings/05.png" alt="在執行中輸入" title="在執行中輸入"></li>
+<li><p>於命令提示字元(cmd)中執行其中一行：</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">start</span> chrome</span><br></pre></td></tr></table></figure>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"C:<span class="command">\Program</span> Files (x86)<span class="command">\Google</span><span class="command">\Chrome</span><span class="command">\Application</span><span class="command">\chrome</span>.exe"</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="開啟固定位址的內容"><a href="#開啟固定位址的內容" class="headerlink" title="開啟固定位址的內容"></a>開啟固定位址的內容</h2><p>開啟時直接進入某個網頁。<br>在參數列加上網址即可，如 <code>start chrome ssk7833.github.io</code>。<br>若是本機上的靜態檔案則須加上 <code>file:///</code>，如 <code>start chrome file:///C:/dist/index.html</code></p>
+<h2 id="運行-kiosk-模式"><a href="#運行-kiosk-模式" class="headerlink" title="運行 kiosk 模式"></a>運行 kiosk 模式</h2><p>開啟時直接進入全螢幕模式，且無法利用 <code>F11</code> 跟 <code>ESC</code> 來離開全螢幕模式，可以用 <code>ALT + F4</code> 或 <code>CTRL + W</code> 來關閉。<br>在參數列加上 <code>--kiosk</code> 即可。</p>
+<h2 id="關閉詢問「您要翻譯這個網頁嗎？」"><a href="#關閉詢問「您要翻譯這個網頁嗎？」" class="headerlink" title="關閉詢問「您要翻譯這個網頁嗎？」"></a>關閉詢問「您要翻譯這個網頁嗎？」</h2><p><img src="/blog/images/2016-08-02-setup-Google-Chrome-as-kiosk-application-settings/06.png" alt="您要翻譯這個網頁嗎？" title="您要翻譯這個網頁嗎？"><br>使用 kiosk 模式後，依然可能會因 HTML 撰寫或內文而自動跳出這個訊息，在 kiosk 模式這當然是不想要的。<br>在參數列加上 <code>--disable-translate</code> 即可。</p>
+<h2 id="允許-Chrome-無視跨來源資源共享-CORS-限制"><a href="#允許-Chrome-無視跨來源資源共享-CORS-限制" class="headerlink" title="允許 Chrome 無視跨來源資源共享(CORS)限制"></a>允許 Chrome 無視跨來源資源共享(CORS)限制</h2><p>如果 kiosk 的內容是靜態網頁而無後台，又需要利用 AJAX 其他地方拿取資料，很可能會在開發時出現這種錯誤：<br><code>XMLHttpRequest cannot load https://www.example.com. No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource. Origin &#39;null&#39; is therefore not allowed access.</code><br><img src="/blog/images/2016-08-02-setup-Google-Chrome-as-kiosk-application-settings/07.png" alt="CORS 錯誤" title="CORS 錯誤"><br>若不想額外增設後台可在參數列加上 <code>--disable-web-security</code>，但加上後錯誤會依然存在，需配何下方參數才能正常運行。</p>
+<h2 id="開啟新的使用者資料夾來放置內容"><a href="#開啟新的使用者資料夾來放置內容" class="headerlink" title="開啟新的使用者資料夾來放置內容"></a>開啟新的使用者資料夾來放置內容</h2><p>如同一台電腦支援多個 Chrome 使用者一樣，另外開一個額外的資料夾來放置 user data，使其不會各自汙染。<br>在參數列加上 <code>--user-data-dir=&quot;C:/Chrome dev session&quot;</code> 即可，<code>C:/Chrome dev session</code> 即是接下來這個 Chrome 視窗將會存放資訊的位置，此資料夾無需自行建立，系統會自動幫忙建立。<br><code>--disable-web-security</code> 搭配 <code>--user-data-dir=&quot;C:/Chrome dev session&quot;</code> 即可無視 CORS 限制，但使用上也須注意是否有其他安全性的疑慮，不過既然都是 kiosk 了，理應不太會有這個問題。</p>
+<h2 id="移除上方跳出的警告訊息"><a href="#移除上方跳出的警告訊息" class="headerlink" title="移除上方跳出的警告訊息"></a>移除上方跳出的警告訊息</h2><p>前兩項做到後，其實會跳出此訊息：<code>您正在使用不受支援的命令列標識：--disable-web-security。這可能會危及穩定性與安全性。</code><br><img src="/blog/images/2016-08-02-setup-Google-Chrome-as-kiosk-application-settings/08.png" alt="--disable-web-security 警告" title="--disable-web-security 警告"><br>在 kiosk 模式當然不可能放出此行，可以在參數列加上 <code>--test-type</code> 即可。<del>為什麼這幾個不一次講完呢？</del></p>
+<h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL;DR"></a>TL;DR</h2><p>上述這幾個的參數組合技已經蠻夠用的，我目前下的指令如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chrome.exe <span class="string">"file:///C:/dist/index.html"</span> --user-data-dir=<span class="string">"C:/Chrome dev session"</span> --disable-web-security --test-type --disable-translate --kiosk</span><br></pre></td></tr></table></figure></p>
+<p>為什麼要用指令呢？因為能撰寫於 batch 中來達到部分的自動化。<br>不確定某些指令是否可能有潛藏的風險，若有思慮不周的地方也請您分享！</p>
+<p>參考資料：</p>
+<ol>
+<li><a href="http://askubuntu.com/a/310521" target="_blank" rel="external">Google Chrome browser, how to permanently disable this disturbing toolbar?</a></li>
+<li><a href="http://stackoverflow.com/a/24018881/4968420" target="_blank" rel="external">Protractor error message “unsupported command-line flag” in Chrome?</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ssk7833.github.io/blog/2016/08/02/setup-Google-Chrome-as-kiosk-application-settings/" data-id="cird6jqv500058nep6fvwra50" class="article-share-link">Share</a>
+      
+        <a href="http://ssk7833.github.io/blog/2016/08/02/setup-Google-Chrome-as-kiosk-application-settings/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/chrome/">chrome</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/kiosk/">kiosk</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/windows/">windows</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2016/07/15/let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">當有雙螢幕時，讓觸控螢幕在正確螢幕上觸控</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/study/">study</a><span class="category-list-count">20</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/APNS/">APNS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CSS/">CSS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook/">Facebook</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook-Graph-API/">Facebook-Graph-API</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/PHP/">PHP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/PHPWord/">PHPWord</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-server/">Parse server</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SASS/">SASS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SCSS/">SCSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SVG/">SVG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chrome/">chrome</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gf-pages/">gf-pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gooey/">gooey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/kiosk/">kiosk</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/localization/">localization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/logdown/">logdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/node-js/">node.js</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/push-notification/">push notification</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/shell-script/">shell script</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/travis-ci/">travis ci</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/web-speech-API/">web speech API</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/windows/">windows</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/APNS/" style="font-size: 10px;">APNS</a> <a href="/blog/tags/CSS/" style="font-size: 12px;">CSS</a> <a href="/blog/tags/CloudCode/" style="font-size: 16px;">CloudCode</a> <a href="/blog/tags/Facebook/" style="font-size: 18px;">Facebook</a> <a href="/blog/tags/Facebook-Graph-API/" style="font-size: 12px;">Facebook-Graph-API</a> <a href="/blog/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/blog/tags/PHPWord/" style="font-size: 10px;">PHPWord</a> <a href="/blog/tags/Parse-server/" style="font-size: 16px;">Parse server</a> <a href="/blog/tags/Parse-com/" style="font-size: 16px;">Parse.com</a> <a href="/blog/tags/SASS/" style="font-size: 10px;">SASS</a> <a href="/blog/tags/SCSS/" style="font-size: 10px;">SCSS</a> <a href="/blog/tags/SVG/" style="font-size: 10px;">SVG</a> <a href="/blog/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/blog/tags/gf-pages/" style="font-size: 10px;">gf-pages</a> <a href="/blog/tags/gooey/" style="font-size: 10px;">gooey</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 16px;">javascript</a> <a href="/blog/tags/kiosk/" style="font-size: 10px;">kiosk</a> <a href="/blog/tags/localization/" style="font-size: 10px;">localization</a> <a href="/blog/tags/logdown/" style="font-size: 10px;">logdown</a> <a href="/blog/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/blog/tags/push-notification/" style="font-size: 14px;">push notification</a> <a href="/blog/tags/shell-script/" style="font-size: 10px;">shell script</a> <a href="/blog/tags/travis-ci/" style="font-size: 10px;">travis ci</a> <a href="/blog/tags/web-speech-API/" style="font-size: 10px;">web speech API</a> <a href="/blog/tags/windows/" style="font-size: 12px;">windows</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/06/">June 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/04/">April 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/03/">March 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/01/">January 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/07/">July 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2012/09/">September 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2011/01/">January 2011</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2016/08/02/setup-Google-Chrome-as-kiosk-application-settings/">利用 Google Chrome 作為 kiosk 應用時的設定項目</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2016/07/15/let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/">當有雙螢幕時，讓觸控螢幕在正確螢幕上觸控</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2016/06/27/remove-dashboard-button-in-Logdown-page/">在 Logdown 上移除右上方 dashboard</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2016/06/06/retrieve-push-status/">取得 Parse server 推播通知送出狀態</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2016/05/25/hide-source-of-log-messages-in-console/">隱藏 console 中的 source 來源</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 North<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'ssk7833';
+  
+  var disqus_url = 'http://ssk7833.github.io/blog/2016/08/02/setup-Google-Chrome-as-kiosk-application-settings/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/blog/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

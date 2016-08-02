@@ -2,128 +2,135 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/</loc>
-    
-    <lastmod>2016-07-15T02:30:30.149Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/</loc>
     
-    <lastmod>2016-07-15T02:30:30.149Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ssk7833.github.io/blog/2016/06/06/retrieve-push-status/</loc>
-    
-    <lastmod>2016-07-15T02:30:30.149Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ssk7833.github.io/blog/2016/05/25/hide-source-of-log-messages-in-console/</loc>
-    
-    <lastmod>2016-07-15T02:30:30.149Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ssk7833.github.io/blog/2016/05/20/Parse-push-return-pushStatus-objectId/</loc>
-    
-    <lastmod>2016-07-15T02:30:30.149Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ssk7833.github.io/blog/2016/04/21/Google-Web-Speech-API-continous-recording/</loc>
-    
-    <lastmod>2016-07-15T02:30:30.149Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ssk7833.github.io/blog/2016/04/19/parse-server-push-notification-APNS/</loc>
-    
-    <lastmod>2016-07-15T02:30:30.149Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ssk7833.github.io/blog/2016/06/27/remove-dashboard-button-in-Logdown-page/</loc>
-    
-    <lastmod>2016-07-15T02:30:30.149Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ssk7833.github.io/blog/2016/07/15/let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/</loc>
-    
-    <lastmod>2016-07-15T02:30:30.149Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/</loc>
-    
-    <lastmod>2016-07-15T02:30:30.149Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ssk7833.github.io/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/</loc>
-    
-    <lastmod>2016-07-15T02:30:30.149Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ssk7833.github.io/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/</loc>
-    
-    <lastmod>2016-07-15T02:30:30.149Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ssk7833.github.io/blog/2015/08/25/facebook-graph-api-get-picture/</loc>
-    
-    <lastmod>2016-07-15T02:30:30.149Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/</loc>
-    
-    <lastmod>2016-07-15T02:30:30.149Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://ssk7833.github.io/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/</loc>
-    
-    <lastmod>2016-07-15T02:30:30.149Z</lastmod>
+    <lastmod>2016-08-02T08:04:58.689Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ssk7833.github.io/blog/2012/09/24/show-Chinese-character-and-download-issues-in-PHPWord/</loc>
     
-    <lastmod>2016-07-15T02:30:30.145Z</lastmod>
+    <lastmod>2016-08-02T08:04:58.689Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ssk7833.github.io/blog/2016/07/15/let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/</loc>
+    
+    <lastmod>2016-08-02T08:04:58.689Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ssk7833.github.io/blog/2016/06/27/remove-dashboard-button-in-Logdown-page/</loc>
+    
+    <lastmod>2016-08-02T08:04:58.689Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ssk7833.github.io/blog/2016/06/06/retrieve-push-status/</loc>
+    
+    <lastmod>2016-08-02T08:04:58.689Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ssk7833.github.io/blog/2016/05/25/hide-source-of-log-messages-in-console/</loc>
+    
+    <lastmod>2016-08-02T08:04:58.689Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ssk7833.github.io/blog/2016/05/20/Parse-push-return-pushStatus-objectId/</loc>
+    
+    <lastmod>2016-08-02T08:04:58.689Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ssk7833.github.io/blog/2016/04/21/Google-Web-Speech-API-continous-recording/</loc>
+    
+    <lastmod>2016-08-02T08:04:58.689Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ssk7833.github.io/blog/2016/04/19/parse-server-push-notification-APNS/</loc>
+    
+    <lastmod>2016-08-02T08:04:58.689Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/</loc>
+    
+    <lastmod>2016-08-02T08:04:58.689Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ssk7833.github.io/blog/2016/08/02/setup-Google-Chrome-as-kiosk-application-settings/</loc>
+    
+    <lastmod>2016-08-02T08:04:58.689Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/</loc>
+    
+    <lastmod>2016-08-02T08:04:58.689Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ssk7833.github.io/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/</loc>
+    
+    <lastmod>2016-08-02T08:04:58.689Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ssk7833.github.io/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/</loc>
+    
+    <lastmod>2016-08-02T08:04:58.689Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ssk7833.github.io/blog/2015/08/25/facebook-graph-api-get-picture/</loc>
+    
+    <lastmod>2016-08-02T08:04:58.689Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/</loc>
+    
+    <lastmod>2016-08-02T08:04:58.689Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://ssk7833.github.io/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/</loc>
+    
+    <lastmod>2016-08-02T08:04:58.689Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/</loc>
     
-    <lastmod>2016-07-15T02:30:30.145Z</lastmod>
+    <lastmod>2016-08-02T08:04:58.689Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/</loc>
     
-    <lastmod>2016-07-15T02:30:30.145Z</lastmod>
+    <lastmod>2016-08-02T08:04:58.689Z</lastmod>
     
   </url>
   
