@@ -25,7 +25,7 @@ permalink: using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3
 ![Profile with friends](/blog/images/user_friends.png "Profile with friends")
 ![Profile with friends details](/blog/images/user_friends02.png "Profile with friends details")
 
-講了這麼多，但以[第一篇](http://north.logdown.com/posts/280761-using-parsecom-cloud-code-hosting-to-log-in-with-facebook)中使用了[parse-facebook-user-session](https://github.com/ParsePlatform/parse-facebook-user-session)該怎麼修改呢？稍微翻了它的 source code 後發現它在實作上並沒有保留 scope 欄位，因此我便把 scope 加上去了，可以由此瀏覽：[parse-facebook-user-session](https://github.com/ssk7833/parse-facebook-user-session)
+講了這麼多，但以[第一篇](/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/)中使用了[parse-facebook-user-session](https://github.com/ParsePlatform/parse-facebook-user-session)該怎麼修改呢？稍微翻了它的 source code 後發現它在實作上並沒有保留 scope 欄位，因此我便把 scope 加上去了，可以由此瀏覽：[parse-facebook-user-session](https://github.com/ssk7833/parse-facebook-user-session)
 **UPDATE：**原 repository 已經將此功能 merge上 去，直接使用原本的即可
 
 使用方式的話則與先前的沒什麼差別，只是可以選擇多填一個 scope 欄位，範例如下：
