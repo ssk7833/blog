@@ -3,31 +3,25 @@
 <head>
   <meta charset="utf-8">
   
-  <title>當有雙螢幕時，讓觸控螢幕在正確螢幕上觸控 | 北風筆記</title>
+  <title>利用 windows batch 自動初始化、檢查 Google Chrome 開啟狀態 | 北風筆記</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="最近多了一台觸控螢幕，接到主機後從原本的雙螢幕變成的三螢幕，其中一個就是這個觸控螢幕。我的螢幕設定是使用延伸模式，主螢幕為原本雙螢幕的其中一個，加入第三個螢幕時一樣採取延伸模式。而在這個觸控螢幕在插上 USB 線後且安裝完驅動程式後，觸控螢幕就像觸控板一樣可以點擊來觸發滑鼠事件，但對應到的點擊區域卻是我的主螢幕，這完全沒道理啊！
-本以為是驅動程式的問題，其實不是，而找到的解法有兩種：
+  <meta name="description" content="延續上一篇利用 Google Chrome 作為 kiosk 應用時的設定項目所提到的，這個最終要應用在 batch 上，來達到在 kiosk 應用上能自動開機便能自動初始化、自動檢查 Chrome 是否因為不明原因被關閉了，減少作業系統曝光的情況，否則哪天說不定就會被拍照下來留念。
 
-將主螢幕設">
+batch 檔內容如下：12345678910111213141516171819202122232425262">
 <meta property="og:type" content="article">
-<meta property="og:title" content="當有雙螢幕時，讓觸控螢幕在正確螢幕上觸控">
-<meta property="og:url" content="http://ssk7833.github.io/blog/2016/07/15/let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/index.html">
+<meta property="og:title" content="利用 windows batch 自動初始化、檢查 Google Chrome 開啟狀態">
+<meta property="og:url" content="http://ssk7833.github.io/blog/2016/09/30/using-windows-batch-to-initialize-and-check-chrome-status/index.html">
 <meta property="og:site_name" content="北風筆記">
-<meta property="og:description" content="最近多了一台觸控螢幕，接到主機後從原本的雙螢幕變成的三螢幕，其中一個就是這個觸控螢幕。我的螢幕設定是使用延伸模式，主螢幕為原本雙螢幕的其中一個，加入第三個螢幕時一樣採取延伸模式。而在這個觸控螢幕在插上 USB 線後且安裝完驅動程式後，觸控螢幕就像觸控板一樣可以點擊來觸發滑鼠事件，但對應到的點擊區域卻是我的主螢幕，這完全沒道理啊！
-本以為是驅動程式的問題，其實不是，而找到的解法有兩種：
+<meta property="og:description" content="延續上一篇利用 Google Chrome 作為 kiosk 應用時的設定項目所提到的，這個最終要應用在 batch 上，來達到在 kiosk 應用上能自動開機便能自動初始化、自動檢查 Chrome 是否因為不明原因被關閉了，減少作業系統曝光的情況，否則哪天說不定就會被拍照下來留念。
 
-將主螢幕設">
-<meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/2016-07-15-let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/01.png">
-<meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/2016-07-15-let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/02.png">
-<meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/2016-07-15-let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/03.png">
-<meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/2016-07-15-let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/04.png">
+batch 檔內容如下：12345678910111213141516171819202122232425262">
+<meta property="og:image" content="https://cdn0-t17-techbang.pixcdn.tw/system/attached_images/2013/06/99221/show/660a0705c6416315e5146d622080be1a.jpg?1372171678">
 <meta property="og:updated_time" content="2016-09-30T07:09:03.392Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="當有雙螢幕時，讓觸控螢幕在正確螢幕上觸控">
-<meta name="twitter:description" content="最近多了一台觸控螢幕，接到主機後從原本的雙螢幕變成的三螢幕，其中一個就是這個觸控螢幕。我的螢幕設定是使用延伸模式，主螢幕為原本雙螢幕的其中一個，加入第三個螢幕時一樣採取延伸模式。而在這個觸控螢幕在插上 USB 線後且安裝完驅動程式後，觸控螢幕就像觸控板一樣可以點擊來觸發滑鼠事件，但對應到的點擊區域卻是我的主螢幕，這完全沒道理啊！
-本以為是驅動程式的問題，其實不是，而找到的解法有兩種：
+<meta name="twitter:title" content="利用 windows batch 自動初始化、檢查 Google Chrome 開啟狀態">
+<meta name="twitter:description" content="延續上一篇利用 Google Chrome 作為 kiosk 應用時的設定項目所提到的，這個最終要應用在 batch 上，來達到在 kiosk 應用上能自動開機便能自動初始化、自動檢查 Chrome 是否因為不明原因被關閉了，減少作業系統曝光的情況，否則哪天說不定就會被拍照下來留念。
 
-將主螢幕設">
+batch 檔內容如下：12345678910111213141516171819202122232425262">
   
     <link rel="alternative" href="/blog/atom.xml" title="北風筆記" type="application/atom+xml">
   
@@ -90,10 +84,10 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-let-touch-screen-with-multiple-monitors-works-on-the-right-monitor" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-using-windows-batch-to-initialize-and-check-chrome-status" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/blog/2016/07/15/let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/" class="article-date">
-  <time datetime="2016-07-15T02:28:20.000Z" itemprop="datePublished">2016-07-15</time>
+    <a href="/blog/2016/09/30/using-windows-batch-to-initialize-and-check-chrome-status/" class="article-date">
+  <time datetime="2016-09-30T07:04:20.000Z" itemprop="datePublished">2016-09-30</time>
 </a>
     
   <div class="article-category">
@@ -108,7 +102,7 @@ ga('send', 'pageview');
         
   
     <h1 class="article-title" itemprop="name">
-      當有雙螢幕時，讓觸控螢幕在正確螢幕上觸控
+      利用 windows batch 自動初始化、檢查 Google Chrome 開啟狀態
     </h1>
   
 
@@ -116,31 +110,32 @@ ga('send', 'pageview');
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近多了一台觸控螢幕，接到主機後從原本的雙螢幕變成的三螢幕，其中一個就是這個觸控螢幕。<br>我的螢幕設定是使用延伸模式，主螢幕為原本雙螢幕的其中一個，加入第三個螢幕時一樣採取延伸模式。而在這個觸控螢幕在插上 USB 線後且安裝完驅動程式後，觸控螢幕就像觸控板一樣可以點擊來觸發滑鼠事件，但對應到的點擊區域卻是我的主螢幕，這完全沒道理啊！</p>
-<p>本以為是驅動程式的問題，其實不是，而找到的解法有兩種：</p>
-<ol>
-<li><p>將主螢幕設定到第三個螢幕，也就是觸控螢幕。<br><strong>這個方法不好！</strong>雖可以解決問題，但若像我一樣不希望第三個螢幕變成主螢幕的話就無法使用。</p>
-</li>
-<li><p>將觸控螢幕的對應到正確的螢幕上。<br>其實就是把觸控螢幕當成一個螢幕加上觸控板，若用這樣的方式去想就知道該怎麼解了，設定方法如下。</p>
-</li>
-</ol>
-<p>打開控制台搜尋 Tablet PC 設定，或到開始功能表中直接搜尋 Tablet PC 設定。<br><img src="/blog/images/2016-07-15-let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/01.png" alt="控制台中的 Tablet PC 設定" title="控制台中的 Tablet PC 設定"><br><img src="/blog/images/2016-07-15-let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/02.png" alt="開始功能表搜尋 Tablet PC 設定" title="開始功能表搜尋 Tablet PC 設定"></p>
-<p>直接點選設定中的設定。<br><img src="/blog/images/2016-07-15-let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/03.png" alt="Tablet PC 設定，點選設定" title="Tablet PC 設定，點選設定"></p>
-<p>接著所有螢幕會變成白色，而其中一個將會顯示以下訊息，按 Enter 直到正確對應的螢幕上再觸控螢幕即可。<br><img src="/blog/images/2016-07-15-let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/04.png" alt="螢幕全白顯示，並跳出提示訊息" title="螢幕全白顯示，並跳出提示訊息"></p>
+        <p>延續上一篇<a href="/blog/2016/08/02/setup-Google-Chrome-as-kiosk-application-settings/">利用 Google Chrome 作為 kiosk 應用時的設定項目</a>所提到的，這個最終要應用在 batch 上，來達到在 kiosk 應用上能自動開機便能自動初始化、自動檢查 Chrome 是否因為不明原因被關閉了，減少作業系統曝光的情況，否則哪天說不定就會被拍照下來留念。</p>
+<p><img src="https://cdn0-t17-techbang.pixcdn.tw/system/attached_images/2013/06/99221/show/660a0705c6416315e5146d622080be1a.jpg?1372171678" alt="Windows 出來呼吸了：http://t17.techbang.com/topics/20686-tv-advertising-is-running-windows-7-11" title="Windows 出來呼吸了！"></p>
+<p>batch 檔內容如下：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">:: detectChrome.bat</span><br><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">:: 初始化</span><br><span class="line"><span class="built_in">echo</span> Initialize...</span><br><span class="line">:: 更改資料夾到正確位置</span><br><span class="line"><span class="built_in">cd</span> C:\</span><br><span class="line"></span><br><span class="line">:: 檢查網路狀態</span><br><span class="line"><span class="built_in">echo</span> Waiting <span class="keyword">for</span> Interent connection...</span><br><span class="line">:checkInternet</span><br><span class="line">ping www.google.com -n <span class="number">1</span> -w <span class="number">10000</span> &gt; nul</span><br><span class="line">IF errorlevel <span class="number">1</span> GOTO checkInternet</span><br><span class="line"></span><br><span class="line">:: 這裡可放入自己想放的 code</span><br><span class="line">::node update.js</span><br><span class="line"></span><br><span class="line">:: 進入迴圈</span><br><span class="line">:start</span><br><span class="line">:: 若 processEnd.tmp 則跳脫迴圈結束程式</span><br><span class="line">IF EXIST processEnd.tmp (</span><br><span class="line">  <span class="built_in">echo</span> processEnd.tmp detected! End the process.</span><br><span class="line">  GOTO end</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">tasklist /FI <span class="string">"IMAGENAME eq chrome.exe"</span> /FO TABLE &gt; process.log</span><br><span class="line">FOR /F %%c <span class="keyword">in</span> (<span class="string">'find /v /c "" ^&lt; process.log'</span>) DO <span class="built_in">set</span> lineCount=%%c</span><br><span class="line">:: 刪除暫存檔案 process.log</span><br><span class="line">DEL process.log</span><br><span class="line">:: 若 process 存在，則 lineCount 會大於 <span class="number">1</span>，不存在則等於 <span class="number">1</span>，因此若大於 <span class="number">1</span> 則跳過執行部分</span><br><span class="line">IF %lineCount% GTR <span class="number">1</span> GOTO skip</span><br><span class="line">:: 執行程式</span><br><span class="line"><span class="built_in">echo</span> Execute Chrome</span><br><span class="line">::<span class="string">"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"</span> --user-data-dir=<span class="string">"C:/Chrome dev session"</span> --disable-web-security --new-window <span class="string">"file:///C:/dist/index.html"</span> --test-type --kiosk</span><br><span class="line">start /WAIT /MAX chrome.exe --user-data-dir=<span class="string">"C:/Chrome dev session"</span> --disable-web-security --new-window <span class="string">"file:///C:/dist/index.html"</span> --test-type --disable-translate --kiosk</span><br><span class="line">:skip</span><br><span class="line"></span><br><span class="line">REM 等待一段時間後再次檢查(秒)</span><br><span class="line">timeout /t <span class="number">5</span></span><br><span class="line">GOTO start</span><br><span class="line">:end</span><br><span class="line">DEL processEnd.tmp</span><br></pre></td></tr></table></figure></p>
+<p>主要流程為需要開機後直接執行更新，但我的環境曾遇到開機後網路異常的現象，因此檢查網路是否有沒有通，如果不擔心此問題的話則可考慮把<code>檢查網路狀態</code>那幾行拿掉。接著再執行自己需要的程式，我這邊已有一現成用 node.js 撰寫的程式，因此就讓他執行 node update.js。接著就進入 Chrome 判斷的迴圈了，為避免意外重複開啟 Chrome，因此先判斷了是否有 Chrome 在開啟狀態，若都沒有再開啟。</p>
+<p>接著把這隻 batch 檔案丟到「所有程式」的「啟動」中就行了，或是利用「工作排程器」也可以達到同樣效果，唯一不方便的是有需要對電腦做操作時，要關掉這隻程式不是很方便，因此我又另外寫了一隻關閉這隻程式的 code，很懶惰的用了檔案檢查的方式去處理，在 detectChrome.bat 的迴圈中判斷是否有個暫存的檔案 processEnd.tmp，若有的話則不要中止程式。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">:: end.bat</span><br><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">type</span> nul &gt; C:\processEnd.tmp</span><br><span class="line"><span class="built_in">echo</span> 等待倒數後結束程式</span><br></pre></td></tr></table></figure>
+<p>如此一來，不太懂的操作者也可以輕鬆的用 alt+tab, windows+d 等按鍵從 chrome kiosk 切換出去，然後開啟這隻 end.bat，再把 chrome alt+f4 關閉來完整結束這個程式帶來的影響。</p>
+<p>bash 寫慣了，要寫 batch 還真不太適應，所幸有朋友的 <a href="http://www.slideshare.net/yipotw/batch-56466561" target="_blank" rel="external">Batch 溫故/知新</a> 支援省了我不少時間。</p>
 <p>參考資料：</p>
 <ol>
-<li><a href="http://superuser.com/a/969683/617008" target="_blank" rel="external">Windows Touch Screen With Multiple Monitors Puts Cursor On Wrong Monitor - Super User</a></li>
+<li><a href="http://www.slideshare.net/yipotw/batch-56466561" target="_blank" rel="external">Batch 溫故/知新</a></li>
+<li><a href="https://dotblogs.com.tw/rolence0515/2011/08/15/33157" target="_blank" rel="external">不用寫程式，偵測執行檔沒running就再次執行它</a></li>
+<li><a href="https://social.technet.microsoft.com/Forums/scriptcenter/en-US/1867323d-e6c7-440f-83a4-2bdc9b4432d5/count-number-of-lines-in-a-text-file-from-a-windows-batch-file?forum=ITCG" target="_blank" rel="external">Count number of lines in a text file from a windows batch file</a></li>
+<li><a href="http://blog.miniasp.com/post/2009/06/24/Sleep-command-in-Batch.aspx" target="_blank" rel="external">如何在批次檔(Batch)中實現 sleep 命令讓任務暫停執行 n 秒</a></li>
+<li><a href="http://stackoverflow.com/questions/9278614/if-greater-than-batch-files/9278668#9278668" target="_blank" rel="external">windows - If greater than batch files - Stack Overflow</a></li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/07/15/let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/" data-id="citpfj4o2000k9ceew06y3ndq" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/09/30/using-windows-batch-to-initialize-and-check-chrome-status/" data-id="citpfj4ns00059cee45fhsog3" class="article-share-link">Share</a>
       
-        <a href="http://ssk7833.github.io/blog/2016/07/15/let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://ssk7833.github.io/blog/2016/09/30/using-windows-batch-to-initialize-and-check-chrome-status/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/windows/">windows</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/batch/">batch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/chrome/">chrome</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/kiosk/">kiosk</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/windows/">windows</a></li></ul>
 
     </footer>
   </div>
@@ -148,19 +143,10 @@ ga('send', 'pageview');
     
 <nav id="article-nav">
   
-    <a href="/blog/2016/08/02/setup-Google-Chrome-as-kiosk-application-settings/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          利用 Google Chrome 作為 kiosk 應用時的設定項目
-        
-      </div>
-    </a>
   
-  
-    <a href="/blog/2016/06/27/remove-dashboard-button-in-Logdown-page/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/blog/2016/08/02/setup-Google-Chrome-as-kiosk-application-settings/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">在 Logdown 上移除右上方 dashboard</div>
+      <div class="article-nav-title">利用 Google Chrome 作為 kiosk 應用時的設定項目</div>
     </a>
   
 </nav>
@@ -269,7 +255,7 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'ssk7833';
   
-  var disqus_url = 'http://ssk7833.github.io/blog/2016/07/15/let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/';
+  var disqus_url = 'http://ssk7833.github.io/blog/2016/09/30/using-windows-batch-to-initialize-and-check-chrome-status/';
   
   (function(){
     var dsq = document.createElement('script');
