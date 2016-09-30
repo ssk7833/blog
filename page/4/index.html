@@ -111,7 +111,7 @@ ga('send', 'pageview');
 <p><code>https://www.facebook.com/dialog/oauth?client_id={appId}&amp;redirect_uri={redirectURI}&amp;scope={accessPermissions}</code></p>
 <p>這個 scope 以逗號作為分隔，填在裡面的將會在 Facebook dialog 中要求權限。</p>
 <p><img src="/blog/images/user_friends.png" alt="Profile with friends" title="Profile with friends"><br><img src="/blog/images/user_friends02.png" alt="Profile with friends details" title="Profile with friends details"></p>
-<p>講了這麼多，但以<a href="http://north.logdown.com/posts/280761-using-parsecom-cloud-code-hosting-to-log-in-with-facebook" target="_blank" rel="external">第一篇</a>中使用了<a href="https://github.com/ParsePlatform/parse-facebook-user-session" target="_blank" rel="external">parse-facebook-user-session</a>該怎麼修改呢？稍微翻了它的 source code 後發現它在實作上並沒有保留 scope 欄位，因此我便把 scope 加上去了，可以由此瀏覽：<a href="https://github.com/ssk7833/parse-facebook-user-session" target="_blank" rel="external">parse-facebook-user-session</a><br><strong>UPDATE：</strong>原 repository 已經將此功能 merge上 去，直接使用原本的即可</p>
+<p>講了這麼多，但以<a href="/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/">第一篇</a>中使用了<a href="https://github.com/ParsePlatform/parse-facebook-user-session" target="_blank" rel="external">parse-facebook-user-session</a>該怎麼修改呢？稍微翻了它的 source code 後發現它在實作上並沒有保留 scope 欄位，因此我便把 scope 加上去了，可以由此瀏覽：<a href="https://github.com/ssk7833/parse-facebook-user-session" target="_blank" rel="external">parse-facebook-user-session</a><br><strong>UPDATE：</strong>原 repository 已經將此功能 merge上 去，直接使用原本的即可</p>
 <p>使用方式的話則與先前的沒什麼差別，只是可以選擇多填一個 scope 欄位，範例如下：<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">app</span><span class="class">.use</span>(<span class="function">parseFacebookUserSession</span>(&#123;</span><br><span class="line">  <span class="attribute">clientId</span>: <span class="string">'YOUR_FB_CLIENT_ID'</span>,</span><br><span class="line">  <span class="attribute">appSecret</span>: <span class="string">'YOUR_FB_APP_SECRET'</span>,</span><br><span class="line">  <span class="attribute">redirectUri</span>: <span class="string">'/login'</span>,</span><br><span class="line">  <span class="attribute">scope</span>: <span class="string">'user_friends,user_likes'</span>, <span class="comment">// 要求friends與like資訊</span></span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure></p>
 <p>至於有哪些權限可以要求，可以當<a href="https://developers.facebook.com/tools/explorer/" target="_blank" rel="external">https://developers.facebook.com/tools/explorer/</a>中，點選 Get Access Token 來參考，並且在下面做測試。</p>
 <p>不過要注意的有像是 <code>user_friends</code> 這項，如果在 API v2.0 以上的版本上要求資訊的話，只會列出同樣有授權此 app 的好友出來，開了幾個 test users 測試的確如此：</p>
@@ -125,7 +125,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/" data-id="cird6jqx2002o8nep74k6c7wk" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/" data-id="citp7ty8q002o9abjxi72hsge" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -174,7 +174,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/" data-id="cird6jqx5002u8nep3j5p7agt" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/" data-id="citp7ty8u002u9abjfkuprb8r" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -226,7 +226,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/" data-id="cird6jqx700308neptic8hkzn" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/" data-id="citp7ty8x00309abjnq8b1v4s" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -287,7 +287,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2012/09/24/show-Chinese-character-and-download-issues-in-PHPWord/" data-id="cird6jqxe00368nepprlctotk" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2012/09/24/show-Chinese-character-and-download-issues-in-PHPWord/" data-id="citp7ty9100369abj80r96ru7" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2012/09/24/show-Chinese-character-and-download-issues-in-PHPWord/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -335,7 +335,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2011/01/18/combine-cd-and-ls-into-one-command/" data-id="cird6jqtj00008nepq29uf9qv" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2011/01/18/combine-cd-and-ls-into-one-command/" data-id="citp7ty5m00009abjizh5ihib" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2011/01/18/combine-cd-and-ls-into-one-command/#disqus_thread" class="article-comment-link">Comments</a>
       
