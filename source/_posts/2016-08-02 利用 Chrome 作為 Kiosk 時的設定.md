@@ -97,6 +97,8 @@ chrome.exe "file:///C:/dist/index.html" --user-data-dir="C:/Chrome dev session" 
 為什麼要用指令呢？因為能撰寫於 batch 中來達到部分的自動化。
 不確定某些指令是否可能有潛藏的風險，若有思慮不周的地方也請您分享！
 
+**UPDATE：** 下一篇出來了：[利用 windows batch 自動初始化、檢查 chrome 開啟狀態](/blog/2016/09/30/using-windows-batch-to-initialize-and-check-chrome-status/)
+
 參考資料：
 1. [Google Chrome browser, how to permanently disable this disturbing toolbar?](http://askubuntu.com/a/310521)
 2. [Protractor error message “unsupported command-line flag” in Chrome?](http://stackoverflow.com/a/24018881/4968420)
