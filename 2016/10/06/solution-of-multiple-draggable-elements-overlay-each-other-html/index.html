@@ -3,17 +3,42 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2015 | 北風筆記</title>
+  <title>HTML 中多個可移動視窗互相覆蓋的處理方法 | 北風筆記</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="這裡紀錄個人的一些日常心得">
-<meta property="og:type" content="website">
-<meta property="og:title" content="北風筆記">
-<meta property="og:url" content="http://ssk7833.github.io/blog/archives/2015/index.html">
+  <meta name="description" content="雖說是視窗，但其實是個元件，不過稱視窗好像比較直觀些。總之先看已經用 javascript 完成可移動的多個視窗功能，在沒有做任何處理的情況下，利用滑鼠去移動分別標有數字的方塊，會發現數字高的永遠在上層：
+
+
+我想到的解決方法有兩種：
+
+改變 DOM 的順序
+改變 z-index
+
+改變 z-index缺點：z-index 可能會超過其他元件的 z-index，因此最好讓移動視窗的 z-index">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML 中多個可移動視窗互相覆蓋的處理方法">
+<meta property="og:url" content="http://ssk7833.github.io/blog/2016/10/06/solution-of-multiple-draggable-elements-overlay-each-other-html/index.html">
 <meta property="og:site_name" content="北風筆記">
-<meta property="og:description" content="這裡紀錄個人的一些日常心得">
+<meta property="og:description" content="雖說是視窗，但其實是個元件，不過稱視窗好像比較直觀些。總之先看已經用 javascript 完成可移動的多個視窗功能，在沒有做任何處理的情況下，利用滑鼠去移動分別標有數字的方塊，會發現數字高的永遠在上層：
+
+
+我想到的解決方法有兩種：
+
+改變 DOM 的順序
+改變 z-index
+
+改變 z-index缺點：z-index 可能會超過其他元件的 z-index，因此最好讓移動視窗的 z-index">
+<meta property="og:updated_time" content="2016-10-06T06:00:33.954Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="北風筆記">
-<meta name="twitter:description" content="這裡紀錄個人的一些日常心得">
+<meta name="twitter:title" content="HTML 中多個可移動視窗互相覆蓋的處理方法">
+<meta name="twitter:description" content="雖說是視窗，但其實是個元件，不過稱視窗好像比較直觀些。總之先看已經用 javascript 完成可移動的多個視窗功能，在沒有做任何處理的情況下，利用滑鼠去移動分別標有數字的方塊，會發現數字高的永遠在上層：
+
+
+我想到的解決方法有兩種：
+
+改變 DOM 的順序
+改變 z-index
+
+改變 z-index缺點：z-index 可能會超過其他元件的 z-index，因此最好讓移動視窗的 z-index">
   
     <link rel="alternative" href="/blog/atom.xml" title="北風筆記" type="application/atom+xml">
   
@@ -76,115 +101,78 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/blog/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/blog/2015/08/25/facebook-graph-api-get-picture/" class="archive-article-date">
-  <time datetime="2015-08-24T19:11:56.000Z" itemprop="datePublished">Aug 25</time>
+        <section id="main"><article id="post-solution-of-multiple-draggable-elements-overlay-each-other-html" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2016/10/06/solution-of-multiple-draggable-elements-overlay-each-other-html/" class="article-date">
+  <time datetime="2016-10-06T05:58:30.000Z" itemprop="datePublished">2016-10-06</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/study/">study</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2015/08/25/facebook-graph-api-get-picture/">Facebook Graph API 取得大頭貼照</a>
+    <h1 class="article-title" itemprop="name">
+      HTML 中多個可移動視窗互相覆蓋的處理方法
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/" class="archive-article-date">
-  <time datetime="2015-07-12T10:49:43.000Z" itemprop="datePublished">Jul 12</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/">Facebook Graph API 回傳指定語言/地區化姓名</a>
-    </h1>
-  
+        <p>雖說是視窗，但其實是個元件，不過稱視窗好像比較直觀些。<br>總之先看已經用 javascript 完成可移動的多個視窗功能，在沒有做任何處理的情況下，利用滑鼠去移動分別標有數字的方塊，會發現數字高的永遠在上層：</p>
+<iframe width="100%" height="300" src="//jsfiddle.net/ssk7833/dsnneaos/6/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/" class="archive-article-date">
-  <time datetime="2015-07-01T16:11:49.000Z" itemprop="datePublished">Jul 2</time>
-</a>
+<p>我想到的解決方法有兩種：</p>
+<ol>
+<li>改變 DOM 的順序</li>
+<li>改變 z-index</li>
+</ol>
+<h2 id="改變-z-index"><a href="#改變-z-index" class="headerlink" title="改變 z-index"></a>改變 z-index</h2><p><iframe width="100%" height="300" src="//jsfiddle.net/ssk7833/dsnneaos/8/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe><br>缺點：z-index 可能會超過其他元件的 z-index，因此最好讓移動視窗的 z-index 固定在一個區間內循環。（z-index 值的區間為一個 int）</p>
+<h2 id="改變-DOM-的順序"><a href="#改變-DOM-的順序" class="headerlink" title="改變 DOM 的順序"></a>改變 DOM 的順序</h2><p><iframe width="100%" height="300" src="//jsfiddle.net/ssk7833/dsnneaos/9/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe><br>缺點：若內容有像卷軸一樣無法用 CSS 控制的部分，在改變 DOM 的順序後將不會保留原先狀態，如下範例的數字 1 方塊。</p>
+<p><iframe width="100%" height="300" src="//jsfiddle.net/ssk7833/dsnneaos/10/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe><br>解決方法：先把所有額外的狀態記起來，移動過順序後再將這些狀態指定回去。</p>
+<p>最後我選擇了改變 z-index 的方法，因為我的移動視窗內可能會有多個卷軸，若要一一紀錄狀態實在麻煩，而且實測兩個方法的重繪效率上，z-index 也是略勝一籌。</p>
+
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/">使用 Parse.com Cloud Code Hosting 進行 Facebook 登入存取 3</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/" class="archive-article-date">
-  <time datetime="2015-06-20T15:43:39.000Z" itemprop="datePublished">Jun 20</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ssk7833.github.io/blog/2016/10/06/solution-of-multiple-draggable-elements-overlay-each-other-html/" data-id="citxxpzkm00059eidkn7lokt2" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/">使用 Parse.com Cloud Code Hosting 進行 Facebook 登入存取 2</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/" class="archive-article-date">
-  <time datetime="2015-06-20T14:13:10.000Z" itemprop="datePublished">Jun 20</time>
-</a>
+        <a href="http://ssk7833.github.io/blog/2016/10/06/solution-of-multiple-draggable-elements-overlay-each-other-html/#disqus_thread" class="article-comment-link">Comments</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/">使用 Parse.com Cloud Code Hosting 進行 Facebook 登入存取 1</a>
-    </h1>
-  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/">javascript</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2016/09/30/using-windows-batch-to-initialize-and-check-chrome-status/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">利用 windows batch 自動初始化、檢查 Google Chrome 開啟狀態</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 </section>
         
           <aside id="sidebar">
@@ -280,11 +268,13 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'ssk7833';
   
+  var disqus_url = 'http://ssk7833.github.io/blog/2016/10/06/solution-of-multiple-draggable-elements-overlay-each-other-html/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
