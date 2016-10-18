@@ -5,7 +5,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="http://ssk7833.github.io/blog/"/>
-  <updated>2016-10-06T06:00:33.954Z</updated>
+  <updated>2016-10-18T03:03:58.805Z</updated>
   <id>http://ssk7833.github.io/blog/</id>
   
   <author>
@@ -16,11 +16,50 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>利用 canvas 於 Chrome 實作 iOS 模糊背景效果</title>
+    <link href="http://ssk7833.github.io/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/"/>
+    <id>http://ssk7833.github.io/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/</id>
+    <published>2016-10-18T03:02:30.000Z</published>
+    <updated>2016-10-18T03:03:58.805Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/blog/images/2016-10-18-canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/01.png" alt="iOS blurry overlay" title="iOS blurry overlay"><br>這次要處理的就是上面的背景模糊背景效果，雖 iOS7 在某些版面上已經有了，但在瀏覽器上要做到同樣的事通常都要疊兩張一樣的圖再做 filter 處理，若今天需要模糊的是比圖片複雜的，例如影片、包含其他動態元件的 html 等就會變得不好處理。<br>在 Safari 上可以使用 <code>-webkit-backdrop-filter: blur(5px);</code> CSS 屬性來處理，且可以根據上層的 overflow:hidden; 來改變模糊的區域範圍；而在 Google Chrome 上，雖然可以透過 <code>enable-experimental-web-platform-features</code> 來開啟 <code>backdrop-filter: blur(5px);</code> 功能，但在配合其他 CSS 屬性時很容易出現 bug。</p>
+<p>backdrop-filter 的實作範例：Chrome 需開啟 <code>enable-experimental-web-platform-features</code> 才能看到結果<br>Safari 下正常，而 Chrome 也正常，但我需要圓弧邊框：<a href="https://jsfiddle.net/ssk7833/8ybsqz4k/14/" target="_blank" rel="external">JSFiddle</a><br>Safari 下正常，而 Chrome 下若上層有 overflow: hidden; 時則完全無效：<a href="https://jsfiddle.net/ssk7833/8ybsqz4k/19/" target="_blank" rel="external">JSFiddle</a></p>
+<p>網路上能找到許多解法，像是放兩張圖或放兩個影片，前景的圖層加上 filter:blur 即可，但最後我選擇使用 canvas 來實作看看。</p>
+<iframe width="100%" height="300" src="//jsfiddle.net/ssk7833/8ybsqz4k/23/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<p>背景是影片的狀況：</p>
+<iframe width="100%" height="300" src="//jsfiddle.net/ssk7833/zjzdmbcj/4/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<p>不過 canvas 解法反而不是用於 Safari，因為 Safari 不支援 canvas filter…XD</p>
+<p>參考資料：</p>
+<ol>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/filter" target="_blank" rel="external">CanvasRenderingContext2D.filter - Web APIs | MDN</a></li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/blog/images/2016-10-18-canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/01.png&quot; alt=&quot;iOS blurry overlay&quot; title=&quot;
+    
+    </summary>
+    
+      <category term="study" scheme="http://ssk7833.github.io/blog/categories/study/"/>
+    
+    
+      <category term="CSS" scheme="http://ssk7833.github.io/blog/tags/CSS/"/>
+    
+      <category term="canvas" scheme="http://ssk7833.github.io/blog/tags/canvas/"/>
+    
+      <category term="javascript" scheme="http://ssk7833.github.io/blog/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
     <title>HTML 中多個可移動視窗互相覆蓋的處理方法</title>
     <link href="http://ssk7833.github.io/blog/2016/10/06/solution-of-multiple-draggable-elements-overlay-each-other-html/"/>
     <id>http://ssk7833.github.io/blog/2016/10/06/solution-of-multiple-draggable-elements-overlay-each-other-html/</id>
     <published>2016-10-06T05:58:30.000Z</published>
-    <updated>2016-10-06T06:00:33.954Z</updated>
+    <updated>2016-10-18T03:03:58.805Z</updated>
     
     <content type="html"><![CDATA[<p>雖說是視窗，但其實是個元件，不過稱視窗好像比較直觀些。<br>總之先看已經用 javascript 完成可移動的多個視窗功能，在沒有做任何處理的情況下，利用滑鼠去移動分別標有數字的方塊，會發現數字高的永遠在上層：</p>
 <iframe width="100%" height="300" src="//jsfiddle.net/ssk7833/dsnneaos/6/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
@@ -57,7 +96,7 @@
     <link href="http://ssk7833.github.io/blog/2016/09/30/using-windows-batch-to-initialize-and-check-chrome-status/"/>
     <id>http://ssk7833.github.io/blog/2016/09/30/using-windows-batch-to-initialize-and-check-chrome-status/</id>
     <published>2016-09-30T07:04:20.000Z</published>
-    <updated>2016-10-06T06:00:33.954Z</updated>
+    <updated>2016-10-18T03:03:58.805Z</updated>
     
     <content type="html"><![CDATA[<p>延續上一篇<a href="/blog/2016/08/02/setup-Google-Chrome-as-kiosk-application-settings/">利用 Google Chrome 作為 kiosk 應用時的設定項目</a>所提到的，這個最終要應用在 batch 上，來達到在 kiosk 應用上能自動開機便能自動初始化、自動檢查 Chrome 是否因為不明原因被關閉了，減少作業系統曝光的情況，否則哪天說不定就會被拍照下來留念。</p>
 <p><img src="https://cdn0-t17-techbang.pixcdn.tw/system/attached_images/2013/06/99221/show/660a0705c6416315e5146d622080be1a.jpg?1372171678" alt="Windows 出來呼吸了：http://t17.techbang.com/topics/20686-tv-advertising-is-running-windows-7-11" title="Windows 出來呼吸了！"></p>
@@ -101,7 +140,7 @@
     <link href="http://ssk7833.github.io/blog/2016/08/02/setup-Google-Chrome-as-kiosk-application-settings/"/>
     <id>http://ssk7833.github.io/blog/2016/08/02/setup-Google-Chrome-as-kiosk-application-settings/</id>
     <published>2016-08-02T08:03:45.000Z</published>
-    <updated>2016-10-06T06:00:33.954Z</updated>
+    <updated>2016-10-18T03:03:58.805Z</updated>
     
     <content type="html"><![CDATA[<p>紀錄一下利用 Google Chrome 作為 kiosk 時，需要注意的地方：<br>本文所使用的 Google Chrome 版本：52.0.2743.82 m</p>
 <h2 id="鎖定右鍵內容"><a href="#鎖定右鍵內容" class="headerlink" title="鎖定右鍵內容"></a>鎖定右鍵內容</h2><p>當觸控啟用時，預設長按螢幕就會觸發滑鼠右鍵的功能表。如同一般網頁防止滑鼠右鍵內容一樣，於 HTML 中加入 Javascript 來防止右鍵清單的跳出。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'contextmenu'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123; e.preventDefault(); &#125;);</span><br></pre></td></tr></table></figure></p>
@@ -164,7 +203,7 @@
     <link href="http://ssk7833.github.io/blog/2016/07/15/let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/"/>
     <id>http://ssk7833.github.io/blog/2016/07/15/let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/</id>
     <published>2016-07-15T02:28:20.000Z</published>
-    <updated>2016-10-06T06:00:33.954Z</updated>
+    <updated>2016-10-18T03:03:58.805Z</updated>
     
     <content type="html"><![CDATA[<p>最近多了一台觸控螢幕，接到主機後從原本的雙螢幕變成的三螢幕，其中一個就是這個觸控螢幕。<br>我的螢幕設定是使用延伸模式，主螢幕為原本雙螢幕的其中一個，加入第三個螢幕時一樣採取延伸模式。而在這個觸控螢幕在插上 USB 線後且安裝完驅動程式後，觸控螢幕就像觸控板一樣可以點擊來觸發滑鼠事件，但對應到的點擊區域卻是我的主螢幕，這完全沒道理啊！</p>
 <p>本以為是驅動程式的問題，其實不是，而找到的解法有兩種：</p>
@@ -201,7 +240,7 @@
     <link href="http://ssk7833.github.io/blog/2016/06/27/remove-dashboard-button-in-Logdown-page/"/>
     <id>http://ssk7833.github.io/blog/2016/06/27/remove-dashboard-button-in-Logdown-page/</id>
     <published>2016-06-27T06:55:30.000Z</published>
-    <updated>2016-10-06T06:00:33.954Z</updated>
+    <updated>2016-10-18T03:03:58.805Z</updated>
     
     <content type="html"><![CDATA[<p>最近朋友想開個部落格試試，我推薦了 Logdown、Blogger 或是全自己來的 GitHub Pages，最後友人選擇了 Logdown，然而友人跟我說：「Logdown 有個缺點，就是右上方的 Dashboard 很醜，要是能拿掉就太好了。」於是為了讓友人安心使用，我便看了一下 Logdown 原始碼，發現其實要拿掉或隱藏 Dashboard 並不困難。<br><img src="/blog/images/2016-06-27-hide-dashboard-button-in-Logdown-page/01.png" alt="被嫌醜的 Dashboard" title="被嫌醜的 Dashboard"></p>
 <p>到自己的 <a href="http://logdown.com/dashboard" target="_blank" rel="external">Dashboard</a> 中點選 <code>Blog 設定</code>，接著點選<code>佈景主題</code>分頁，點選<code>編輯 HTML</code>，如下圖位置。<br><img src="/blog/images/2016-06-27-hide-dashboard-button-in-Logdown-page/02.png" alt="Blog 設定→佈景主題→編輯 HTML" title="Blog 設定→佈景主題→編輯 HTML"></p>
@@ -232,7 +271,7 @@
     <link href="http://ssk7833.github.io/blog/2016/06/06/retrieve-push-status/"/>
     <id>http://ssk7833.github.io/blog/2016/06/06/retrieve-push-status/</id>
     <published>2016-06-06T03:02:00.000Z</published>
-    <updated>2016-10-06T06:00:33.954Z</updated>
+    <updated>2016-10-18T03:03:58.805Z</updated>
     
     <content type="html"><![CDATA[<p>在 <a href="https://parse.com/docs/rest/guide" target="_blank" rel="external">Parse REST API Developers Guide</a> 中，可以在 Quick Reference 看到所有使用的方法。在 Push Notification 分類中只有 POST 的方法，不像 Installations 可以透過 GET 方法到 <code>/installations/&lt;objectId&gt;</code> 來獲取已安裝裝置的資訊；然而若需要去擷取推播傳遞的狀態時，可以利用存於 mongoDB 中的 _PushStatus 來取得資訊，既然 push 的方法只有 POST，就繞個路把 _PushStatus 當成 Objects 來處理，Objects 的使用方法就多了。</p>
 <table>
@@ -308,7 +347,7 @@
     <link href="http://ssk7833.github.io/blog/2016/05/25/hide-source-of-log-messages-in-console/"/>
     <id>http://ssk7833.github.io/blog/2016/05/25/hide-source-of-log-messages-in-console/</id>
     <published>2016-05-25T07:02:30.000Z</published>
-    <updated>2016-10-06T06:00:33.954Z</updated>
+    <updated>2016-10-18T03:03:58.805Z</updated>
     
     <content type="html"><![CDATA[<p>先前有發現 Facebook 在開發人員工具的 console 中最右邊不會顯示 log 的來源行數，覺得神奇，但並沒有深入了解如何實作此效果。而最近看到有人提問同樣的問題，同樣以 Facebook 的 console 為例來發問，激起了我的求知慾望。<br><img src="/blog/images/2016-05-25-hide-source-of-log-messages-in-console/01.png" alt="Facebook 的 console，最右端沒顯示來源" title="Facebook 的 console，最右端沒顯示來源"><br><img src="/blog/images/2016-05-25-hide-source-of-log-messages-in-console/02.png" alt="正常呼叫 console.log 時，最右端會顯示來源" title="正常呼叫 console.log 時，最右端會顯示來源"></p>
 <p>單純要查到此功能似乎不難，剛好在四個月前有人在 <a href="http://stackoverflow.com/questions/34762774/how-to-hide-source-of-log-messages-in-console" target="_blank" rel="external">stackoverflow</a> 問了同樣的問題，而方法就是利用下方寫法即可：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="built_in">console</span>.log.bind(<span class="built_in">console</span>, <span class="string">"Hello world!"</span>));</span><br></pre></td></tr></table></figure></p>
@@ -351,7 +390,7 @@
     <link href="http://ssk7833.github.io/blog/2016/05/20/Parse-push-return-pushStatus-objectId/"/>
     <id>http://ssk7833.github.io/blog/2016/05/20/Parse-push-return-pushStatus-objectId/</id>
     <published>2016-05-20T08:28:51.000Z</published>
-    <updated>2016-10-06T06:00:33.954Z</updated>
+    <updated>2016-10-18T03:03:58.805Z</updated>
     
     <content type="html"><![CDATA[<p>在使用 parse server REST API 的推播功能時，推播成功送到 parse server 只會時回傳 <code>{&quot;result&quot;:true}</code>，只有這資訊對於後台串接 parse server 不是很方便，因缺乏 <code>_pushStatus</code> 中的 id，導致資料送出後就一去無回，不方便針對各個送出到 parse server 的資料做對應。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST \</span><br><span class="line">  -H <span class="string">"X-Parse-Application-Id: parseAppId"</span> \</span><br><span class="line">  -H <span class="string">"X-Parse-Master-Key: parseMasterKey"</span> \</span><br><span class="line">  -H <span class="string">"Content-Type: application/json"</span> \</span><br><span class="line">  <span class="operator">-d</span> <span class="string">'&#123;</span><br><span class="line">        "where": &#123;</span><br><span class="line">          "deviceType": &#123;</span><br><span class="line">            "$in": [</span><br><span class="line">              "ios"</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        "data": &#123;</span><br><span class="line">          "title": "The Shining",</span><br><span class="line">          "alert": "All work and no play makes Jack a dull boy."</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;'</span> \</span><br><span class="line">  http://localhost:<span class="number">1337</span>/parse/push/</span><br></pre></td></tr></table></figure>
@@ -395,7 +434,7 @@
     <link href="http://ssk7833.github.io/blog/2016/04/21/Google-Web-Speech-API-continous-recording/"/>
     <id>http://ssk7833.github.io/blog/2016/04/21/Google-Web-Speech-API-continous-recording/</id>
     <published>2016-04-21T02:06:51.000Z</published>
-    <updated>2016-10-06T06:00:33.954Z</updated>
+    <updated>2016-10-18T03:03:58.805Z</updated>
     
     <content type="html"><![CDATA[<p>Google 的 web speech API 已經推出一段時間了，最近剛好有機會來試試。<br>Web speech API 的操作並不困難，基本上就是 <code>var recognition = new webkitSpeechRecognition();</code>，可以在下方參考資料中看到相關原始碼，唯獨我預設的需求是必須可持續收音，因使用者可能是在不適合任何物理碰觸的環境下操作，所以鍵盤滑鼠及觸控螢幕皆不適合在此當作 input 來源。然而 web speech API 的持續收音 <code>recognition.continuous = true;</code> 若發現麥克風閒置太長的話，一樣會自動停止收音，因此還是要再重新觸發 <code>recognition.start();</code>，所幸我就將 <code>recognition.start();</code> 寫到 <code>onend</code> event handler，天真的以為這樣就解決問題了。</p>
 <p><img src="/blog/images/allowMicrophone.png" alt="要求使用麥克風" title="要求使用麥克風"><br>當每次收音結束後又重新觸發開始時，就會跳出這個允許授權的視窗，而當然此時是不能收音的，可以在此<a href="http://codepen.io/ssk7833/pen/YqepJb" target="_blank" rel="external">範例</a>體驗一下。</p>
@@ -432,7 +471,7 @@
     <link href="http://ssk7833.github.io/blog/2016/04/19/parse-server-push-notification-APNS/"/>
     <id>http://ssk7833.github.io/blog/2016/04/19/parse-server-push-notification-APNS/</id>
     <published>2016-04-19T07:56:37.000Z</published>
-    <updated>2016-10-06T06:00:33.954Z</updated>
+    <updated>2016-10-18T03:03:58.805Z</updated>
     
     <content type="html"><![CDATA[<p>Parse 的一大方便之處，即是他提供了推播通知(push notification)的整合，使開發者可以在短時間內完成推播功能；而推播通知也已經移植到 Parse Server 版本上，步驟與先前在 Parse 上差不了多少，在這裡紀錄一下 APNS(iOS) 設定的步驟。</p>
 <h2 id="建立-SSL-憑證"><a href="#建立-SSL-憑證" class="headerlink" title="建立 SSL 憑證"></a>建立 SSL 憑證</h2><p>在發送推播前必須給予 Parse Server 推播的權限，因此要先建立對應的 App ID 及 SSL 憑證。</p>
@@ -499,7 +538,7 @@
     <link href="http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/"/>
     <id>http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/</id>
     <published>2016-04-09T03:33:05.000Z</published>
-    <updated>2016-10-06T06:00:33.954Z</updated>
+    <updated>2016-10-18T03:03:58.805Z</updated>
     
     <content type="html"><![CDATA[<p>在今年一月底時 <a href="http://parse.com/" target="_blank" rel="external">Parse</a> 突然丟下了一枚震撼彈(<a href="http://blog.parse.com/announcements/moving-on/" target="_blank" rel="external">Moving On</a>)，隨著 Parse 服務將在一年後關閉的消息，同時也提到將會把 Parse Server open source 出來，如今兩個月過去了，釋出的 Parse Server 也趨於完善，不只提供了許多雲端服務的整合方案，連 Parse Dashboard 也在三月初時 open source 了(<a href="http://blog.parse.com/announcements/introducing-the-parse-server-dashboard/" target="_blank" rel="external">Introducing the Parse Server Dashboard</a>)，雖然這個 Dashboard 目前並不像 Parse 線上服務的功能一樣完整，但在短短一個月內間又多了推播(push notification)功能頁面(<a href="http://blog.parse.com/announcements/push-and-config-come-to-the-parse-dashboard/" target="_blank" rel="external">Push and Config come to the Parse Dashboard</a>)，可以預見未來功能會越來越完整。</p>
 <p>單純架設 Parse Server 的難度不高，在 <a href="https://github.com/ParsePlatform/parse-server" target="_blank" rel="external">GitHub</a> 有對於要在 local 架設或是部屬到其他服務上如 Heroku 的範例教學，<a href="https://github.com/ParsePlatform/parse-server/wiki" target="_blank" rel="external">wiki</a> 頁面也有更完整的解說，但從這裡開始我個人認為不是個好選擇，以指令方式去帶 appId 及 masterKey 總有可能會發生什麼意外。Parse 另外提供了 <a href="https://github.com/ParsePlatform/parse-server-example" target="_blank" rel="external">parse-server-example</a>，這個對於入門來說會比較方便。</p>
@@ -574,7 +613,7 @@
     <link href="http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/"/>
     <id>http://ssk7833.github.io/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/</id>
     <published>2016-03-30T06:49:50.000Z</published>
-    <updated>2016-10-06T06:00:33.954Z</updated>
+    <updated>2016-10-18T03:03:58.805Z</updated>
     
     <content type="html"><![CDATA[<p>最近在會議中分享了以下這份投影片，算是一個 SASS/SCSS 的入門。我擷取了部分常用的基礎功能及寫法範例，希望對入門者有些幫助。</p>
 <p><iframe src="https://ssk7833.github.io/slides/SCSS/" width="640" height="480" style="width:100%;"></iframe><br><a href="https://ssk7833.github.io/slides/SCSS/">Do it smart, a better way to write CSS - SASS/SCSS</a></p>
@@ -603,7 +642,7 @@
     <link href="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/"/>
     <id>http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/</id>
     <published>2016-03-09T05:48:05.000Z</published>
-    <updated>2016-10-06T06:00:33.954Z</updated>
+    <updated>2016-10-18T03:03:58.805Z</updated>
     
     <content type="html"><![CDATA[<p>最近在試著實作 gooey 效果，看了一些介紹後知道了 gooey 的原理，本以為在實作上可以一路順風，但果然沒有這麼簡單，還好最後有找到解決方法。</p>
 <p>先來談談 gooey 的作法，首先要先有兩層 layer，內層將物件模糊 blur，而外層處理亮度 brightness 跟對比度 contrast，接著神奇的事情就會發生了，可以參考以下範例：</p>
@@ -709,7 +748,7 @@
     <link href="http://ssk7833.github.io/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/"/>
     <id>http://ssk7833.github.io/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/</id>
     <published>2016-01-21T08:23:05.000Z</published>
-    <updated>2016-10-06T06:00:33.954Z</updated>
+    <updated>2016-10-18T03:03:58.805Z</updated>
     
     <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>先前看到了<a href="https://samkuo.me/post/2015/09/why-developers-should-have-a-blog/" target="_blank" rel="external">程式人就該有個部落格</a>，想想這個主意不錯，之前有在 Blogger 及 Logdown 零星寫了幾篇文章，也曾經想過自己架靜態或動態網站，只是一直沒有去做，看完這篇讓我更有動力去做這件事。研究一陣子後我選擇直接利用 Github pages 來發佈網站，於是開始調查 <a href="https://www.staticgen.com/" target="_blank" rel="external">StaticGen</a> 上排名較高的幾個，而最後挑選了 <a href="https://hexo.io" target="_blank" rel="external">Hexo</a>：是台灣人寫的，而且是 javascript。</p>
 <p>自己完成 Hexo 初步設定，產生第一版頁面後不久就遇到兩個問題：</p>
@@ -776,7 +815,7 @@
     <link href="http://ssk7833.github.io/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/"/>
     <id>http://ssk7833.github.io/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/</id>
     <published>2016-01-09T20:10:05.000Z</published>
-    <updated>2016-10-06T06:00:33.950Z</updated>
+    <updated>2016-10-18T03:03:58.805Z</updated>
     
     <content type="html"><![CDATA[<p>最近因為有把 iframe 內容以全螢幕顯示的需求，因此研究了一下 HTML5 fullscreen API。已有現成的 library 可以用如 <a href="https://sindresorhus.com/screenfull.js/" target="_blank" rel="external">screenfull.js</a> 及 <a href="https://brad.is/coding/BigScreen/" target="_blank" rel="external">BigScreen</a>，但大致上並不難，因此我選擇了純 javascript 來撰寫看看。</p>
 <p>要全螢幕其實並不難，只要呼叫 <code>requestFullscreen()</code> 即可做到，以下是簡易範例：</p>
@@ -812,7 +851,7 @@
     <link href="http://ssk7833.github.io/blog/2015/08/25/facebook-graph-api-get-picture/"/>
     <id>http://ssk7833.github.io/blog/2015/08/25/facebook-graph-api-get-picture/</id>
     <published>2015-08-24T19:11:56.000Z</published>
-    <updated>2016-10-06T06:00:33.950Z</updated>
+    <updated>2016-10-18T03:03:58.805Z</updated>
     
     <content type="html"><![CDATA[<p>要取得大頭貼照，如果使用 API request ，加上 picture 即可得到大頭貼照，如：<code>me?fields=id,name,picture</code>，即可在回傳的 JSON 中取得圖片的位址，但這時取回來的圖片會比正常大小還要小，而且此方法還需要 access_token。</p>
 <p>要取得不同大小的大頭貼照，有個更輕鬆的方法：<code>http://graph.facebook.com/{id}/picture?type=normal</code> 直接使用此網址，將 id 換成想呈現的 userId 即可，此網址將會 redirect 到對應的圖片位址，且此方法不需要 access_token。</p>
@@ -843,7 +882,7 @@
     <link href="http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/"/>
     <id>http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/</id>
     <published>2015-07-12T10:49:43.000Z</published>
-    <updated>2016-10-06T06:00:33.950Z</updated>
+    <updated>2016-10-18T03:03:58.805Z</updated>
     
     <content type="html"><![CDATA[<p>玩 Facebook Graph API 玩了一陣子才發現回傳的姓名總是是英文的，才想到若是有回傳中文姓名的需求時該怎麼辦，如此下去一找才發現關鍵字是 <a href="https://www.facebook.com/help/217868321565724" target="_blank" rel="external">Language-specific name</a>，而要如何在 Facebook Graph API 中顯示為中文則可以參考這篇中的 locale：<a href="https://developers.facebook.com/docs/graph-api/using-graph-api/v2.0#readmodifiers" target="_blank" rel="external">Modifying API Requests</a>。</p>
 <p>其實只要在 API request 中加上 <code>&amp;locale=zh_TW</code> 即可得到中文姓名，如：<code>me?fields=id,name&amp;locale=zh_TW</code>，只是有趣的是我稍微測了一下 locale 給以開頭 <code>en_</code> 以外的任何值都會取得中文名稱，還以為預設會以英文為主。</p>
@@ -871,7 +910,7 @@
     <link href="http://ssk7833.github.io/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/"/>
     <id>http://ssk7833.github.io/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/</id>
     <published>2015-07-01T16:11:49.000Z</published>
-    <updated>2016-10-06T06:00:33.950Z</updated>
+    <updated>2016-10-18T03:03:58.805Z</updated>
     
     <content type="html"><![CDATA[<p>繼上一篇成功截取出使用者資料後，發現除了基本資料外，朋友、按讚的資訊等資料其實都抓不出來，原因是因為沒有給予 app 存取這些資訊的權限。要求權限的話可以透過 OAuth 來索取 access token ，其範例網址如下：</p>
 <p><code>https://www.facebook.com/dialog/oauth?client_id={appId}&amp;redirect_uri={redirectURI}</code></p>
@@ -917,7 +956,7 @@
     <link href="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/"/>
     <id>http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/</id>
     <published>2015-06-20T15:43:39.000Z</published>
-    <updated>2016-10-06T06:00:33.950Z</updated>
+    <updated>2016-10-18T03:03:58.805Z</updated>
     
     <content type="html"><![CDATA[<p>延續上一篇，成功使用 Facebook 登入 Parse.com 的使用者資訊後，接著就是怎麼從使用者資訊中取得 Facebook 的資料了。</p>
 <p><img src="/blog/images/user.png" alt="User" title="User"><br>以上圖的 Facebook Test Users 為例，建立完的使用者可以由 Parse.com 的 Data 中看到，不過 authData 卻只顯示了 Facebook 的 ID，因此我們可以先透過 API Console 來對 users 作存取，這裡要注意的是 Use Master Key 記得要選 Yes，否則會沒有權限看 authData 的內容；users 後面的參數為 objectId，若不放置則會列出全部符合的資料。<br><img src="/blog/images/APIconsole.png" alt="API console" title="API console"><br>在 Response 中的內容：<br><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">&#123;</span><br><span class="line">  <span class="string">"authData"</span>: <span class="collection">&#123;</span><br><span class="line">    <span class="string">"facebook"</span>: <span class="collection">&#123;</span><br><span class="line">      // 不要想對這組 access_token 亂來，因為是 test user XD</span><br><span class="line">      <span class="string">"access_token"</span>: <span class="string">"CAAMCk3Pv7SkBAEjfvRaG4SrC8k3CXak1843iisuUJiIK9gYV9PNFRraXi9gxYVBJO83zsvzFO91dcACevKwinxAVPNCUeEv0UPWsmv7DZBlqPjtZCCnEBcMBKpU7ikoj9OKo1ZCwzi3wmTycsB2avHT1SiBxLUF5ZAHTaT9XDNtz1phGZCk0lltOY5agj0JGQ9ezNGmOsvUmdpKFASx5K"</span>,</span><br><span class="line">      <span class="string">"expiration_date"</span>: <span class="string">"2015-08-15T17:52:46.495Z"</span>,</span><br><span class="line">      <span class="string">"id"</span>: <span class="string">"118563748477765"</span></span><br><span class="line">    &#125;</span></span><br><span class="line">  &#125;</span>,</span><br><span class="line">  <span class="string">"createdAt"</span>: <span class="string">"2015-06-16T17:52:48.623Z"</span>,</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"Super Mario"</span>,</span><br><span class="line">  <span class="string">"objectId"</span>: <span class="string">"wmVm7Qb1Fc"</span>,</span><br><span class="line">  <span class="string">"sessionToken"</span>: <span class="string">"jEKKzfbDcIN0CmBIvsdZR9Aoc"</span>,</span><br><span class="line">  <span class="string">"updatedAt"</span>: <span class="string">"2015-06-17T07:57:08.934Z"</span>,</span><br><span class="line">  <span class="string">"username"</span>: <span class="string">"3GwDpgmuqmfnyGYINNI27W9fO"</span></span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
@@ -930,42 +969,6 @@
     
       &lt;p&gt;延續上一篇，成功使用 Facebook 登入 Parse.com 的使用者資訊後，接著就是怎麼從使用者資訊中取得 Facebook 的資料了。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/blog/images/user.png&quot; alt=&quot;User&quot; title=&quot;User&quot;&gt;&lt;
-    
-    </summary>
-    
-      <category term="study" scheme="http://ssk7833.github.io/blog/categories/study/"/>
-    
-    
-      <category term="CloudCode" scheme="http://ssk7833.github.io/blog/tags/CloudCode/"/>
-    
-      <category term="Facebook" scheme="http://ssk7833.github.io/blog/tags/Facebook/"/>
-    
-      <category term="Parse.com" scheme="http://ssk7833.github.io/blog/tags/Parse-com/"/>
-    
-      <category term="node.js" scheme="http://ssk7833.github.io/blog/tags/node-js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用 Parse.com Cloud Code Hosting 進行 Facebook 登入存取 1</title>
-    <link href="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/"/>
-    <id>http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/</id>
-    <published>2015-06-20T14:13:10.000Z</published>
-    <updated>2016-10-06T06:00:33.950Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="http://parse.com/" target="_blank" rel="external">Parse.com</a> 在 <a href="https://parse.com/docs/tw/js/guide" target="_blank" rel="external">javascript SDK</a> 中提供了使用者的存取，其中包含 Facebook 的整合，但 javascript 終究是前端，有些不想讓 client end知道的還是放在後端處理比較好。然而 Parse.com 所提供的 cloud code 所使用的目前雖是 node.js，會讓開發者很想直接把 javascript SDK 的 Facebook 部分塞進去看能不能跑，乍看之下很合理，但實際上就是不行，因為以 Parse.com Javascript SDK在要求登入時會跳出另一個瀏覽器視窗以要求登入 Facebook 及權限給予，而這個視窗當然沒有辦法在 server end 中呈現並要求 client end 進行認證。</p>
-<p>在官方論壇上也有人發表過此問題：<a href="https://www.parse.com/questions/interacting-with-the-facebook-api-in-cloud-code" target="_blank" rel="external">Interacting with the Facebook API in Cloud Code</a><br>所得到的回答是：<br><strong>Unfortunately, the Facebook JavaScript SDK is not made to work outside of a browser, so using it directly from Cloud Code is not supported at the moment.</strong></p>
-<p><strong>You can, however, get the authData from the current user in cloud code and use that to make a REST call to Facebook’s graph API manually.</strong></p>
-<p>因此我轉而研究使用OAuth方式來登入Facebook，除了跳轉出的頁面比較美觀外（不會產生另一個瀏覽器視窗），也不用擔心暴露資訊給clent end，參考資料有這兩篇：<br><a href="http://sweeteason.pixnet.net/blog/post/40581580-%E7%B6%B2%E7%AB%99%E5%88%A9%E7%94%A8-facebook-%E5%B8%B3%E8%99%9F%E7%99%BB%E5%85%A5-%28%E4%BD%BF%E7%94%A8-oauth%29" target="_blank" rel="external">網站利用 Facebook 帳號登入 (使用 OAuth)</a><br><a href="https://gigenchang.wordpress.com/2014/01/26/10%E5%88%86%E9%90%98%E7%90%86%E8%A7%A3oauth%E5%92%8Cfacebook%E7%99%BB%E5%85%A5%E5%8E%9F%E7%90%86/" target="_blank" rel="external">10分鐘理解OAuth和facebook登入原理</a><br>這篇以python Django framework實作，其實看code好像也蠻容易理解的：<a href="http://nthn.me/posts/2012/facebook-registration.html" target="_blank" rel="external">Ghetto Facebook Registration with Django</a></p>
-<p>後來正當我開始打算實作時，我找到了 <a href="https://github.com/ParsePlatform/parse-facebook-user-session" target="_blank" rel="external">parse-facebook-user-session</a> ，原來 Parse.com 早就把這個寫好了，根本不用自己去寫了，只需要按照他的說明一步一步來就行了（吧）！</p>
-<p>結果證明事情果然不是我想的這麼簡單，不管怎麼弄就是跳出 <strong>209 invalid session token</strong> ，花了一段時間後找到 Parse.com 自己發的文章 <a href="https://www.parse.com/tutorials/session-migration-tutorial" target="_blank" rel="external">Session Migration Tutorial</a> ，才知道把這個選項關掉就行了，我花了這麼久到底在幹麻！</p>
-<p><img src="/blog/images/userSessions.png" alt="User sessions" title="User sessions"><br>總之，關閉這個選項後就成功了， Parse.com 的資料庫也會成功紀錄登入過的使用者，事情完成一半，其餘的就是登入的使用者資料該怎麼讀取出來了～</p>
-<p><strong>UPDATE：</strong>在GitHub上新增了 <a href="https://loginexample.parseapp.com/" target="_blank" rel="external">demo</a>：<a href="https://github.com/ssk7833/Parse-Facebook-OAuth-login-example" target="_blank" rel="external">GitHub</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;http://parse.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Parse.com&lt;/a&gt; 在 &lt;a href=&quot;https://parse.com/docs/tw/js/guide&quot; target=&quot;_blank&quot; r
     
     </summary>
     

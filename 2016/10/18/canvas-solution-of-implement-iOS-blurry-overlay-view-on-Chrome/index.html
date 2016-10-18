@@ -3,27 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>將 cd 跟 ls 合併為一個指令 | 北風筆記</title>
+  <title>利用 canvas 於 Chrome 實作 iOS 模糊背景效果 | 北風筆記</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="用 alias, script, unix programing 都無法達到更換資料夾後並印出資料夾內容的功能最後測試只有 function 可以。
-若是 bash shell，將 .bashrc 增加下列程式碼後重新載入 .bashrc 即可。
-cds() { cd &amp;quot;$1&amp;quot;; ls; }
-接著只要執行 cds 指令即可。">
+  <meta name="description" content="這次要處理的就是上面的背景模糊背景效果，雖 iOS7 在某些版面上已經有了，但在瀏覽器上要做到同樣的事通常都要疊兩張一樣的圖再做 filter 處理，若今天需要模糊的是比圖片複雜的，例如影片、包含其他動態元件的 html 等就會變得不好處理。在 Safari 上可以使用 -webkit-backdrop-filter: blur(5px); CSS 屬性來處理，且可以根據上層的 overflow:">
 <meta property="og:type" content="article">
-<meta property="og:title" content="將 cd 跟 ls 合併為一個指令">
-<meta property="og:url" content="http://ssk7833.github.io/blog/2011/01/18/combine-cd-and-ls-into-one-command/index.html">
+<meta property="og:title" content="利用 canvas 於 Chrome 實作 iOS 模糊背景效果">
+<meta property="og:url" content="http://ssk7833.github.io/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/index.html">
 <meta property="og:site_name" content="北風筆記">
-<meta property="og:description" content="用 alias, script, unix programing 都無法達到更換資料夾後並印出資料夾內容的功能最後測試只有 function 可以。
-若是 bash shell，將 .bashrc 增加下列程式碼後重新載入 .bashrc 即可。
-cds() { cd &amp;quot;$1&amp;quot;; ls; }
-接著只要執行 cds 指令即可。">
-<meta property="og:updated_time" content="2016-01-07T16:47:05.000Z">
+<meta property="og:description" content="這次要處理的就是上面的背景模糊背景效果，雖 iOS7 在某些版面上已經有了，但在瀏覽器上要做到同樣的事通常都要疊兩張一樣的圖再做 filter 處理，若今天需要模糊的是比圖片複雜的，例如影片、包含其他動態元件的 html 等就會變得不好處理。在 Safari 上可以使用 -webkit-backdrop-filter: blur(5px); CSS 屬性來處理，且可以根據上層的 overflow:">
+<meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/2016-10-18-canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/01.png">
+<meta property="og:updated_time" content="2016-10-18T03:03:58.805Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="將 cd 跟 ls 合併為一個指令">
-<meta name="twitter:description" content="用 alias, script, unix programing 都無法達到更換資料夾後並印出資料夾內容的功能最後測試只有 function 可以。
-若是 bash shell，將 .bashrc 增加下列程式碼後重新載入 .bashrc 即可。
-cds() { cd &amp;quot;$1&amp;quot;; ls; }
-接著只要執行 cds 指令即可。">
+<meta name="twitter:title" content="利用 canvas 於 Chrome 實作 iOS 模糊背景效果">
+<meta name="twitter:description" content="這次要處理的就是上面的背景模糊背景效果，雖 iOS7 在某些版面上已經有了，但在瀏覽器上要做到同樣的事通常都要疊兩張一樣的圖再做 filter 處理，若今天需要模糊的是比圖片複雜的，例如影片、包含其他動態元件的 html 等就會變得不好處理。在 Safari 上可以使用 -webkit-backdrop-filter: blur(5px); CSS 屬性來處理，且可以根據上層的 overflow:">
   
     <link rel="alternative" href="/blog/atom.xml" title="北風筆記" type="application/atom+xml">
   
@@ -86,10 +78,10 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-combine-cd-and-ls-into-one-command" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/blog/2011/01/18/combine-cd-and-ls-into-one-command/" class="article-date">
-  <time datetime="2011-01-17T17:45:05.000Z" itemprop="datePublished">2011-01-18</time>
+    <a href="/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/" class="article-date">
+  <time datetime="2016-10-18T03:02:30.000Z" itemprop="datePublished">2016-10-18</time>
 </a>
     
   <div class="article-category">
@@ -104,7 +96,7 @@ ga('send', 'pageview');
         
   
     <h1 class="article-title" itemprop="name">
-      將 cd 跟 ls 合併為一個指令
+      利用 canvas 於 Chrome 實作 iOS 模糊背景效果
     </h1>
   
 
@@ -112,20 +104,29 @@ ga('send', 'pageview');
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>用 alias, script, unix programing 都無法達到更換資料夾後並印出資料夾內容的功能<br>最後測試只有 function 可以。</p>
-<p>若是 bash shell，將 .bashrc 增加下列程式碼後重新載入 .bashrc 即可。</p>
-<pre><code>cds() { cd &quot;$1&quot;; ls; }
-</code></pre><p>接著只要執行 cds 指令即可。</p>
+        <p><img src="/blog/images/2016-10-18-canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/01.png" alt="iOS blurry overlay" title="iOS blurry overlay"><br>這次要處理的就是上面的背景模糊背景效果，雖 iOS7 在某些版面上已經有了，但在瀏覽器上要做到同樣的事通常都要疊兩張一樣的圖再做 filter 處理，若今天需要模糊的是比圖片複雜的，例如影片、包含其他動態元件的 html 等就會變得不好處理。<br>在 Safari 上可以使用 <code>-webkit-backdrop-filter: blur(5px);</code> CSS 屬性來處理，且可以根據上層的 overflow:hidden; 來改變模糊的區域範圍；而在 Google Chrome 上，雖然可以透過 <code>enable-experimental-web-platform-features</code> 來開啟 <code>backdrop-filter: blur(5px);</code> 功能，但在配合其他 CSS 屬性時很容易出現 bug。</p>
+<p>backdrop-filter 的實作範例：Chrome 需開啟 <code>enable-experimental-web-platform-features</code> 才能看到結果<br>Safari 下正常，而 Chrome 也正常，但我需要圓弧邊框：<a href="https://jsfiddle.net/ssk7833/8ybsqz4k/14/" target="_blank" rel="external">JSFiddle</a><br>Safari 下正常，而 Chrome 下若上層有 overflow: hidden; 時則完全無效：<a href="https://jsfiddle.net/ssk7833/8ybsqz4k/19/" target="_blank" rel="external">JSFiddle</a></p>
+<p>網路上能找到許多解法，像是放兩張圖或放兩個影片，前景的圖層加上 filter:blur 即可，但最後我選擇使用 canvas 來實作看看。</p>
+<iframe width="100%" height="300" src="//jsfiddle.net/ssk7833/8ybsqz4k/23/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<p>背景是影片的狀況：</p>
+<iframe width="100%" height="300" src="//jsfiddle.net/ssk7833/zjzdmbcj/4/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<p>不過 canvas 解法反而不是用於 Safari，因為 Safari 不支援 canvas filter…XD</p>
+<p>參考資料：</p>
+<ol>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/filter" target="_blank" rel="external">CanvasRenderingContext2D.filter - Web APIs | MDN</a></li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2011/01/18/combine-cd-and-ls-into-one-command/" data-id="ciuewp3ue00009fdapct4x7nj" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/" data-id="ciuewp3vl00059fdaxo9j4gsl" class="article-share-link">Share</a>
       
-        <a href="http://ssk7833.github.io/blog/2011/01/18/combine-cd-and-ls-into-one-command/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://ssk7833.github.io/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/shell-script/">shell script</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/canvas/">canvas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/">javascript</a></li></ul>
 
     </footer>
   </div>
@@ -133,15 +134,11 @@ ga('send', 'pageview');
     
 <nav id="article-nav">
   
-    <a href="/blog/2012/09/24/show-Chinese-character-and-download-issues-in-PHPWord/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          PHPWord 中文字顯示與下載問題
-        
-      </div>
-    </a>
   
+    <a href="/blog/2016/10/06/solution-of-multiple-draggable-elements-overlay-each-other-html/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">HTML 中多個可移動視窗互相覆蓋的處理方法</div>
+    </a>
   
 </nav>
 
@@ -249,7 +246,7 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'ssk7833';
   
-  var disqus_url = 'http://ssk7833.github.io/blog/2011/01/18/combine-cd-and-ls-into-one-command/';
+  var disqus_url = 'http://ssk7833.github.io/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/';
   
   (function(){
     var dsq = document.createElement('script');
