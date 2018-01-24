@@ -107,7 +107,7 @@ ga('send', 'pageview');
         <p><img src="/blog/images/2016-10-18-canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/01.png" alt="iOS blurry overlay" title="iOS blurry overlay"><br>這次要處理的就是上面的背景模糊背景效果，雖 iOS7 在某些版面上已經有了，但在瀏覽器上要做到同樣的事通常都要疊兩張一樣的圖再做 filter 處理，若今天需要模糊的是比圖片複雜的，例如影片、包含其他動態元件的 html 等就會變得不好處理。<br>在 Safari 上可以使用 <code>-webkit-backdrop-filter: blur(5px);</code> CSS 屬性來處理，且可以根據上層的 overflow:hidden; 來改變模糊的區域範圍；而在 Google Chrome 上，雖然可以透過 <code>enable-experimental-web-platform-features</code> 來開啟 <code>backdrop-filter: blur(5px);</code> 功能，但在配合其他 CSS 屬性時很容易出現 bug。</p>
 <p>backdrop-filter 的實作範例：Chrome 需開啟 <code>enable-experimental-web-platform-features</code> 才能看到結果<br>Safari 下正常，而 Chrome 也正常，但我需要圓弧邊框：<a href="https://jsfiddle.net/ssk7833/8ybsqz4k/14/" target="_blank" rel="external">JSFiddle</a><br>Safari 下正常，而 Chrome 下若上層有 overflow: hidden; 時則完全無效：<a href="https://jsfiddle.net/ssk7833/8ybsqz4k/19/" target="_blank" rel="external">JSFiddle</a></p>
 <p>網路上能找到許多解法，像是放兩張圖或放兩個影片，前景的圖層加上 filter:blur 即可，但最後我選擇使用 canvas 來實作看看。</p>
-<iframe width="100%" height="300" src="//jsfiddle.net/ssk7833/8ybsqz4k/23/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<iframe width="100%" height="300" src="//jsfiddle.net/ssk7833/8ybsqz4k/36/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 <p>背景是影片的狀況：</p>
 <iframe width="100%" height="300" src="//jsfiddle.net/ssk7833/zjzdmbcj/4/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
@@ -121,7 +121,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/" data-id="ciuewp3vl00059fdaxo9j4gsl" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/" data-id="cjcss4jzp0005io1xgnzay7jg" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -177,7 +177,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/10/06/solution-of-multiple-draggable-elements-overlay-each-other-html/" data-id="ciuewp3vp000d9fda4d1xuyn0" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/10/06/solution-of-multiple-draggable-elements-overlay-each-other-html/" data-id="cjcss4jzw000dio1x6y7hyi34" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/10/06/solution-of-multiple-draggable-elements-overlay-each-other-html/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -237,7 +237,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/09/30/using-windows-batch-to-initialize-and-check-chrome-status/" data-id="ciuewp3vv000h9fdafxrnd30g" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/09/30/using-windows-batch-to-initialize-and-check-chrome-status/" data-id="cjcss4k00000hio1xfvv5y1ip" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/09/30/using-windows-batch-to-initialize-and-check-chrome-status/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -317,7 +317,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/08/02/setup-Google-Chrome-as-kiosk-application-settings/" data-id="ciuewp3w0000r9fdae0vjv5jg" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/08/02/setup-Google-Chrome-as-kiosk-application-settings/" data-id="cjcss4k07000rio1xo05k6sox" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/08/02/setup-Google-Chrome-as-kiosk-application-settings/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -376,7 +376,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/07/15/let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/" data-id="ciuewp3w3000w9fdasag5m8jq" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/07/15/let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/" data-id="cjcss4k0b000wio1x7a44hi72" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/07/15/let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -473,7 +473,7 @@ ga('send', 'pageview');
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2016 North<br>
+      &copy; 2018 North<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
