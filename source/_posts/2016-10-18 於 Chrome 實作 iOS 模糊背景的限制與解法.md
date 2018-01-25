@@ -22,7 +22,7 @@ Safari 下正常，而 Chrome 下若上層有 overflow: hidden; 時則完全無�
 背景是影片的狀況：
 <iframe width="100%" height="300" src="//jsfiddle.net/ssk7833/zjzdmbcj/4/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
-不過 canvas 解法反而不是用於 Safari，因為 Safari 不支援 canvas filter...XD
+不過 canvas 解法反而不適用於 Safari，因為 Safari 不支援 canvas filter...XD
 
 參考資料：
 1. [CanvasRenderingContext2D.filter - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/filter)
