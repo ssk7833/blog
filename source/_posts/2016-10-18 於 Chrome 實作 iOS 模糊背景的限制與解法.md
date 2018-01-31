@@ -17,7 +17,7 @@ Safari 下正常，而 Chrome 也正常，但我需要圓弧邊框：[JSFiddle](
 Safari 下正常，而 Chrome 下若上層有 overflow: hidden; 時則完全無效：[JSFiddle](https://jsfiddle.net/ssk7833/8ybsqz4k/19/)
 
 網路上能找到許多解法，像是放兩張圖或放兩個影片，前景的圖層加上 filter:blur 即可，但最後我選擇使用 canvas 來實作看看。
-<iframe width="100%" height="300" src="//jsfiddle.net/ssk7833/8ybsqz4k/37/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<iframe width="100%" height="300" src="//jsfiddle.net/ssk7833/8ybsqz4k/38/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 背景是影片的狀況：
 <iframe width="100%" height="300" src="//jsfiddle.net/ssk7833/zjzdmbcj/4/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
