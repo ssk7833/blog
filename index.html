@@ -78,6 +78,71 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-DIY-wedding-chat-system" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018/02/01/DIY-wedding-chat-system/" class="article-date">
+  <time datetime="2018-01-31T16:22:30.000Z" itemprop="datePublished">2018-02-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/study/">study</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018/02/01/DIY-wedding-chat-system/">自己婚宴自己搞，婚宴彈幕系統</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>婚宴結束後已經休息一陣子了，除了準備挪威的行程外，擠出些時間寫個婚宴彈幕系統的心得，以免最後因拖延症搞得無疾而終。</p>
+<p>會觸發這場婚宴的原因，主要是因為在 2017/04/28 聚餐時，不曉得話題什麼時候被帶到極光去，而另一半提到想看極光時，有學長提到要看極光最好趕快去，因為近年來已經進到衰退期，迫使我們……回家後就開始查相關資訊，而在六天後已經決定去挪威，且開始下訂機票、郵輪、住宿等，決定在今年農曆過年時去一趟挪威旅遊。決定蜜月時間後，即開始挑場地，最後選上老新台菜，並將時間敲定於 2018/01/06。</p>
+<p>在這段時間不時的需要去處理婚宴相關的大小事，但就是沒去處理婚宴當天影片要呈現什麼內容，直到約 11 月底時我們在巴哈動畫瘋上看了一部網路評論部分說很好看的遊戲改編動畫作品，而我們看了一致認同非常粗糙，最後每集都是開著彈幕才有辦法看下去（直接從懸疑片變成搞笑片），後來才有了「很多人都會在婚宴上放影片輪播，不如我們把影片加上彈幕系統讓畫面更有趣吧！」的想法出來，另外因為婚宴的座位安排遲遲無法決定，所以也決定寫個線上查詢座位的功能來讓座位可以隨狀態調整（例如臨時有誰要來爆位置，有誰不來使得一桌少於幾人），而最後拖到 2017/12/27 才開了 git repo 出來開始配置專案，開始撰寫彈幕系統跟帶位系統。所幸還有周末遇到跨年跟婚宴前兩天請假，有幾天可以專心寫程式不用擔心寫到太晚需要中斷思緒的問題，這幾天都是做到早上五六點才睡，活像個趕學期專題的大學生。</p>
+<p>彈幕系統主要希望是賓客在看影片播放時，也能跟其他人互動交流一下，可能是吐個槽、也可能是交個朋友，就像在看動畫瘋、niconico 一樣，有時可以看到某些留言是有相關性的，也有些留言可能根本就離題，看了也是很有趣，也希望可以讓賓客們找點事做，不會因為影片輪播過一次後就沒有新鮮感，因為留言的內容只會越來越多，也可能會出現其他沒看過的訊息；而對於我們來說，我們知道自己在現場是沒什麼機會看到的，所以事先規劃了資料儲存來讓我們事後自己找時間看，除了部分是當天利用寫好的後台來看留言並隱藏不當留言外，配上影片的完整版本也是婚宴結束後才看的。</p>
+<p>看過完整版本後也試著將它錄下來，可惜電腦不夠力，錄下來似乎有點卡，這是隱藏掉部分留言後的最後版本，也就是現場看到的版本。</p>
+<p><img src="/blog/images/2018-02-01-DIY-wedding-chat-system/01.jpg" alt="影片截圖" title="影片截圖"><br><img src="/blog/images/2018-02-01-DIY-wedding-chat-system/02.jpg" alt="影片截圖" title="影片截圖"></p>
+<p>同時也順便看了一下若將隱藏的留言通通呈現後會長什麼樣子，會發現多了一些大學朋友們現場測試 SQL injection 跟 XSS attack 的一些訊息，這些人給不給活路啊！不過還好沒出什麼問題就是 :P（雖然這類型留言還是被我們隱藏起來了）</p>
+<p><img src="/blog/images/2018-02-01-DIY-wedding-chat-system/03.jpg" alt="未隱藏部分留言的影片截圖" title="未隱藏部分留言的影片截圖"></p>
+<h2 id="實作細節"><a href="#實作細節" class="headerlink" title="實作細節"></a>實作細節</h2><p>這個系統架設於 Azure 上，也是第一次接觸 Azure，使用過程上非常輕鬆，沒有過多的陣痛期，主要用的資源是 App Service 跟 Azure Cosmos DB：App Service 快速建立起 Node.js 環境，讓我可以專注在 Node.js 的程式上面，且利用 GitHub 進行 Continuous Deployment，也省去一些手動上傳的動作；Azure Cosmos DB 則是讓我輕鬆建立 mongoDB 來儲存資料。</p>
+<p>伺服器網頁框架採用 Express.js，手機發送留言跟影片彈幕功能則是用 socket.io 來處理 websocket 的部分，讓訊息可以即時呈現；影片的彈幕最小單位是秒，我們決定讓它出現於畫面底部且共十個軌道，其位置是利用 Fisher–Yates shuffle 來進行隨機安排，因此每一次播到同樣秒數時，每個留言的位置都是隨機的。除了十軌外，留言移動的速度也是隨機十種，但不做十種 shuffle 而是直接隨機，因此同一秒出現的留言可能會有快有慢，也可能有相等的；而若同一秒內超過十個留言，則是每十個留言做一次位置的 shuffle，最後同時丟出，其中就會出現留言重疊的事件，而留言多到重疊我們也認為這是彈幕的一種特色，且因為時間緊迫，因此就沒特別處理了，只能期望重疊的留言因速度不同的而能分辨各個留言的內容。</p>
+<p>而留言系統我們曾考慮過到底該用黑名單還白名單機制來讓人留言，以及是否該綁定 Facebook 第三方登入的問題：黑白名單主要差在是否留言後須先通過審核才會出現，或是出現後再遭隱藏的問題，最後我們選擇使用黑名單機制，認為我們賓客都是很乖的，如果亂留言一定是交到壞朋友才這樣的；綁定 Facbook 登入的問題，以我們自己的觀點來看，若是需要綁定 Facebook 登入來驗證姓名的話，那我的參與意願就會降低，因此最後選擇直接輸入自已的姓名即可，即便害羞要打暱稱也不是不行。而在這點上我們徹底的錯了。原以為某個最有可能亂來的人因為出差去美國所以不用擔心太多的我們真是太天真了。好在防人之心不可無，必要的防護我還是有處理的，不然影片彈幕可能就被 XSS attack 玩壞了。當天才知道原來不是存在幾個亂留言的壞朋友，而是某桌整桌都是壞朋友！除了各種攻擊外，還出現各種不可能出現的姓名留言，例如我自己的名字，還有系上教授的名字，雖然很好笑，但也太 troll 了吧 XDD。好在有寫一個陽春的後台系統，可以即時顯示／隱藏留言及開啟／關閉留言功能，如下圖。</p>
+<p><img src="/blog/images/2018-02-01-DIY-wedding-chat-system/04.jpg" alt="手機後台截圖" title="手機後台截圖"><br><img src="/blog/images/2018-02-01-DIY-wedding-chat-system/05.jpg" alt="手機後台截圖" title="手機後台截圖"></p>
+<p>影片彈幕系統的部分，由於影片是放在 local 的電腦上，而又須連到網路上拿取後臺資料，因此利用 Google Chrome kiosk mode 來呈現，好在曾經做過<a href="/blog/2016/08/02/setup-Google-Chrome-as-kiosk-application-settings/">研究</a>，就直接拿以前的筆記稍微改一下複製貼上就沒事了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chrome.exe <span class="string">"file:///C:/dist/index.html"</span> --user-data-dir=<span class="string">"C:/Chrome dev session"</span> --disable-web-security --test-type --disable-translate --kiosk</span><br></pre></td></tr></table></figure></p>
+<p>手機前端網頁部分其實是花最多時間的，主要是 UI 該怎麼呈現也是改了又改改了又改，又再一次體會了下面這張圖的心情。同時也試著使用 History API 等未使用過的功能。</p>
+<p><blockquote class="imgur-embed-pub" lang="en" data-id="IKw1B3W"><a href="//imgur.com/IKw1B3W">Sums up my new job as a graphic designer.</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script></p>
+<p>另外帶位系統是不是多餘的，有親戚知道這個曾問過如果手機沒網路或不會用的人該怎麼辦，回答是「本婚宴不歡迎非親戚與非現代人入場」。因為我們確定除親戚外，其他人平常都會使用到這部分才這樣做，且許多人可能都有雙重身分，例如是大學同學也是社團同學，到底該坐哪桌的問題。且婚宴前一天都還有人臨時想來／不能來，此時我們要動態調整位置時就變得很方便！</p>
+<h2 id="可改善的部分"><a href="#可改善的部分" class="headerlink" title="可改善的部分"></a>可改善的部分</h2><ul>
+<li>未考慮到使用者可能會輸入 emoji，還好 emoji 能正常顯示，只是可能會跟使用者心中的樣式長得不一樣。</li>
+<li>留言顏色只有白色，其實有想過更多顏色也許不錯，實作也不難，但後來又覺得會不會太亂就先作罷，看到有留言提到「需要能更換顏色，下班前給我」時覺得沒做好像有點可惜？</li>
+</ul>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>寫的過程雖累但有趣，算是累得值得的一件事！<br>最後再次感謝參與婚宴的所有人，沒有你們的話，這個系統就不會出現。（重點誤）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ssk7833.github.io/blog/2018/02/01/DIY-wedding-chat-system/" data-id="cjd3ebwi70005im2gdnztm6bf" class="article-share-link">Share</a>
+      
+        <a href="http://ssk7833.github.io/blog/2018/02/01/DIY-wedding-chat-system/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/wedding/">wedding</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/" class="article-date">
@@ -121,7 +186,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/" data-id="cjd3bcenj0005ip2k4jp46pvu" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/" data-id="cjd3ebwig000dim2gu52ger0i" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -177,7 +242,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/10/06/solution-of-multiple-draggable-elements-overlay-each-other-html/" data-id="cjd3bcens000dip2kzy9jxizq" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/10/06/solution-of-multiple-draggable-elements-overlay-each-other-html/" data-id="cjd3ebwio000kim2g8jps2lwd" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/10/06/solution-of-multiple-draggable-elements-overlay-each-other-html/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -237,7 +302,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/09/30/using-windows-batch-to-initialize-and-check-chrome-status/" data-id="cjd3bceny000hip2k1vybcyeb" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/09/30/using-windows-batch-to-initialize-and-check-chrome-status/" data-id="cjd3ebwiu000oim2glw1ui0nx" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/09/30/using-windows-batch-to-initialize-and-check-chrome-status/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -317,71 +382,12 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/08/02/setup-Google-Chrome-as-kiosk-application-settings/" data-id="cjd3bceo8000rip2k4swvgcdu" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/08/02/setup-Google-Chrome-as-kiosk-application-settings/" data-id="cjd3ebwj1000yim2gm0ev01lx" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/08/02/setup-Google-Chrome-as-kiosk-application-settings/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/chrome/">chrome</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/kiosk/">kiosk</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/windows/">windows</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-let-touch-screen-with-multiple-monitors-works-on-the-right-monitor" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2016/07/15/let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/" class="article-date">
-  <time datetime="2016-07-15T02:28:20.000Z" itemprop="datePublished">2016-07-15</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/study/">study</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2016/07/15/let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/">當有雙螢幕時，讓觸控螢幕在正確螢幕上觸控</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近多了一台觸控螢幕，接到主機後從原本的雙螢幕變成的三螢幕，其中一個就是這個觸控螢幕。<br>我的螢幕設定是使用延伸模式，主螢幕為原本雙螢幕的其中一個，加入第三個螢幕時一樣採取延伸模式。而在這個觸控螢幕在插上 USB 線後且安裝完驅動程式後，觸控螢幕就像觸控板一樣可以點擊來觸發滑鼠事件，但對應到的點擊區域卻是我的主螢幕，這完全沒道理啊！</p>
-<p>本以為是驅動程式的問題，其實不是，而找到的解法有兩種：</p>
-<ol>
-<li><p>將主螢幕設定到第三個螢幕，也就是觸控螢幕。<br><strong>這個方法不好！</strong>雖可以解決問題，但若像我一樣不希望第三個螢幕變成主螢幕的話就無法使用。</p>
-</li>
-<li><p>將觸控螢幕的對應到正確的螢幕上。<br>其實就是把觸控螢幕當成一個螢幕加上觸控板，若用這樣的方式去想就知道該怎麼解了，設定方法如下。</p>
-</li>
-</ol>
-<p>打開控制台搜尋 Tablet PC 設定，或到開始功能表中直接搜尋 Tablet PC 設定。<br><img src="/blog/images/2016-07-15-let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/01.png" alt="控制台中的 Tablet PC 設定" title="控制台中的 Tablet PC 設定"><br><img src="/blog/images/2016-07-15-let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/02.png" alt="開始功能表搜尋 Tablet PC 設定" title="開始功能表搜尋 Tablet PC 設定"></p>
-<p>直接點選設定中的設定。<br><img src="/blog/images/2016-07-15-let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/03.png" alt="Tablet PC 設定，點選設定" title="Tablet PC 設定，點選設定"></p>
-<p>接著所有螢幕會變成白色，而其中一個將會顯示以下訊息，按 Enter 直到正確對應的螢幕上再觸控螢幕即可。<br><img src="/blog/images/2016-07-15-let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/04.png" alt="螢幕全白顯示，並跳出提示訊息" title="螢幕全白顯示，並跳出提示訊息"></p>
-<p>參考資料：</p>
-<ol>
-<li><a href="http://superuser.com/a/969683/617008" target="_blank" rel="external">Windows Touch Screen With Multiple Monitors Puts Cursor On Wrong Monitor - Super User</a></li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/07/15/let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/" data-id="cjd3bceok000wip2kwx3g0zox" class="article-share-link">Share</a>
-      
-        <a href="http://ssk7833.github.io/blog/2016/07/15/let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/windows/">windows</a></li></ul>
 
     </footer>
   </div>
@@ -403,7 +409,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/study/">study</a><span class="category-list-count">23</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/study/">study</a><span class="category-list-count">24</span></li></ul>
     </div>
   </div>
 
@@ -412,7 +418,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/APNS/">APNS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CSS/">CSS</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook/">Facebook</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook-Graph-API/">Facebook-Graph-API</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/PHP/">PHP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/PHPWord/">PHPWord</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-server/">Parse server</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SASS/">SASS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SCSS/">SCSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SVG/">SVG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/batch/">batch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/canvas/">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chrome/">chrome</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gf-pages/">gf-pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gooey/">gooey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/kiosk/">kiosk</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/localization/">localization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/logdown/">logdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/node-js/">node.js</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/push-notification/">push notification</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/shell-script/">shell script</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/travis-ci/">travis ci</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/web-speech-API/">web speech API</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/windows/">windows</a><span class="tag-list-count">3</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/APNS/">APNS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CSS/">CSS</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook/">Facebook</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook-Graph-API/">Facebook-Graph-API</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/PHP/">PHP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/PHPWord/">PHPWord</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-server/">Parse server</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SASS/">SASS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SCSS/">SCSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SVG/">SVG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/batch/">batch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/canvas/">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chrome/">chrome</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gf-pages/">gf-pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gooey/">gooey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/kiosk/">kiosk</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/localization/">localization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/logdown/">logdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/node-js/">node.js</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/push-notification/">push notification</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/shell-script/">shell script</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/travis-ci/">travis ci</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/web-speech-API/">web speech API</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/wedding/">wedding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/windows/">windows</a><span class="tag-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -421,7 +427,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/APNS/" style="font-size: 10px;">APNS</a> <a href="/blog/tags/CSS/" style="font-size: 15px;">CSS</a> <a href="/blog/tags/CloudCode/" style="font-size: 15px;">CloudCode</a> <a href="/blog/tags/Facebook/" style="font-size: 16.67px;">Facebook</a> <a href="/blog/tags/Facebook-Graph-API/" style="font-size: 11.67px;">Facebook-Graph-API</a> <a href="/blog/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/blog/tags/PHPWord/" style="font-size: 10px;">PHPWord</a> <a href="/blog/tags/Parse-server/" style="font-size: 15px;">Parse server</a> <a href="/blog/tags/Parse-com/" style="font-size: 15px;">Parse.com</a> <a href="/blog/tags/SASS/" style="font-size: 10px;">SASS</a> <a href="/blog/tags/SCSS/" style="font-size: 10px;">SCSS</a> <a href="/blog/tags/SVG/" style="font-size: 10px;">SVG</a> <a href="/blog/tags/batch/" style="font-size: 10px;">batch</a> <a href="/blog/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/blog/tags/chrome/" style="font-size: 11.67px;">chrome</a> <a href="/blog/tags/gf-pages/" style="font-size: 10px;">gf-pages</a> <a href="/blog/tags/gooey/" style="font-size: 10px;">gooey</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 18.33px;">javascript</a> <a href="/blog/tags/kiosk/" style="font-size: 11.67px;">kiosk</a> <a href="/blog/tags/localization/" style="font-size: 10px;">localization</a> <a href="/blog/tags/logdown/" style="font-size: 10px;">logdown</a> <a href="/blog/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/blog/tags/push-notification/" style="font-size: 13.33px;">push notification</a> <a href="/blog/tags/shell-script/" style="font-size: 10px;">shell script</a> <a href="/blog/tags/travis-ci/" style="font-size: 10px;">travis ci</a> <a href="/blog/tags/web-speech-API/" style="font-size: 10px;">web speech API</a> <a href="/blog/tags/windows/" style="font-size: 13.33px;">windows</a>
+      <a href="/blog/tags/APNS/" style="font-size: 10px;">APNS</a> <a href="/blog/tags/CSS/" style="font-size: 15px;">CSS</a> <a href="/blog/tags/CloudCode/" style="font-size: 15px;">CloudCode</a> <a href="/blog/tags/Facebook/" style="font-size: 16.67px;">Facebook</a> <a href="/blog/tags/Facebook-Graph-API/" style="font-size: 11.67px;">Facebook-Graph-API</a> <a href="/blog/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/blog/tags/PHPWord/" style="font-size: 10px;">PHPWord</a> <a href="/blog/tags/Parse-server/" style="font-size: 15px;">Parse server</a> <a href="/blog/tags/Parse-com/" style="font-size: 15px;">Parse.com</a> <a href="/blog/tags/SASS/" style="font-size: 10px;">SASS</a> <a href="/blog/tags/SCSS/" style="font-size: 10px;">SCSS</a> <a href="/blog/tags/SVG/" style="font-size: 10px;">SVG</a> <a href="/blog/tags/batch/" style="font-size: 10px;">batch</a> <a href="/blog/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/blog/tags/chrome/" style="font-size: 11.67px;">chrome</a> <a href="/blog/tags/gf-pages/" style="font-size: 10px;">gf-pages</a> <a href="/blog/tags/gooey/" style="font-size: 10px;">gooey</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 18.33px;">javascript</a> <a href="/blog/tags/kiosk/" style="font-size: 11.67px;">kiosk</a> <a href="/blog/tags/localization/" style="font-size: 10px;">localization</a> <a href="/blog/tags/logdown/" style="font-size: 10px;">logdown</a> <a href="/blog/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/blog/tags/push-notification/" style="font-size: 13.33px;">push notification</a> <a href="/blog/tags/shell-script/" style="font-size: 10px;">shell script</a> <a href="/blog/tags/travis-ci/" style="font-size: 10px;">travis ci</a> <a href="/blog/tags/web-speech-API/" style="font-size: 10px;">web speech API</a> <a href="/blog/tags/wedding/" style="font-size: 10px;">wedding</a> <a href="/blog/tags/windows/" style="font-size: 13.33px;">windows</a>
     </div>
   </div>
 
@@ -430,7 +436,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/10/">October 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/06/">June 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/04/">April 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/03/">March 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/01/">January 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/07/">July 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2012/09/">September 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2011/01/">January 2011</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/02/">February 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/10/">October 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/06/">June 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/04/">April 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/03/">March 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/01/">January 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/07/">July 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2012/09/">September 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2011/01/">January 2011</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -440,6 +446,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2018/02/01/DIY-wedding-chat-system/">自己婚宴自己搞，婚宴彈幕系統</a>
+          </li>
         
           <li>
             <a href="/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/">利用 canvas 於 Chrome 實作 iOS 模糊背景效果</a>
@@ -455,10 +465,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/blog/2016/08/02/setup-Google-Chrome-as-kiosk-application-settings/">利用 Google Chrome 作為 kiosk 應用時的設定項目</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2016/07/15/let-touch-screen-with-multiple-monitors-works-on-the-right-monitor/">當有雙螢幕時，讓觸控螢幕在正確螢幕上觸控</a>
           </li>
         
       </ul>
