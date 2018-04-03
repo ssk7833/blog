@@ -78,6 +78,64 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-aspnet-core-2-use-mysql-as-database" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018/04/03/aspnet-core-2-use-mysql-as-database/" class="article-date">
+  <time datetime="2018-04-03T08:05:30.000Z" itemprop="datePublished">2018-04-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/study/">study</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018/04/03/aspnet-core-2-use-mysql-as-database/">ASP.NET Core 2 使用 MySQL 作為資料庫</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本篇建立在完成<a href="https://docs.microsoft.com/zh-tw/aspnet/core/tutorials/razor-pages-vsc/model" target="_blank" rel="external">使用 Visual Studio Code 將模型新增至 ASP.NET Core 中的 Razor 頁面應用程式</a>教學之後，已建立 Sqlite 作為資料庫，並完成本篇教學，預計將資料庫轉為 MySQL。</p>
+<p>先將 MySQL NuGet 套件安裝到目前專案中，可參考 <a href="https://docs.microsoft.com/en-us/ef/core/providers/" target="_blank" rel="external">Database Providers</a><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet add package MySql.Data.EntityFrameworkCore</span><br></pre></td></tr></table></figure></p>
+<p>於 <code>appsettings.json</code> 中，將 <code>MovieContext</code> 資料取代為連線設定：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"Logging"</span>: &#123;</span><br><span class="line">    <span class="string">"IncludeScopes"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="string">"LogLevel"</span>: &#123;</span><br><span class="line">      <span class="string">"Default"</span>: <span class="string">"Warning"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"ConnectionStrings"</span>: &#123;</span><br><span class="line">    <span class="comment">// "MovieContext": "Data Source=MvcMovie.db",</span></span><br><span class="line">    <span class="string">"MovieContext"</span>: <span class="string">"server=192.168.99.100;database=mydatabase;user=myuser;password=mypassword"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>於 <code>Startup.cs</code> 中，將 <code>options.UseSqlite(Configuration.GetConnectionString(&quot;MovieContext&quot;))</code> 取代為 <code>UseMySQL</code>：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">services.AddDbContext&lt;MovieContext&gt;(options =&gt; </span><br><span class="line">  options.UseMySQL(Configuration.GetConnectionString(<span class="string">"MovieContext"</span>)));</span><br></pre></td></tr></table></figure></p>
+<p>接著於 CLI 中執行指令（若還沒 migrate 過，請先執行 <code>dotnet ef migrations add InitialCreate</code>）：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet ef database update</span><br></pre></td></tr></table></figure></p>
+<p>應會遇到 <code>Table &#39;mydatabase.__EFMigrationsHistory&#39; doesn&#39;t exist</code> 的錯誤訊息，此為已知問題，可藉由新增這張資料表來解決此問題：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`__EFMigrationsHistory`</span> </span><br><span class="line">( </span><br><span class="line">  <span class="string">`MigrationId`</span> <span class="keyword">nvarchar</span>(<span class="number">150</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">  <span class="string">`ProductVersion`</span> <span class="keyword">nvarchar</span>(<span class="number">32</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`MigrationId`</span>) </span><br><span class="line">);</span></span><br></pre></td></tr></table></figure></p>
+<p>新增後再重新執行 <code>dotnet ef database update</code>，成功後此時於資料庫中應可看到 <code>Movie</code> 資料表，此時即大功告成。</p>
+<p>後記：若選擇 <code>Pomelo.EntityFrameworkCore.MySql</code> 應該就不會有資料表不存在的問題，而 ConnectionStrings 應改為以下格式：<code>Server=localhost;database=mydatabase;uid=myuser;pwd=mypassword;</code>。</p>
+<p>參考資料：</p>
+<ol>
+<li><a href="https://docs.microsoft.com/en-us/ef/core/providers/" target="_blank" rel="external">Database Providers - EF Core | Microsoft Docs</a></li>
+<li><a href="https://dev.mysql.com/doc/connector-net/en/connector-net-entityframework-core.html" target="_blank" rel="external">MySQL :: MySQL Connector/Net Developer Guide :: 8.3 Entity Framework Core Support</a></li>
+<li><a href="https://stackoverflow.com/a/46090571/4968420" target="_blank" rel="external">EF Core `update-database` on MySql fails with `__EFMigrationsHistory’ doesn’t exist` - Stack Overflow</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ssk7833.github.io/blog/2018/04/03/aspnet-core-2-use-mysql-as-database/" data-id="cjfjdqwr00005j4250c3e8ehf" class="article-share-link">Share</a>
+      
+        <a href="http://ssk7833.github.io/blog/2018/04/03/aspnet-core-2-use-mysql-as-database/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/ASP-NET-Core-2/">ASP.NET Core 2</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/MySQL/">MySQL</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-aspnet-core-2-embed-entire-static-files-folder" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2018/03/28/aspnet-core-2-embed-entire-static-files-folder/" class="article-date">
@@ -116,16 +174,16 @@ ga('send', 'pageview');
 <p>不過若用 Hex Editor 或直接用文字編輯器打開 aspnetcoreapp.dll 後可以看到內部還是可以看到 css, js 等內容，且可以被修改（若字元長度沒變的話），因此只是一個簡易的防範而已。</p>
 <p>參考資料：</p>
 <ol>
-<li><a href="https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/visual-studio-publish-profiles?tabs=aspnetcore2x" target="_blank" rel="external">Visual Studio publish profiles for ASP.NET Core app deployment</a></li>
+<li><a href="https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/visual-studio-publish-profiles?tabs=aspnetcore2x" target="_blank" rel="external">Visual Studio publish profiles for ASP.NET Core app deployment | Microsoft Docs</a></li>
 <li><a href="https://msdn.microsoft.com/en-us/library/bb629388.aspx" target="_blank" rel="external">Common MSBuild Project Items</a></li>
-<li><a href="https://stackoverflow.com/a/8997746/4968420" target="_blank" rel="external">How can I have an entire folder be an embedded resource in a Visual Studio project?</a></li>
-<li><a href="https://stackoverflow.com/a/29962840/4968420" target="_blank" rel="external">Include Files using Wildcard into a folder in Visual Studio</a></li>
+<li><a href="https://stackoverflow.com/a/8997746/4968420" target="_blank" rel="external">How can I have an entire folder be an embedded resource in a Visual Studio project? - Stack Overflow</a></li>
+<li><a href="https://stackoverflow.com/a/29962840/4968420" target="_blank" rel="external">Include Files using Wildcard into a folder in Visual Studio - Stack Overflow</a></li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2018/03/28/aspnet-core-2-embed-entire-static-files-folder/" data-id="cjfasjvet0005jf2g545kyvch" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2018/03/28/aspnet-core-2-embed-entire-static-files-folder/" data-id="cjfjdqwr7000bj425k3b8nuzn" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2018/03/28/aspnet-core-2-embed-entire-static-files-folder/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -190,7 +248,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2018/02/01/DIY-wedding-chat-system/" data-id="cjfasjvey0009jf2gl5wif71c" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2018/02/01/DIY-wedding-chat-system/" data-id="cjfjdqwre000ej425c00j8pej" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2018/02/01/DIY-wedding-chat-system/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -247,7 +305,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/" data-id="cjfasjvf4000hjf2gf5n82prq" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/" data-id="cjfjdqwrm000mj4257tk2yc53" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -303,7 +361,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/10/06/solution-of-multiple-draggable-elements-overlay-each-other-html/" data-id="cjfasjvfb000ojf2g65xsipag" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2016/10/06/solution-of-multiple-draggable-elements-overlay-each-other-html/" data-id="cjfjdqwrt000tj425nehnl7hp" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2016/10/06/solution-of-multiple-draggable-elements-overlay-each-other-html/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -317,69 +375,9 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-using-windows-batch-to-initialize-and-check-chrome-status" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2016/09/30/using-windows-batch-to-initialize-and-check-chrome-status/" class="article-date">
-  <time datetime="2016-09-30T07:04:20.000Z" itemprop="datePublished">2016-09-30</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/study/">study</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2016/09/30/using-windows-batch-to-initialize-and-check-chrome-status/">利用 windows batch 自動初始化、檢查 Google Chrome 開啟狀態</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>延續上一篇<a href="/blog/2016/08/02/setup-Google-Chrome-as-kiosk-application-settings/">利用 Google Chrome 作為 kiosk 應用時的設定項目</a>所提到的，這個最終要應用在 batch 上，來達到在 kiosk 應用上能自動開機便能自動初始化、自動檢查 Chrome 是否因為不明原因被關閉了，減少作業系統曝光的情況，否則哪天說不定就會被拍照下來留念。</p>
-<p><img src="https://cdn0-t17-techbang.pixcdn.tw/system/attached_images/2013/06/99221/show/660a0705c6416315e5146d622080be1a.jpg?1372171678" alt="Windows 出來呼吸了：http://t17.techbang.com/topics/20686-tv-advertising-is-running-windows-7-11" title="Windows 出來呼吸了！"></p>
-<p>batch 檔內容如下：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">:: detectChrome.bat</span><br><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">:: 初始化</span><br><span class="line"><span class="built_in">echo</span> Initialize...</span><br><span class="line">:: 更改資料夾到正確位置</span><br><span class="line"><span class="built_in">cd</span> C:\</span><br><span class="line"></span><br><span class="line">:: 檢查網路狀態</span><br><span class="line"><span class="built_in">echo</span> Waiting <span class="keyword">for</span> Interent connection...</span><br><span class="line">:checkInternet</span><br><span class="line">ping www.google.com -n <span class="number">1</span> -w <span class="number">10000</span> &gt; nul</span><br><span class="line">IF errorlevel <span class="number">1</span> GOTO checkInternet</span><br><span class="line"></span><br><span class="line">:: 這裡可放入自己想放的 code</span><br><span class="line">::node update.js</span><br><span class="line"></span><br><span class="line">:: 進入迴圈</span><br><span class="line">:start</span><br><span class="line">:: 若 processEnd.tmp 則跳脫迴圈結束程式</span><br><span class="line">IF EXIST processEnd.tmp (</span><br><span class="line">  <span class="built_in">echo</span> processEnd.tmp detected! End the process.</span><br><span class="line">  GOTO end</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">tasklist /FI <span class="string">"IMAGENAME eq chrome.exe"</span> /FO TABLE &gt; process.log</span><br><span class="line">FOR /F %%c <span class="keyword">in</span> (<span class="string">'find /v /c "" ^&lt; process.log'</span>) DO <span class="built_in">set</span> lineCount=%%c</span><br><span class="line">:: 刪除暫存檔案 process.log</span><br><span class="line">DEL process.log</span><br><span class="line">:: 若 process 存在，則 lineCount 會大於 <span class="number">1</span>，不存在則等於 <span class="number">1</span>，因此若大於 <span class="number">1</span> 則跳過執行部分</span><br><span class="line">IF %lineCount% GTR <span class="number">1</span> GOTO skip</span><br><span class="line">:: 執行程式</span><br><span class="line"><span class="built_in">echo</span> Execute Chrome</span><br><span class="line">::<span class="string">"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"</span> --user-data-dir=<span class="string">"C:/Chrome dev session"</span> --disable-web-security --new-window <span class="string">"file:///C:/dist/index.html"</span> --test-type --kiosk</span><br><span class="line">start /WAIT /MAX chrome.exe --user-data-dir=<span class="string">"C:/Chrome dev session"</span> --disable-web-security --new-window <span class="string">"file:///C:/dist/index.html"</span> --test-type --disable-translate --kiosk</span><br><span class="line">:skip</span><br><span class="line"></span><br><span class="line">REM 等待一段時間後再次檢查(秒)</span><br><span class="line">timeout /t <span class="number">5</span></span><br><span class="line">GOTO start</span><br><span class="line">:end</span><br><span class="line">DEL processEnd.tmp</span><br></pre></td></tr></table></figure></p>
-<p>主要流程為需要開機後直接執行更新，但我的環境曾遇到開機後網路異常的現象，因此檢查網路是否有沒有通，如果不擔心此問題的話則可考慮把<code>檢查網路狀態</code>那幾行拿掉。接著再執行自己需要的程式，我這邊已有一現成用 node.js 撰寫的程式，因此就讓他執行 node update.js。接著就進入 Chrome 判斷的迴圈了，為避免意外重複開啟 Chrome，因此先判斷了是否有 Chrome 在開啟狀態，若都沒有再開啟。</p>
-<p>接著把這隻 batch 檔案丟到「所有程式」的「啟動」中就行了，或是利用「工作排程器」也可以達到同樣效果，唯一不方便的是有需要對電腦做操作時，要關掉這隻程式不是很方便，因此我又另外寫了一隻關閉這隻程式的 code，很懶惰的用了檔案檢查的方式去處理，在 detectChrome.bat 的迴圈中判斷是否有個暫存的檔案 processEnd.tmp，若有的話則不要中止程式。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">:: end.bat</span><br><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">type</span> nul &gt; C:\processEnd.tmp</span><br><span class="line"><span class="built_in">echo</span> 等待倒數後結束程式</span><br></pre></td></tr></table></figure>
-<p>如此一來，不太懂的操作者也可以輕鬆的用 alt+tab, windows+d 等按鍵從 chrome kiosk 切換出去，然後開啟這隻 end.bat，再把 chrome alt+f4 關閉來完整結束這個程式帶來的影響。</p>
-<p>bash 寫慣了，要寫 batch 還真不太適應，所幸有朋友的 <a href="http://www.slideshare.net/yipotw/batch-56466561" target="_blank" rel="external">Batch 溫故/知新</a> 支援省了我不少時間。</p>
-<p>參考資料：</p>
-<ol>
-<li><a href="http://www.slideshare.net/yipotw/batch-56466561" target="_blank" rel="external">Batch 溫故/知新</a></li>
-<li><a href="https://dotblogs.com.tw/rolence0515/2011/08/15/33157" target="_blank" rel="external">不用寫程式，偵測執行檔沒running就再次執行它</a></li>
-<li><a href="https://social.technet.microsoft.com/Forums/scriptcenter/en-US/1867323d-e6c7-440f-83a4-2bdc9b4432d5/count-number-of-lines-in-a-text-file-from-a-windows-batch-file?forum=ITCG" target="_blank" rel="external">Count number of lines in a text file from a windows batch file</a></li>
-<li><a href="http://blog.miniasp.com/post/2009/06/24/Sleep-command-in-Batch.aspx" target="_blank" rel="external">如何在批次檔(Batch)中實現 sleep 命令讓任務暫停執行 n 秒</a></li>
-<li><a href="http://stackoverflow.com/questions/9278614/if-greater-than-batch-files/9278668#9278668" target="_blank" rel="external">windows - If greater than batch files - Stack Overflow</a></li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/09/30/using-windows-batch-to-initialize-and-check-chrome-status/" data-id="cjfasjvff000sjf2g9xjz6yg5" class="article-share-link">Share</a>
-      
-        <a href="http://ssk7833.github.io/blog/2016/09/30/using-windows-batch-to-initialize-and-check-chrome-status/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/batch/">batch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/chrome/">chrome</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/kiosk/">kiosk</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/windows/">windows</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/5/">5</a><a class="extend next" rel="next" href="/blog/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/6/">6</a><a class="extend next" rel="next" href="/blog/page/2/">Next &raquo;</a>
     </nav>
   
 </section>
@@ -390,7 +388,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/study/">study</a><span class="category-list-count">25</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/study/">study</a><span class="category-list-count">26</span></li></ul>
     </div>
   </div>
 
@@ -399,7 +397,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/APNS/">APNS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ASP-NET-Core-2/">ASP.NET Core 2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CSS/">CSS</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook/">Facebook</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook-Graph-API/">Facebook-Graph-API</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/PHP/">PHP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/PHPWord/">PHPWord</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-server/">Parse server</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SASS/">SASS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SCSS/">SCSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SVG/">SVG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/batch/">batch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/canvas/">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chrome/">chrome</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gf-pages/">gf-pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gooey/">gooey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/kiosk/">kiosk</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/localization/">localization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/logdown/">logdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/node-js/">node.js</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/push-notification/">push notification</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/shell-script/">shell script</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/travis-ci/">travis ci</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/web-speech-API/">web speech API</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/wedding/">wedding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/windows/">windows</a><span class="tag-list-count">3</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/APNS/">APNS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ASP-NET-Core-2/">ASP.NET Core 2</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CSS/">CSS</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook/">Facebook</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook-Graph-API/">Facebook-Graph-API</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/PHP/">PHP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/PHPWord/">PHPWord</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-server/">Parse server</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SASS/">SASS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SCSS/">SCSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SVG/">SVG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/batch/">batch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/canvas/">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chrome/">chrome</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gf-pages/">gf-pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gooey/">gooey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/kiosk/">kiosk</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/localization/">localization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/logdown/">logdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/node-js/">node.js</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/push-notification/">push notification</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/shell-script/">shell script</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/travis-ci/">travis ci</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/web-speech-API/">web speech API</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/wedding/">wedding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/windows/">windows</a><span class="tag-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -408,7 +406,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/APNS/" style="font-size: 10px;">APNS</a> <a href="/blog/tags/ASP-NET-Core-2/" style="font-size: 10px;">ASP.NET Core 2</a> <a href="/blog/tags/CSS/" style="font-size: 15px;">CSS</a> <a href="/blog/tags/CloudCode/" style="font-size: 15px;">CloudCode</a> <a href="/blog/tags/Facebook/" style="font-size: 16.67px;">Facebook</a> <a href="/blog/tags/Facebook-Graph-API/" style="font-size: 11.67px;">Facebook-Graph-API</a> <a href="/blog/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/blog/tags/PHPWord/" style="font-size: 10px;">PHPWord</a> <a href="/blog/tags/Parse-server/" style="font-size: 15px;">Parse server</a> <a href="/blog/tags/Parse-com/" style="font-size: 15px;">Parse.com</a> <a href="/blog/tags/SASS/" style="font-size: 10px;">SASS</a> <a href="/blog/tags/SCSS/" style="font-size: 10px;">SCSS</a> <a href="/blog/tags/SVG/" style="font-size: 10px;">SVG</a> <a href="/blog/tags/batch/" style="font-size: 10px;">batch</a> <a href="/blog/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/blog/tags/chrome/" style="font-size: 11.67px;">chrome</a> <a href="/blog/tags/gf-pages/" style="font-size: 10px;">gf-pages</a> <a href="/blog/tags/gooey/" style="font-size: 10px;">gooey</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 18.33px;">javascript</a> <a href="/blog/tags/kiosk/" style="font-size: 11.67px;">kiosk</a> <a href="/blog/tags/localization/" style="font-size: 10px;">localization</a> <a href="/blog/tags/logdown/" style="font-size: 10px;">logdown</a> <a href="/blog/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/blog/tags/push-notification/" style="font-size: 13.33px;">push notification</a> <a href="/blog/tags/shell-script/" style="font-size: 10px;">shell script</a> <a href="/blog/tags/travis-ci/" style="font-size: 10px;">travis ci</a> <a href="/blog/tags/web-speech-API/" style="font-size: 10px;">web speech API</a> <a href="/blog/tags/wedding/" style="font-size: 10px;">wedding</a> <a href="/blog/tags/windows/" style="font-size: 13.33px;">windows</a>
+      <a href="/blog/tags/APNS/" style="font-size: 10px;">APNS</a> <a href="/blog/tags/ASP-NET-Core-2/" style="font-size: 11.67px;">ASP.NET Core 2</a> <a href="/blog/tags/CSS/" style="font-size: 15px;">CSS</a> <a href="/blog/tags/CloudCode/" style="font-size: 15px;">CloudCode</a> <a href="/blog/tags/Facebook/" style="font-size: 16.67px;">Facebook</a> <a href="/blog/tags/Facebook-Graph-API/" style="font-size: 11.67px;">Facebook-Graph-API</a> <a href="/blog/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/blog/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/blog/tags/PHPWord/" style="font-size: 10px;">PHPWord</a> <a href="/blog/tags/Parse-server/" style="font-size: 15px;">Parse server</a> <a href="/blog/tags/Parse-com/" style="font-size: 15px;">Parse.com</a> <a href="/blog/tags/SASS/" style="font-size: 10px;">SASS</a> <a href="/blog/tags/SCSS/" style="font-size: 10px;">SCSS</a> <a href="/blog/tags/SVG/" style="font-size: 10px;">SVG</a> <a href="/blog/tags/batch/" style="font-size: 10px;">batch</a> <a href="/blog/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/blog/tags/chrome/" style="font-size: 11.67px;">chrome</a> <a href="/blog/tags/gf-pages/" style="font-size: 10px;">gf-pages</a> <a href="/blog/tags/gooey/" style="font-size: 10px;">gooey</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 18.33px;">javascript</a> <a href="/blog/tags/kiosk/" style="font-size: 11.67px;">kiosk</a> <a href="/blog/tags/localization/" style="font-size: 10px;">localization</a> <a href="/blog/tags/logdown/" style="font-size: 10px;">logdown</a> <a href="/blog/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/blog/tags/push-notification/" style="font-size: 13.33px;">push notification</a> <a href="/blog/tags/shell-script/" style="font-size: 10px;">shell script</a> <a href="/blog/tags/travis-ci/" style="font-size: 10px;">travis ci</a> <a href="/blog/tags/web-speech-API/" style="font-size: 10px;">web speech API</a> <a href="/blog/tags/wedding/" style="font-size: 10px;">wedding</a> <a href="/blog/tags/windows/" style="font-size: 13.33px;">windows</a>
     </div>
   </div>
 
@@ -417,7 +415,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/03/">March 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/02/">February 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/10/">October 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/06/">June 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/04/">April 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/03/">March 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/01/">January 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/07/">July 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2012/09/">September 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2011/01/">January 2011</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/03/">March 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/02/">February 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/10/">October 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/06/">June 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/04/">April 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/03/">March 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/01/">January 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/07/">July 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2012/09/">September 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2011/01/">January 2011</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -427,6 +425,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2018/04/03/aspnet-core-2-use-mysql-as-database/">ASP.NET Core 2 使用 MySQL 作為資料庫</a>
+          </li>
         
           <li>
             <a href="/blog/2018/03/28/aspnet-core-2-embed-entire-static-files-folder/">ASP.NET Core 2 發行時封裝整個靜態檔案資料夾</a>
@@ -442,10 +444,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/blog/2016/10/06/solution-of-multiple-draggable-elements-overlay-each-other-html/">HTML 中多個可移動視窗互相覆蓋的處理方法</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2016/09/30/using-windows-batch-to-initialize-and-check-chrome-status/">利用 windows batch 自動初始化、檢查 Google Chrome 開啟狀態</a>
           </li>
         
       </ul>

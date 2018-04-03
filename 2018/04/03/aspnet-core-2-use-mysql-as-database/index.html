@@ -3,17 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: CloudCode | 北風筆記</title>
+  <title>ASP.NET Core 2 使用 MySQL 作為資料庫 | 北風筆記</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="這裡紀錄個人的一些日常心得">
-<meta property="og:type" content="website">
-<meta property="og:title" content="北風筆記">
-<meta property="og:url" content="http://ssk7833.github.io/blog/tags/CloudCode/index.html">
+  <meta name="description" content="本篇建立在完成使用 Visual Studio Code 將模型新增至 ASP.NET Core 中的 Razor 頁面應用程式教學之後，已建立 Sqlite 作為資料庫，並完成本篇教學，預計將資料庫轉為 MySQL。
+先將 MySQL NuGet 套件安裝到目前專案中，可參考 Database Providers1dotnet add package MySql.Data.EntityFrame">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ASP.NET Core 2 使用 MySQL 作為資料庫">
+<meta property="og:url" content="http://ssk7833.github.io/blog/2018/04/03/aspnet-core-2-use-mysql-as-database/index.html">
 <meta property="og:site_name" content="北風筆記">
-<meta property="og:description" content="這裡紀錄個人的一些日常心得">
+<meta property="og:description" content="本篇建立在完成使用 Visual Studio Code 將模型新增至 ASP.NET Core 中的 Razor 頁面應用程式教學之後，已建立 Sqlite 作為資料庫，並完成本篇教學，預計將資料庫轉為 MySQL。
+先將 MySQL NuGet 套件安裝到目前專案中，可參考 Database Providers1dotnet add package MySql.Data.EntityFrame">
+<meta property="og:updated_time" content="2018-04-03T08:05:45.823Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="北風筆記">
-<meta name="twitter:description" content="這裡紀錄個人的一些日常心得">
+<meta name="twitter:title" content="ASP.NET Core 2 使用 MySQL 作為資料庫">
+<meta name="twitter:description" content="本篇建立在完成使用 Visual Studio Code 將模型新增至 ASP.NET Core 中的 Razor 頁面應用程式教學之後，已建立 Sqlite 作為資料庫，並完成本篇教學，預計將資料庫轉為 MySQL。
+先將 MySQL NuGet 套件安裝到目前專案中，可參考 Database Providers1dotnet add package MySql.Data.EntityFrame">
   
     <link rel="alternative" href="/blog/atom.xml" title="北風筆記" type="application/atom+xml">
   
@@ -76,106 +80,80 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/blog/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/blog/2016/04/09/setup-parse-server/" class="archive-article-date">
-  <time datetime="2016-04-09T03:33:05.000Z" itemprop="datePublished">Apr 9</time>
+        <section id="main"><article id="post-aspnet-core-2-use-mysql-as-database" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018/04/03/aspnet-core-2-use-mysql-as-database/" class="article-date">
+  <time datetime="2018-04-03T08:05:30.000Z" itemprop="datePublished">2018-04-03</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/study/">study</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2016/04/09/setup-parse-server/">Parse Server 架設教學</a>
+    <h1 class="article-title" itemprop="name">
+      ASP.NET Core 2 使用 MySQL 作為資料庫
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
+    <div class="article-entry" itemprop="articleBody">
       
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/blog/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/" class="archive-article-date">
-  <time datetime="2015-07-01T16:11:49.000Z" itemprop="datePublished">Jul 2</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/">使用 Parse.com Cloud Code Hosting 進行 Facebook 登入存取 3</a>
-    </h1>
-  
+        <p>本篇建立在完成<a href="https://docs.microsoft.com/zh-tw/aspnet/core/tutorials/razor-pages-vsc/model" target="_blank" rel="external">使用 Visual Studio Code 將模型新增至 ASP.NET Core 中的 Razor 頁面應用程式</a>教學之後，已建立 Sqlite 作為資料庫，並完成本篇教學，預計將資料庫轉為 MySQL。</p>
+<p>先將 MySQL NuGet 套件安裝到目前專案中，可參考 <a href="https://docs.microsoft.com/en-us/ef/core/providers/" target="_blank" rel="external">Database Providers</a><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet add package MySql.Data.EntityFrameworkCore</span><br></pre></td></tr></table></figure></p>
+<p>於 <code>appsettings.json</code> 中，將 <code>MovieContext</code> 資料取代為連線設定：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"Logging"</span>: &#123;</span><br><span class="line">    <span class="string">"IncludeScopes"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="string">"LogLevel"</span>: &#123;</span><br><span class="line">      <span class="string">"Default"</span>: <span class="string">"Warning"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"ConnectionStrings"</span>: &#123;</span><br><span class="line">    <span class="comment">// "MovieContext": "Data Source=MvcMovie.db",</span></span><br><span class="line">    <span class="string">"MovieContext"</span>: <span class="string">"server=192.168.99.100;database=mydatabase;user=myuser;password=mypassword"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>於 <code>Startup.cs</code> 中，將 <code>options.UseSqlite(Configuration.GetConnectionString(&quot;MovieContext&quot;))</code> 取代為 <code>UseMySQL</code>：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">services.AddDbContext&lt;MovieContext&gt;(options =&gt; </span><br><span class="line">  options.UseMySQL(Configuration.GetConnectionString(<span class="string">"MovieContext"</span>)));</span><br></pre></td></tr></table></figure></p>
+<p>接著於 CLI 中執行指令（若還沒 migrate 過，請先執行 <code>dotnet ef migrations add InitialCreate</code>）：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet ef database update</span><br></pre></td></tr></table></figure></p>
+<p>應會遇到 <code>Table &#39;mydatabase.__EFMigrationsHistory&#39; doesn&#39;t exist</code> 的錯誤訊息，此為已知問題，可藉由新增這張資料表來解決此問題：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`__EFMigrationsHistory`</span> </span><br><span class="line">( </span><br><span class="line">  <span class="string">`MigrationId`</span> <span class="keyword">nvarchar</span>(<span class="number">150</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">  <span class="string">`ProductVersion`</span> <span class="keyword">nvarchar</span>(<span class="number">32</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`MigrationId`</span>) </span><br><span class="line">);</span></span><br></pre></td></tr></table></figure></p>
+<p>新增後再重新執行 <code>dotnet ef database update</code>，成功後此時於資料庫中應可看到 <code>Movie</code> 資料表，此時即大功告成。</p>
+<p>後記：若選擇 <code>Pomelo.EntityFrameworkCore.MySql</code> 應該就不會有資料表不存在的問題，而 ConnectionStrings 應改為以下格式：<code>Server=localhost;database=mydatabase;uid=myuser;pwd=mypassword;</code>。</p>
+<p>參考資料：</p>
+<ol>
+<li><a href="https://docs.microsoft.com/en-us/ef/core/providers/" target="_blank" rel="external">Database Providers - EF Core | Microsoft Docs</a></li>
+<li><a href="https://dev.mysql.com/doc/connector-net/en/connector-net-entityframework-core.html" target="_blank" rel="external">MySQL :: MySQL Connector/Net Developer Guide :: 8.3 Entity Framework Core Support</a></li>
+<li><a href="https://stackoverflow.com/a/46090571/4968420" target="_blank" rel="external">EF Core `update-database` on MySql fails with `__EFMigrationsHistory’ doesn’t exist` - Stack Overflow</a></li>
+</ol>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/" class="archive-article-date">
-  <time datetime="2015-06-20T15:43:39.000Z" itemprop="datePublished">Jun 20</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/">使用 Parse.com Cloud Code Hosting 進行 Facebook 登入存取 2</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/" class="archive-article-date">
-  <time datetime="2015-06-20T14:13:10.000Z" itemprop="datePublished">Jun 20</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ssk7833.github.io/blog/2018/04/03/aspnet-core-2-use-mysql-as-database/" data-id="cjfjdqwr00005j4250c3e8ehf" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/">使用 Parse.com Cloud Code Hosting 進行 Facebook 登入存取 1</a>
-    </h1>
-  
+        <a href="http://ssk7833.github.io/blog/2018/04/03/aspnet-core-2-use-mysql-as-database/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/ASP-NET-Core-2/">ASP.NET Core 2</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/MySQL/">MySQL</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2018/03/28/aspnet-core-2-embed-entire-static-files-folder/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">ASP.NET Core 2 發行時封裝整個靜態檔案資料夾</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 </section>
         
           <aside id="sidebar">
@@ -271,11 +249,13 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'ssk7833';
   
+  var disqus_url = 'http://ssk7833.github.io/blog/2018/04/03/aspnet-core-2-use-mysql-as-database/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
