@@ -3,19 +3,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Parse Server 架設教學 | 北風筆記</title>
+  <title>利用批次檔複製 git 兩筆 commit 的差異檔案 | 北風筆記</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在今年一月底時 Parse 突然丟下了一枚震撼彈(Moving On)，隨著 Parse 服務將在一年後關閉的消息，同時也提到將會把 Parse Server open source 出來，如今兩個月過去了，釋出的 Parse Server 也趨於完善，不只提供了許多雲端服務的整合方案，連 Parse Dashboard 也在三月初時 open source 了(Introducing the P">
+  <meta name="description" content="上週不曉得為什麼躺著就掉進坑中，開始自願協助改善某個論壇功能，一加入才發現長期以來沒有使用版本控制，且更新聽說是直接將檔案拉到正式網站上的 FTP 測試。聽起來有點毛骨悚然，因此先幫忙建了一個 git，先別想 CI/CD 了，需要的成本有點太高了，考量到種種狀況，於是決定先寫個 script 來協助上傳到 FTP 的功能。
+diffcopy.bat1234567891011@echo offSET">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Parse Server 架設教學">
-<meta property="og:url" content="http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/index.html">
+<meta property="og:title" content="利用批次檔複製 git 兩筆 commit 的差異檔案">
+<meta property="og:url" content="http://ssk7833.github.io/blog/2018/08/20/copy-all-files-changed-between-commits-using-batch-script/index.html">
 <meta property="og:site_name" content="北風筆記">
-<meta property="og:description" content="在今年一月底時 Parse 突然丟下了一枚震撼彈(Moving On)，隨著 Parse 服務將在一年後關閉的消息，同時也提到將會把 Parse Server open source 出來，如今兩個月過去了，釋出的 Parse Server 也趨於完善，不只提供了許多雲端服務的整合方案，連 Parse Dashboard 也在三月初時 open source 了(Introducing the P">
-<meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/ParseServerTest.png">
-<meta property="og:updated_time" content="2018-08-20T07:39:38.183Z">
+<meta property="og:description" content="上週不曉得為什麼躺著就掉進坑中，開始自願協助改善某個論壇功能，一加入才發現長期以來沒有使用版本控制，且更新聽說是直接將檔案拉到正式網站上的 FTP 測試。聽起來有點毛骨悚然，因此先幫忙建了一個 git，先別想 CI/CD 了，需要的成本有點太高了，考量到種種狀況，於是決定先寫個 script 來協助上傳到 FTP 的功能。
+diffcopy.bat1234567891011@echo offSET">
+<meta property="og:image" content="http://ssk7833.github.io/blog/blog/images/2018-08-20-copy-all-files-changed-between-commits-using-batch-script/01.png">
+<meta property="og:updated_time" content="2018-08-20T07:39:38.187Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Parse Server 架設教學">
-<meta name="twitter:description" content="在今年一月底時 Parse 突然丟下了一枚震撼彈(Moving On)，隨著 Parse 服務將在一年後關閉的消息，同時也提到將會把 Parse Server open source 出來，如今兩個月過去了，釋出的 Parse Server 也趨於完善，不只提供了許多雲端服務的整合方案，連 Parse Dashboard 也在三月初時 open source 了(Introducing the P">
+<meta name="twitter:title" content="利用批次檔複製 git 兩筆 commit 的差異檔案">
+<meta name="twitter:description" content="上週不曉得為什麼躺著就掉進坑中，開始自願協助改善某個論壇功能，一加入才發現長期以來沒有使用版本控制，且更新聽說是直接將檔案拉到正式網站上的 FTP 測試。聽起來有點毛骨悚然，因此先幫忙建了一個 git，先別想 CI/CD 了，需要的成本有點太高了，考量到種種狀況，於是決定先寫個 script 來協助上傳到 FTP 的功能。
+diffcopy.bat1234567891011@echo offSET">
   
     <link rel="alternative" href="/blog/atom.xml" title="北風筆記" type="application/atom+xml">
   
@@ -78,10 +81,10 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-setup-parse-server" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-copy-all-files-changed-between-commits-using-batch-script" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/blog/2016/04/09/setup-parse-server/" class="article-date">
-  <time datetime="2016-04-09T03:33:05.000Z" itemprop="datePublished">2016-04-09</time>
+    <a href="/blog/2018/08/20/copy-all-files-changed-between-commits-using-batch-script/" class="article-date">
+  <time datetime="2018-08-20T07:33:00.000Z" itemprop="datePublished">2018-08-20</time>
 </a>
     
   <div class="article-category">
@@ -96,7 +99,7 @@ ga('send', 'pageview');
         
   
     <h1 class="article-title" itemprop="name">
-      Parse Server 架設教學
+      利用批次檔複製 git 兩筆 commit 的差異檔案
     </h1>
   
 
@@ -104,63 +107,26 @@ ga('send', 'pageview');
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在今年一月底時 <a href="http://parse.com/" target="_blank" rel="external">Parse</a> 突然丟下了一枚震撼彈(<a href="http://blog.parse.com/announcements/moving-on/" target="_blank" rel="external">Moving On</a>)，隨著 Parse 服務將在一年後關閉的消息，同時也提到將會把 Parse Server open source 出來，如今兩個月過去了，釋出的 Parse Server 也趨於完善，不只提供了許多雲端服務的整合方案，連 Parse Dashboard 也在三月初時 open source 了(<a href="http://blog.parse.com/announcements/introducing-the-parse-server-dashboard/" target="_blank" rel="external">Introducing the Parse Server Dashboard</a>)，雖然這個 Dashboard 目前並不像 Parse 線上服務的功能一樣完整，但在短短一個月內間又多了推播(push notification)功能頁面(<a href="http://blog.parse.com/announcements/push-and-config-come-to-the-parse-dashboard/" target="_blank" rel="external">Push and Config come to the Parse Dashboard</a>)，可以預見未來功能會越來越完整。</p>
-<p>單純架設 Parse Server 的難度不高，在 <a href="https://github.com/ParsePlatform/parse-server" target="_blank" rel="external">GitHub</a> 有對於要在 local 架設或是部屬到其他服務上如 Heroku 的範例教學，<a href="https://github.com/ParsePlatform/parse-server/wiki" target="_blank" rel="external">wiki</a> 頁面也有更完整的解說，但從這裡開始我個人認為不是個好選擇，以指令方式去帶 appId 及 masterKey 總有可能會發生什麼意外。Parse 另外提供了 <a href="https://github.com/ParsePlatform/parse-server-example" target="_blank" rel="external">parse-server-example</a>，這個對於入門來說會比較方便。</p>
-<h2 id="前置環境"><a href="#前置環境" class="headerlink" title="前置環境"></a>前置環境</h2><ul>
-<li>Node 4.3 以上</li>
-<li>MongoDB version 2.6.X or 3.0.X</li>
-<li>Python 2.x (For Windows users, 2.7.1 is the required version)</li>
-</ul>
-<h2 id="架設-Parse-Server"><a href="#架設-Parse-Server" class="headerlink" title="架設 Parse Server"></a>架設 Parse Server</h2><ol>
-<li><p>先從 GitHub 上抓一份 parse-server-example 下來。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/ParsePlatform/parse-server-example.git --depth <span class="number">1</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>將必要的模組裝上。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在 <code>index.js</code> 中修改參數，可以選擇修改環境變數或是直接修改後面字串：</p>
-<ul>
-<li>appId: 可填任意字串，用於識別 Parse API 的使用權限。在這裡用了 <code>md5</code> 來產生隨機字串。</li>
-<li>masterKey: 可填任意字串，但不要公開此字串，用於覆寫權限設定。</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> api = <span class="keyword">new</span> ParseServer(&#123;</span><br><span class="line">  databaseURI: databaseUri || <span class="string">'mongodb://localhost:27017/dev'</span>,</span><br><span class="line">  cloud: process.env.CLOUD_CODE_MAIN || __dirname + <span class="string">'/cloud/main.js'</span>,</span><br><span class="line">  appId: process.env.APP_ID || <span class="string">'7c6a1d1470fed0313b5044c4eb83def0'</span>,</span><br><span class="line">  masterKey: process.env.MASTER_KEY || <span class="string">'98584a6e0a2592c274d1e4eae44b0a7b'</span>, <span class="comment">// Add your master key here. Keep it secret!</span></span><br><span class="line">  serverURL: process.env.SERVER_URL || <span class="string">'http://localhost:1337/parse'</span>,  <span class="comment">// Don't forget to change to https if needed</span></span><br><span class="line">  liveQuery: &#123;</span><br><span class="line">    classNames: [<span class="string">"Posts"</span>, <span class="string">"Comments"</span>] <span class="comment">// List of classes to support for query subscriptions</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>到這裡可以先執行看看。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm run start</span><br></pre></td></tr></table></figure>
-<p>此時 Parse API 預設會掛在 <a href="http://localhost:1337/parse/" target="_blank" rel="external">http://localhost:1337/parse/</a> 下，有兩種方式可以測試是否運作正常：</p>
-<ol>
-<li>直接到第五步驟，利用此包程式碼中的範例網頁來測試。</li>
-<li><code>curl</code> 來測試 Parse 的 REST API 是否正常運作，<code>X-Parse-Application-Id</code> 需改成在 <code>index.js</code> 中設定的 <code>appId</code>。</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST \</span><br><span class="line">  -H <span class="string">"X-Parse-Application-Id: 7c6a1d1470fed0313b5044c4eb83def0"</span> \</span><br><span class="line">  -H <span class="string">"Content-Type: application/json"</span> \</span><br><span class="line">  <span class="operator">-d</span> <span class="string">'&#123;"score":1337,"playerName":"Sean Plott","cheatMode":false&#125;'</span> \</span><br><span class="line">  http://localhost:<span class="number">1337</span>/parse/classes/GameScore</span><br></pre></td></tr></table></figure>
-<p>若正常無誤會得到以下類似的結果：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"objectId"</span>: <span class="string">"CT8BWvZ8Fi"</span>,</span><br><span class="line">  <span class="string">"createdAt"</span>: <span class="string">"2016-04-08T02:55:57.802Z"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>取值可利用以下指令來測試，<code>GameScore</code> 後面需加上剛剛回傳的 <code>objectId</code>：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET \</span><br><span class="line">  -H <span class="string">"X-Parse-Application-Id: 7c6a1d1470fed0313b5044c4eb83def0"</span> \</span><br><span class="line">  http://localhost:<span class="number">1337</span>/parse/classes/GameScore/CT8BWvZ8Fi</span><br></pre></td></tr></table></figure>
-<p>正常的話即可拿回上一步所傳的內容：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"objectId"</span>: <span class="string">"CT8BWvZ8Fi"</span>,</span><br><span class="line">  <span class="string">"score"</span>: <span class="number">1337</span>,</span><br><span class="line">  <span class="string">"playerName"</span>: <span class="string">"Sean Plott"</span>,</span><br><span class="line">  <span class="string">"cheatMode"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="string">"updatedAt"</span>: <span class="string">"2016-04-08T02:55:57.802Z"</span>,</span><br><span class="line">  <span class="string">"createdAt"</span>: <span class="string">"2016-04-08T02:55:57.802Z"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>詳細操作可參考 <a href="https://parse.com/docs/rest/guide/" target="_blank" rel="external">REST API Guide</a>。</p>
-</li>
-<li><p>在這個範例中有提供 REST API 及 Cloud Code 的測試程式碼，可以執行看看功能是否正常。<br>在 <code>public/assets/js/script.js</code> 中，將 <code>myAppId</code> 取代成自己目前的 <code>appId</code>，共有兩處；接著開啟 <a href="http://localhost:1337/public/test.html" target="_blank" rel="external">http://localhost:1337/public/test.html</a> 即可看到測試頁面，依序點選下方的 <code>POST</code>, <code>FETCH</code> 及 <code>TEST</code>，若正確無誤的話應能看到以下結果：<br><img src="/blog/images/ParseServerTest.png" alt="Parse Server Test" title="Parse Server Test"><br>看到這個結果就代表 REST API 及 Cloud Code 都沒有問題，下一步就看自己是不是要加推播通知的設定及 Dashboard 了！</p>
-</li>
-</ol>
+        <p>上週不曉得為什麼躺著就掉進坑中，開始自願協助改善某個論壇功能，一加入才發現長期以來沒有使用版本控制，且更新聽說是直接將檔案拉到正式網站上的 FTP 測試。聽起來有點毛骨悚然，因此先幫忙建了一個 git，先別想 CI/CD 了，需要的成本有點太高了，考量到種種狀況，於是決定先寫個 script 來協助上傳到 FTP 的功能。</p>
+<p><code>diffcopy.bat</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"></span><br><span class="line">SETLOCAL ENABLEDELAYEDEXPANSION</span><br><span class="line"><span class="keyword">for</span> /f %%a <span class="keyword">in</span> (<span class="string">'git diff --name-only %1 %2'</span>) <span class="keyword">do</span> (</span><br><span class="line">    <span class="built_in">set</span> <span class="string">"filepath=%%a"</span></span><br><span class="line">	<span class="built_in">set</span> <span class="string">"filepath=!filepath:/=\!"</span></span><br><span class="line">	<span class="built_in">set</span> <span class="string">"destFilepath=diffExport\!filepath!"</span></span><br><span class="line">    <span class="built_in">echo</span> !destFilepath!</span><br><span class="line">    xcopy !filepath! !destFilepath!* /Y /I /Q</span><br><span class="line">)</span><br><span class="line">ENDLOCAL</span><br></pre></td></tr></table></figure></p>
+<p>使用方法：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">diffcopy ae40e29 05b7a26</span><br></pre></td></tr></table></figure></p>
+<p><img src="/blog/images/2018-08-20-copy-all-files-changed-between-commits-using-batch-script/01.png" alt="執行結果" title="執行結果"></p>
+<p>如此一來即可取得 commit ae40e29 到 05b7a26 之間的差異檔案，並複製到 <code>diffExport</code> 資料夾，原本想將資料夾如 <a href="https://stackoverflow.com/a/31341016/4968420" target="_blank" rel="external">Stack Overflow 這篇</a>一樣設為第三個參數，後來想想簡單就好，不過記得於每次下指令前須先手動將 diffExport 清空才行。</p>
+<p>雖然有找到 <a href="https://github.com/gitpython-developers/GitPython" target="_blank" rel="external">GitPython</a> 看似蠻方便的 library，但想想還是寫個 batch 好了。</p>
 <p>參考資料：</p>
 <ol>
-<li><a href="https://github.com/ParsePlatform/parse-server" target="_blank" rel="external">parse-server</a></li>
-<li><a href="https://github.com/ParsePlatform/parse-server/wiki" target="_blank" rel="external">parse-server wiki</a></li>
-<li><a href="https://github.com/ParsePlatform/parse-server-example" target="_blank" rel="external">parse-server-example</a></li>
-<li><a href="https://github.com/ParsePlatform/parse-server/issues" target="_blank" rel="external">parse-server issues</a></li>
+<li><a href="https://stackoverflow.com/a/31341016/4968420" target="_blank" rel="external">git - Copy all files changed in last commit - Stack Overflow</a></li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/" data-id="cjl1z0qxh002h0t2f6tycps16" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2018/08/20/copy-all-files-changed-between-commits-using-batch-script/" data-id="cjl1z0quv00050t2fupumq3j5" class="article-share-link">Share</a>
       
-        <a href="http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://ssk7833.github.io/blog/2018/08/20/copy-all-files-changed-between-commits-using-batch-script/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Parse-server/">Parse server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/node-js/">node.js</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/batch/">batch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/windows/">windows</a></li></ul>
 
     </footer>
   </div>
@@ -168,19 +134,10 @@ ga('send', 'pageview');
     
 <nav id="article-nav">
   
-    <a href="/blog/2016/04/19/parse-server-push-notification-APNS/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Parse Server APNS(iOS) 推播通知設定
-        
-      </div>
-    </a>
   
-  
-    <a href="/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/blog/2018/04/03/aspnet-core-2-use-mysql-as-database/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Do it smart, a better way to write CSS - SASS/SCSS</div>
+      <div class="article-nav-title">ASP.NET Core 2 使用 MySQL 作為資料庫</div>
     </a>
   
 </nav>
@@ -289,7 +246,7 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'ssk7833';
   
-  var disqus_url = 'http://ssk7833.github.io/blog/2016/04/09/setup-parse-server/';
+  var disqus_url = 'http://ssk7833.github.io/blog/2018/08/20/copy-all-files-changed-between-commits-using-batch-script/';
   
   (function(){
     var dsq = document.createElement('script');
