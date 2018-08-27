@@ -78,6 +78,96 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-develop-a-web-app-for-ios" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018/08/27/develop-a-web-app-for-ios/" class="article-date">
+  <time datetime="2018-08-27T10:52:10.000Z" itemprop="datePublished">2018-08-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/study/">study</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018/08/27/develop-a-web-app-for-ios/">於 iOS 裝置上開發 Web App 筆記</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>修改案例為一個已營運多年的 Discuz 論壇，聽到使用者的聲音，希望能於手機上用 App 瀏覽論壇，基於考量，開發一個 Native App 及上架是不太可能的，而論壇本身已有一版手機版網站，因此決定以 Web App 的方式來實驗看看，不過坑比想像中的大。</p>
+<p>Apple 有一篇基本上講的蠻清楚的文章：<a href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html" target="_blank" rel="external">Configuring Web Applications</a><br>不過實際測試會發現問題蠻多的，以下一一列出自己碰到的狀況：</p>
+<ol>
+<li><p>App 圖示<br> 文件中明確的說出有幾個放法：</p>
+<ul>
+<li>要讓整個網站都有 icon，可以將 PNG 格式的圖片放置於根目錄，命名為：<code>apple-touch-icon.png</code></li>
+<li><p>要在特定頁面加上自訂的 icon 可以於 &lt;head&gt; 中加入如：</p>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"apple-touch-icon"</span> <span class="attribute">href</span>=<span class="value">"/custom_icon.png"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>要在不同解析度的裝置上能讀取不同尺寸的圖示，可以於 &lt;head&gt; 中加入如：</p>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"apple-touch-icon"</span> <span class="attribute">href</span>=<span class="value">"touch-icon-iphone.png"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"apple-touch-icon"</span> <span class="attribute">sizes</span>=<span class="value">"152x152"</span> <span class="attribute">href</span>=<span class="value">"touch-icon-ipad.png"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"apple-touch-icon"</span> <span class="attribute">sizes</span>=<span class="value">"180x180"</span> <span class="attribute">href</span>=<span class="value">"touch-icon-iphone-retina.png"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"apple-touch-icon"</span> <span class="attribute">sizes</span>=<span class="value">"167x167"</span> <span class="attribute">href</span>=<span class="value">"touch-icon-ipad-retina.png"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>  圖示大小可參考於 iOS Human Interface Guidelines 的 Graphics 一章，實際上這章已經變成 Icons and Images 內的<a href="https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/" target="_blank" rel="external">一部分</a>了。</p>
+</li>
+</ul>
+<p>在這個區塊文件還特別註明了 iOS 7 以前 Safari 的特殊狀況，因此要特別注意，雖然這點對於 App icon 沒什麼影響，卻讓我對文件下一區塊 <code>Specifying a Launch Screen Image</code> 沒有任何特別註明任何狀況而浪費了很多時間，這區塊理應給個提醒，不過稍後再提。</p>
+<p>App icon 會於首次要加入主畫面時去伺服器要相關檔案，之後基本上便會使用這個 icon 當作 app 的圖示；而問題是若 icon 需要更新時該如何更新？於 iOS 10.3.2 在同一天內測試發現除非移除 Web App 再重新加入主畫面，否則不會更新 App icon，而隨後試了 <a href="https://stackoverflow.com/a/4587917/4968420" target="_blank" rel="external">stackoverflow 這篇</a>的方法發現可行，雖然需要重開機才會更新，但起碼是個應急的方法：</p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">"apple-touch-icon"</span> sizes=<span class="string">"152x152"</span> href=<span class="string">"/static/webapp/icons/icon-152x152.png?m=&lt;?php echo filemtime('apple-touch-icon.png'); ?&gt;"</span>&gt;</span><br><span class="line">&lt;link rel=<span class="string">"apple-touch-icon"</span> sizes=<span class="string">"180x180"</span> href=<span class="string">"/static/webapp/icons/icon-180x180.png?m=&lt;?php echo filemtime('apple-touch-icon.png'); ?&gt;"</span>&gt;</span><br><span class="line">&lt;link rel=<span class="string">"apple-touch-icon"</span> sizes=<span class="string">"167x167"</span> href=<span class="string">"/static/webapp/icons/icon-167x167.pngm=&lt;?php echo filemtime('apple-touch-icon.png'); ?&gt;"</span>&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>App 標題<br> 這個沒遇到什麼狀況，文件提到預設抓 &lt;title&gt;，若需預設於 &lt;head&gt; 加入並修改 content 內容：</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"apple-mobile-web-app-title"</span> <span class="attribute">content</span>=<span class="value">"AppTitle"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>隱藏 Safari UI<br> 將 Web App 視為獨立模式 App (standalone mode)，於 &lt;head&gt; 中加入：</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"apple-mobile-web-app-capable"</span> <span class="attribute">content</span>=<span class="value">"yes"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p> 為獨立 App 時預設所有超連結將會導回至 Safari App 中，因此須注意在 standalone mode 時將站內相關超連結改為用 AJAX 處理或更改 window.location 位置。<br> 可以參考作法：<a href="https://gist.github.com/irae/1042167" target="_blank" rel="external">Stay Standalone: Prevent links in standalone web apps opening Mobile Safari</a></p>
+</li>
+<li><p>改變 Status Bar 外觀<br> 只有為獨立 App 時有效，不過只有三種選擇：預設（淺灰色）、黑色、透明。<br> 以下為黑色範例：</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"apple-mobile-web-app-status-bar-style"</span> <span class="attribute">content</span>=<span class="value">"black"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p> 可參考 <a href="https://stackoverflow.com/a/40786240/4968420" target="_blank" rel="external">stackoverflow 這篇</a> 及 <a href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html" target="_blank" rel="external">Supported Meta Tags</a></p>
+</li>
+<li><p>加上 Launch Screen Image / Splash Screens<br> 於 App 開啟時秀出的畫面，如一般 native App 開啟時的效果一樣，如<a href="https://medium.com/appscope/adding-custom-ios-splash-screens-to-your-progressive-web-app-41a9b18bdca3" target="_blank" rel="external">這篇</a>開頭圖片效果，不過在此需特別提一下 <code>iOS 8 9 10 實測不支援此效果</code>，由於官方文件沒有特別提到，讓我一直以為自己哪邊寫錯了；另外要使用此功能也<code>必須</code>為獨立 App 才行。</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"apple-touch-startup-image"</span> <span class="attribute">href</span>=<span class="value">"/launch.png"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p> 這個也支援不同解析度的圖片：可參考<a href="https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/launch-screen/" target="_blank" rel="external">這篇</a>，不過網路上已經有實用的轉換工具 <a href="https://appsco.pe/developer/splash-screens" target="_blank" rel="external">About splash-screens - Appscope</a> 可供轉換成各種尺寸的圖片及對應的程式碼。<br> 想要先測試手機上支不支援，也可以先上<a href="https://medium.com/@applification/progressive-web-app-splash-screens-80340b45d210" target="_blank" rel="external">這篇</a>最底下的範例 <a href="https://pwa-splash.now.sh/" target="_blank" rel="external">PWA Splash Screens Demo</a> 來檢查手機支援的狀況如何。</p>
+</li>
+</ol>
+<p>除這些基本設定外，遇到 web App 切到背景後再切回前景，其行為跟 native App 不一樣，web App 只要到了背景 native App 被 terminated 一樣，什麼狀態都要重來，因此預設情況下開啟 web App → 到了頁面 A → 切換至背景（例如收到推播去看個訊息等等） → 回到 web App，此時會回到預設的首頁，而非最後瀏覽的頁面 A；為了解決這個問題，可以利用 sessionStorage 紀錄是否為本次首次開啟 web App，以及 localStorage 紀錄最後去的連結頁面。<a href="http://www.andymercer.net/blog/2016/02/full-screen-web-apps-on-ios/" target="_blank" rel="external">這篇</a>結合了上面所提的超連結問題及 web App 前景背景切換問題，並有一步一步的解說及範例，相當詳細。</p>
+<p>最後，<a href="https://appetize.io/demo" target="_blank" rel="external">Appetize.io</a> 提供了各種不同機型及 OS 版本的線上模擬功能對於測試 Web App 來說算是蠻方便的工具。<br>相較之下 Android 在這塊的設定上相當方便，也沒遇到什麼大問題，甚至幫 iOS 寫了部分教學範例呢……</p>
+<p>參考資料：</p>
+<ol>
+<li><a href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html" target="_blank" rel="external">Configuring Web Applications</a></li>
+<li><a href="https://stackoverflow.com/a/4587917/4968420" target="_blank" rel="external">html - Is it possible to force iphone/ipod to update apple-touch-icon once webapp is added to home screen? - Stack Overflow</a></li>
+<li><a href="https://gist.github.com/irae/1042167" target="_blank" rel="external">Stay Standalone: Prevent links in standalone web apps opening Mobile Safari</a></li>
+<li><a href="https://stackoverflow.com/a/40786240/4968420" target="_blank" rel="external">html - apple-mobile-web-app-status-bar-style in ios 10 - Stack Overflow</a></li>
+<li><a href="https://medium.com/appscope/adding-custom-ios-splash-screens-to-your-progressive-web-app-41a9b18bdca3" target="_blank" rel="external">Adding Custom iOS Splash Screens To Your Progressive Web App</a></li>
+<li><a href="https://medium.com/@applification/progressive-web-app-splash-screens-80340b45d210" target="_blank" rel="external">Progressive Web App Splash Screens – Dave Hudson – Medium</a></li>
+<li><a href="http://www.andymercer.net/blog/2016/02/full-screen-web-apps-on-ios/" target="_blank" rel="external">Full Screen Web Apps on iOS - Andy Mercer</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ssk7833.github.io/blog/2018/08/27/develop-a-web-app-for-ios/" data-id="cjlc611ao00052m2496v433ko" class="article-share-link">Share</a>
+      
+        <a href="http://ssk7833.github.io/blog/2018/08/27/develop-a-web-app-for-ios/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Web-Application/">Web Application</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/iOS/">iOS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-copy-all-files-changed-between-commits-using-batch-script" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2018/08/20/copy-all-files-changed-between-commits-using-batch-script/" class="article-date">
@@ -118,7 +208,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2018/08/20/copy-all-files-changed-between-commits-using-batch-script/" data-id="cjl1z0quv00050t2fupumq3j5" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2018/08/20/copy-all-files-changed-between-commits-using-batch-script/" data-id="cjlc611ax000d2m24blgglnvh" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2018/08/20/copy-all-files-changed-between-commits-using-batch-script/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -176,7 +266,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2018/04/03/aspnet-core-2-use-mysql-as-database/" data-id="cjl1z0qv4000d0t2fpntrb6yq" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2018/04/03/aspnet-core-2-use-mysql-as-database/" data-id="cjlc611b2000l2m24z1adzv97" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2018/04/03/aspnet-core-2-use-mysql-as-database/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -237,7 +327,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2018/03/28/aspnet-core-2-embed-entire-static-files-folder/" data-id="cjl1z0qvc000j0t2fb25t70ij" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2018/03/28/aspnet-core-2-embed-entire-static-files-folder/" data-id="cjlc611b7000r2m2474f2cwqx" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2018/03/28/aspnet-core-2-embed-entire-static-files-folder/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -302,69 +392,12 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2018/02/01/DIY-wedding-chat-system/" data-id="cjl1z0qvh000m0t2fcjhb5t5q" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2018/02/01/DIY-wedding-chat-system/" data-id="cjlc611ba000u2m2426530yrc" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2018/02/01/DIY-wedding-chat-system/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/wedding/">wedding</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/" class="article-date">
-  <time datetime="2016-10-18T03:02:30.000Z" itemprop="datePublished">2016-10-18</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/study/">study</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/">利用 canvas 於 Chrome 實作 iOS 模糊背景效果</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="/blog/images/2016-10-18-canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/01.png" alt="iOS blurry overlay" title="iOS blurry overlay"><br>這次要處理的就是上面的背景模糊背景效果，雖 iOS7 在某些版面上已經有了，但在瀏覽器上要做到同樣的事通常都要疊兩張一樣的圖再做 filter 處理，若今天需要模糊的是比圖片複雜的，例如影片、包含其他動態元件的 html 等就會變得不好處理。<br>在 Safari 上可以使用 <code>-webkit-backdrop-filter: blur(5px);</code> CSS 屬性來處理，且可以根據上層的 overflow:hidden; 來改變模糊的區域範圍；而在 Google Chrome 上，雖然可以透過 <code>enable-experimental-web-platform-features</code> 來開啟 <code>backdrop-filter: blur(5px);</code> 功能，但在配合其他 CSS 屬性時很容易出現 bug。</p>
-<p>backdrop-filter 的實作範例：Chrome 需開啟 <code>enable-experimental-web-platform-features</code> 才能看到結果<br>Safari 下正常，而 Chrome 也正常，但我需要圓弧邊框：<a href="https://jsfiddle.net/ssk7833/8ybsqz4k/14/" target="_blank" rel="external">JSFiddle</a><br>Safari 下正常，而 Chrome 下若上層有 overflow: hidden; 時則完全無效：<a href="https://jsfiddle.net/ssk7833/8ybsqz4k/19/" target="_blank" rel="external">JSFiddle</a></p>
-<p>網路上能找到許多解法，像是放兩張圖或放兩個影片，前景的圖層加上 filter:blur 即可，但最後我選擇使用 canvas 來實作看看。</p>
-<iframe width="100%" height="300" src="//jsfiddle.net/ssk7833/8ybsqz4k/38/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
-
-<p>背景是影片的狀況：</p>
-<iframe width="100%" height="300" src="//jsfiddle.net/ssk7833/zjzdmbcj/4/embedded/result,html,js,css/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
-
-<p>不過 canvas 解法反而不適用於 Safari，因為 Safari 不支援 canvas filter…XD</p>
-<p>參考資料：</p>
-<ol>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/filter" target="_blank" rel="external">CanvasRenderingContext2D.filter - Web APIs | MDN</a></li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/" data-id="cjl1z0qvo000u0t2fi7cg2lvw" class="article-share-link">Share</a>
-      
-        <a href="http://ssk7833.github.io/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/canvas/">canvas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/">javascript</a></li></ul>
 
     </footer>
   </div>
@@ -386,7 +419,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/study/">study</a><span class="category-list-count">27</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/study/">study</a><span class="category-list-count">28</span></li></ul>
     </div>
   </div>
 
@@ -395,7 +428,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/APNS/">APNS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ASP-NET-Core-2/">ASP.NET Core 2</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CSS/">CSS</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook/">Facebook</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook-Graph-API/">Facebook-Graph-API</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/PHP/">PHP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/PHPWord/">PHPWord</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-server/">Parse server</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SASS/">SASS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SCSS/">SCSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SVG/">SVG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/batch/">batch</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/canvas/">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chrome/">chrome</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gf-pages/">gf-pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gooey/">gooey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/kiosk/">kiosk</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/localization/">localization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/logdown/">logdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/node-js/">node.js</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/push-notification/">push notification</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/shell-script/">shell script</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/travis-ci/">travis ci</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/web-speech-API/">web speech API</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/wedding/">wedding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/windows/">windows</a><span class="tag-list-count">4</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/APNS/">APNS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ASP-NET-Core-2/">ASP.NET Core 2</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CSS/">CSS</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook/">Facebook</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook-Graph-API/">Facebook-Graph-API</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/PHP/">PHP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/PHPWord/">PHPWord</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-server/">Parse server</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SASS/">SASS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SCSS/">SCSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SVG/">SVG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Web-Application/">Web Application</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/batch/">batch</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/canvas/">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chrome/">chrome</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gf-pages/">gf-pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gooey/">gooey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/iOS/">iOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/kiosk/">kiosk</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/localization/">localization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/logdown/">logdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/node-js/">node.js</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/push-notification/">push notification</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/shell-script/">shell script</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/travis-ci/">travis ci</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/web-speech-API/">web speech API</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/wedding/">wedding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/windows/">windows</a><span class="tag-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -404,7 +437,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/APNS/" style="font-size: 10px;">APNS</a> <a href="/blog/tags/ASP-NET-Core-2/" style="font-size: 11.67px;">ASP.NET Core 2</a> <a href="/blog/tags/CSS/" style="font-size: 15px;">CSS</a> <a href="/blog/tags/CloudCode/" style="font-size: 15px;">CloudCode</a> <a href="/blog/tags/Facebook/" style="font-size: 16.67px;">Facebook</a> <a href="/blog/tags/Facebook-Graph-API/" style="font-size: 11.67px;">Facebook-Graph-API</a> <a href="/blog/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/blog/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/blog/tags/PHPWord/" style="font-size: 10px;">PHPWord</a> <a href="/blog/tags/Parse-server/" style="font-size: 15px;">Parse server</a> <a href="/blog/tags/Parse-com/" style="font-size: 15px;">Parse.com</a> <a href="/blog/tags/SASS/" style="font-size: 10px;">SASS</a> <a href="/blog/tags/SCSS/" style="font-size: 10px;">SCSS</a> <a href="/blog/tags/SVG/" style="font-size: 10px;">SVG</a> <a href="/blog/tags/batch/" style="font-size: 11.67px;">batch</a> <a href="/blog/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/blog/tags/chrome/" style="font-size: 11.67px;">chrome</a> <a href="/blog/tags/gf-pages/" style="font-size: 10px;">gf-pages</a> <a href="/blog/tags/git/" style="font-size: 10px;">git</a> <a href="/blog/tags/gooey/" style="font-size: 10px;">gooey</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 18.33px;">javascript</a> <a href="/blog/tags/kiosk/" style="font-size: 11.67px;">kiosk</a> <a href="/blog/tags/localization/" style="font-size: 10px;">localization</a> <a href="/blog/tags/logdown/" style="font-size: 10px;">logdown</a> <a href="/blog/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/blog/tags/push-notification/" style="font-size: 13.33px;">push notification</a> <a href="/blog/tags/shell-script/" style="font-size: 10px;">shell script</a> <a href="/blog/tags/travis-ci/" style="font-size: 10px;">travis ci</a> <a href="/blog/tags/web-speech-API/" style="font-size: 10px;">web speech API</a> <a href="/blog/tags/wedding/" style="font-size: 10px;">wedding</a> <a href="/blog/tags/windows/" style="font-size: 15px;">windows</a>
+      <a href="/blog/tags/APNS/" style="font-size: 10px;">APNS</a> <a href="/blog/tags/ASP-NET-Core-2/" style="font-size: 11.67px;">ASP.NET Core 2</a> <a href="/blog/tags/CSS/" style="font-size: 15px;">CSS</a> <a href="/blog/tags/CloudCode/" style="font-size: 15px;">CloudCode</a> <a href="/blog/tags/Facebook/" style="font-size: 16.67px;">Facebook</a> <a href="/blog/tags/Facebook-Graph-API/" style="font-size: 11.67px;">Facebook-Graph-API</a> <a href="/blog/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/blog/tags/PHP/" style="font-size: 11.67px;">PHP</a> <a href="/blog/tags/PHPWord/" style="font-size: 10px;">PHPWord</a> <a href="/blog/tags/Parse-server/" style="font-size: 15px;">Parse server</a> <a href="/blog/tags/Parse-com/" style="font-size: 15px;">Parse.com</a> <a href="/blog/tags/SASS/" style="font-size: 10px;">SASS</a> <a href="/blog/tags/SCSS/" style="font-size: 10px;">SCSS</a> <a href="/blog/tags/SVG/" style="font-size: 10px;">SVG</a> <a href="/blog/tags/Web-Application/" style="font-size: 10px;">Web Application</a> <a href="/blog/tags/batch/" style="font-size: 11.67px;">batch</a> <a href="/blog/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/blog/tags/chrome/" style="font-size: 11.67px;">chrome</a> <a href="/blog/tags/gf-pages/" style="font-size: 10px;">gf-pages</a> <a href="/blog/tags/git/" style="font-size: 10px;">git</a> <a href="/blog/tags/gooey/" style="font-size: 10px;">gooey</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/blog/tags/javascript/" style="font-size: 18.33px;">javascript</a> <a href="/blog/tags/kiosk/" style="font-size: 11.67px;">kiosk</a> <a href="/blog/tags/localization/" style="font-size: 10px;">localization</a> <a href="/blog/tags/logdown/" style="font-size: 10px;">logdown</a> <a href="/blog/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/blog/tags/push-notification/" style="font-size: 13.33px;">push notification</a> <a href="/blog/tags/shell-script/" style="font-size: 10px;">shell script</a> <a href="/blog/tags/travis-ci/" style="font-size: 10px;">travis ci</a> <a href="/blog/tags/web-speech-API/" style="font-size: 10px;">web speech API</a> <a href="/blog/tags/wedding/" style="font-size: 10px;">wedding</a> <a href="/blog/tags/windows/" style="font-size: 15px;">windows</a>
     </div>
   </div>
 
@@ -413,7 +446,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/03/">March 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/02/">February 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/10/">October 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/06/">June 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/04/">April 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/03/">March 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/01/">January 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/07/">July 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2012/09/">September 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2011/01/">January 2011</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/08/">August 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/03/">March 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/02/">February 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/10/">October 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/06/">June 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/04/">April 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/03/">March 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/01/">January 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/07/">July 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2012/09/">September 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2011/01/">January 2011</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -423,6 +456,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2018/08/27/develop-a-web-app-for-ios/">於 iOS 裝置上開發 Web App 筆記</a>
+          </li>
         
           <li>
             <a href="/blog/2018/08/20/copy-all-files-changed-between-commits-using-batch-script/">利用批次檔複製 git 兩筆 commit 的差異檔案</a>
@@ -438,10 +475,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/blog/2018/02/01/DIY-wedding-chat-system/">自己婚宴自己搞，婚宴彈幕系統</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/">利用 canvas 於 Chrome 實作 iOS 模糊背景效果</a>
           </li>
         
       </ul>

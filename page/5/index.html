@@ -78,6 +78,64 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-show-iframe-in-fullscreen-by-html5-fullscreen-api" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/" class="article-date">
+  <time datetime="2016-01-09T20:10:05.000Z" itemprop="datePublished">2016-01-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/study/">study</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/">HTML5 fullscreen API 將 iframe 以全螢幕顯示</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近因為有把 iframe 內容以全螢幕顯示的需求，因此研究了一下 HTML5 fullscreen API。已有現成的 library 可以用如 <a href="https://sindresorhus.com/screenfull.js/" target="_blank" rel="external">screenfull.js</a> 及 <a href="https://brad.is/coding/BigScreen/" target="_blank" rel="external">BigScreen</a>，但大致上並不難，因此我選擇了純 javascript 來撰寫看看。</p>
+<p>要全螢幕其實並不難，只要呼叫 <code>requestFullscreen()</code> 即可做到，以下是簡易範例：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> button = <span class="built_in">document</span>.<span class="built_in">querySelector</span>(<span class="string">'#container .button'</span>);</span><br><span class="line">button.addEventListener(<span class="string">'click'</span>, fullscreen);</span><br><span class="line"></span><br><span class="line">function fullscreen() &#123;</span><br><span class="line">  <span class="comment">// check if fullscreen mode is available</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">document</span>.fullscreenEnabled ||</span><br><span class="line">    <span class="built_in">document</span>.webkitFullscreenEnabled ||</span><br><span class="line">    <span class="built_in">document</span>.mozFullScreenEnabled ||</span><br><span class="line">    <span class="built_in">document</span>.msFullscreenEnabled) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// which element will be fullscreen</span></span><br><span class="line">    <span class="keyword">var</span> iframe = <span class="built_in">document</span>.<span class="built_in">querySelector</span>(<span class="string">'#container iframe'</span>);</span><br><span class="line">    <span class="comment">// Do fullscreen</span></span><br><span class="line">    <span class="keyword">if</span> (iframe.requestFullscreen) &#123;</span><br><span class="line">      iframe.requestFullscreen();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (iframe.webkitRequestFullscreen) &#123;</span><br><span class="line">      iframe.webkitRequestFullscreen();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (iframe.mozRequestFullScreen) &#123;</span><br><span class="line">      iframe.mozRequestFullScreen();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (iframe.msRequestFullscreen) &#123;</span><br><span class="line">      iframe.msRequestFullscreen();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">document</span>.<span class="built_in">querySelector</span>(<span class="string">'.error'</span>).innerHTML = <span class="string">'Your browser is not supported'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此範例即可讓當所選擇的 <code>#container .button</code> 被點擊時，讓 <code>#container iframe</code> 全螢幕。</p>
+<p>但因為 iframe 的內容並非我可以控制的，有些 iframe 的內容沒有處理 RWD，因此當頁面縮放時可能會呈現未預期的效果，如：<a href="http://codepen.io/kanaparty/pen/eJYXeZ" target="_blank" rel="external">ぶつからないように動くビークル</a>（找了一下 codepen 才找到一個可用範例）。要做到這點，我目前選擇當 iframe 被全螢幕時則重新載入一次，當然，當 iframe 從全螢幕離開時也會再 resize 一次，因此也要注意離開全螢幕時也得處理。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// reload</span></span><br><span class="line"><span class="tag">iframe</span><span class="class">.src</span> = <span class="tag">iframe</span>.src</span><br></pre></td></tr></table></figure>
+<p>原本我認為應將重新載入寫在 request fullscreen 之後，而當觸發 keydown event 時再觸發一次重新載入，後來發現在全螢幕時按下 ESC 時 keydown event 都不會被觸發(chrome, firefox)，而按下 F11 則是 Firefox 會觸發而 Chrome 不會，因此認為這應該不是個好寫法。</p>
+<p>後來在 <a href="http://www.sitepoint.com/use-html5-full-screen-api/" target="_blank" rel="external">How to Use the HTML5 Full-Screen API (Again)</a> 發現有 fullscreenchange event 可以用，因此也改用這個，原本放在全螢幕後的重新載入也改成放於 event listener 內，程式碼也簡潔多了！</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// when you are in fullscreen, ESC and F11 may not be trigger by keydown listener.</span></span><br><span class="line"><span class="comment">// so don't use it to detect exit fullscreen</span></span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'keydown'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'key press'</span> + e.keyCode);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// detect enter or exit fullscreen mode</span></span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'webkitfullscreenchange'</span>, fullscreenChange);</span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'mozfullscreenchange'</span>, fullscreenChange);</span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'fullscreenchange'</span>, fullscreenChange);</span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'MSFullscreenChange'</span>, fullscreenChange);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fullscreenChange</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">document</span>.fullscreenEnabled ||</span><br><span class="line">       <span class="built_in">document</span>.webkitIsFullScreen ||</span><br><span class="line">       <span class="built_in">document</span>.mozFullScreen ||</span><br><span class="line">       <span class="built_in">document</span>.msFullscreenElement) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'enter fullscreen'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'exit fullscreen'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// force to reload iframe once to prevent the iframe source didn't care about trying to resize the window</span></span><br><span class="line">  <span class="comment">// comment this line and you will see</span></span><br><span class="line">  <span class="keyword">var</span> iframe = <span class="built_in">document</span>.querySelector(<span class="string">'iframe'</span>);</span><br><span class="line">  iframe.src = iframe.src;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以下為測試的範例，可以試著把 <code>iframe.src = iframe.src;</code> 註解掉，即可看到改造前後的差異：</p>
+<p></p><p data-height="268" data-theme-id="0" data-slug-hash="mVOXXp" data-default-tab="result" data-user="ssk7833" class="codepen">See the Pen <a href="http://codepen.io/ssk7833/pen/mVOXXp/" target="_blank" rel="external">Fullscreen API on iframe</a> by North (<a href="http://codepen.io/ssk7833" target="_blank" rel="external">@ssk7833</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+<p>參考資料：<br><a href="http://codepen.io/kanaparty/pen/eJYXeZ" target="_blank" rel="external">ぶつからないように動くビークル</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API" target="_blank" rel="external">Using fullscreen mode - Web APIs | MDN</a><br><a href="http://www.sitepoint.com/use-html5-full-screen-api/" target="_blank" rel="external">How to Use the HTML5 Full-Screen API (Again) - SitePoint</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ssk7833.github.io/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/" data-id="cjlc611di003j2m24hn93lgwj" class="article-share-link">Share</a>
+      
+        <a href="http://ssk7833.github.io/blog/2016/01/10/show-iframe-in-fullscreen-by-html5-fullscreen-api/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/">javascript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-facebook-graph-api-get-picture" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2015/08/25/facebook-graph-api-get-picture/" class="article-date">
@@ -115,7 +173,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2015/08/25/facebook-graph-api-get-picture/" data-id="cjl1z0qyr003e0t2frfrwughj" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2015/08/25/facebook-graph-api-get-picture/" data-id="cjlc611dk003m2m24cs8d1i3k" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2015/08/25/facebook-graph-api-get-picture/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -161,7 +219,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/" data-id="cjl1z0qyw003k0t2fmcqde0lj" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/" data-id="cjlc611dp003s2m24s9kfd9uk" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2015/07/12/facebook-graph-api-returns-language-specific-name/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -222,7 +280,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/" data-id="cjl1z0qz4003q0t2f0f3p2wuf" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/" data-id="cjlc611du003y2m24natttxb6" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2015/07/02/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-3/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -271,61 +329,9 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/" data-id="cjl1z0qza003w0t2f04rnkaln" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/" data-id="cjlc611dy00442m24ourt13kk" class="article-share-link">Share</a>
       
         <a href="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-2/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Facebook/">Facebook</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/node-js/">node.js</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/" class="article-date">
-  <time datetime="2015-06-20T14:13:10.000Z" itemprop="datePublished">2015-06-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/study/">study</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/">使用 Parse.com Cloud Code Hosting 進行 Facebook 登入存取 1</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://parse.com/" target="_blank" rel="external">Parse.com</a> 在 <a href="https://parse.com/docs/tw/js/guide" target="_blank" rel="external">javascript SDK</a> 中提供了使用者的存取，其中包含 Facebook 的整合，但 javascript 終究是前端，有些不想讓 client end知道的還是放在後端處理比較好。然而 Parse.com 所提供的 cloud code 所使用的目前雖是 node.js，會讓開發者很想直接把 javascript SDK 的 Facebook 部分塞進去看能不能跑，乍看之下很合理，但實際上就是不行，因為以 Parse.com Javascript SDK在要求登入時會跳出另一個瀏覽器視窗以要求登入 Facebook 及權限給予，而這個視窗當然沒有辦法在 server end 中呈現並要求 client end 進行認證。</p>
-<p>在官方論壇上也有人發表過此問題：<a href="https://www.parse.com/questions/interacting-with-the-facebook-api-in-cloud-code" target="_blank" rel="external">Interacting with the Facebook API in Cloud Code</a><br>所得到的回答是：<br><strong>Unfortunately, the Facebook JavaScript SDK is not made to work outside of a browser, so using it directly from Cloud Code is not supported at the moment.</strong></p>
-<p><strong>You can, however, get the authData from the current user in cloud code and use that to make a REST call to Facebook’s graph API manually.</strong></p>
-<p>因此我轉而研究使用OAuth方式來登入Facebook，除了跳轉出的頁面比較美觀外（不會產生另一個瀏覽器視窗），也不用擔心暴露資訊給clent end，參考資料有這兩篇：<br><a href="http://sweeteason.pixnet.net/blog/post/40581580-%E7%B6%B2%E7%AB%99%E5%88%A9%E7%94%A8-facebook-%E5%B8%B3%E8%99%9F%E7%99%BB%E5%85%A5-%28%E4%BD%BF%E7%94%A8-oauth%29" target="_blank" rel="external">網站利用 Facebook 帳號登入 (使用 OAuth)</a><br><a href="https://gigenchang.wordpress.com/2014/01/26/10%E5%88%86%E9%90%98%E7%90%86%E8%A7%A3oauth%E5%92%8Cfacebook%E7%99%BB%E5%85%A5%E5%8E%9F%E7%90%86/" target="_blank" rel="external">10分鐘理解OAuth和facebook登入原理</a><br>這篇以python Django framework實作，其實看code好像也蠻容易理解的：<a href="http://nthn.me/posts/2012/facebook-registration.html" target="_blank" rel="external">Ghetto Facebook Registration with Django</a></p>
-<p>後來正當我開始打算實作時，我找到了 <a href="https://github.com/ParsePlatform/parse-facebook-user-session" target="_blank" rel="external">parse-facebook-user-session</a> ，原來 Parse.com 早就把這個寫好了，根本不用自己去寫了，只需要按照他的說明一步一步來就行了（吧）！</p>
-<p>結果證明事情果然不是我想的這麼簡單，不管怎麼弄就是跳出 <strong>209 invalid session token</strong> ，花了一段時間後找到 Parse.com 自己發的文章 <a href="https://www.parse.com/tutorials/session-migration-tutorial" target="_blank" rel="external">Session Migration Tutorial</a> ，才知道把這個選項關掉就行了，我花了這麼久到底在幹麻！</p>
-<p><img src="/blog/images/userSessions.png" alt="User sessions" title="User sessions"><br>總之，關閉這個選項後就成功了， Parse.com 的資料庫也會成功紀錄登入過的使用者，事情完成一半，其餘的就是登入的使用者資料該怎麼讀取出來了～</p>
-<p><strong>UPDATE：</strong>在GitHub上新增了 <a href="https://loginexample.parseapp.com/" target="_blank" rel="external">demo</a>：<a href="https://github.com/ssk7833/Parse-Facebook-OAuth-login-example" target="_blank" rel="external">GitHub</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/" data-id="cjl1z0qzh00420t2f49vhy9ih" class="article-share-link">Share</a>
-      
-        <a href="http://ssk7833.github.io/blog/2015/06/20/using-parsecom-cloud-code-hosting-to-log-in-with-facebook-1/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Facebook/">Facebook</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/node-js/">node.js</a></li></ul>
@@ -350,7 +356,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/study/">study</a><span class="category-list-count">27</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/study/">study</a><span class="category-list-count">28</span></li></ul>
     </div>
   </div>
 
@@ -359,7 +365,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/APNS/">APNS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ASP-NET-Core-2/">ASP.NET Core 2</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CSS/">CSS</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook/">Facebook</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook-Graph-API/">Facebook-Graph-API</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/PHP/">PHP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/PHPWord/">PHPWord</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-server/">Parse server</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SASS/">SASS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SCSS/">SCSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SVG/">SVG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/batch/">batch</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/canvas/">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chrome/">chrome</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gf-pages/">gf-pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gooey/">gooey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/kiosk/">kiosk</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/localization/">localization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/logdown/">logdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/node-js/">node.js</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/push-notification/">push notification</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/shell-script/">shell script</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/travis-ci/">travis ci</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/web-speech-API/">web speech API</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/wedding/">wedding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/windows/">windows</a><span class="tag-list-count">4</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/APNS/">APNS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ASP-NET-Core-2/">ASP.NET Core 2</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CSS/">CSS</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CloudCode/">CloudCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook/">Facebook</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Facebook-Graph-API/">Facebook-Graph-API</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/PHP/">PHP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/PHPWord/">PHPWord</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-server/">Parse server</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Parse-com/">Parse.com</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SASS/">SASS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SCSS/">SCSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/SVG/">SVG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Web-Application/">Web Application</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/batch/">batch</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/canvas/">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/chrome/">chrome</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gf-pages/">gf-pages</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gooey/">gooey</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/iOS/">iOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/kiosk/">kiosk</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/localization/">localization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/logdown/">logdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/node-js/">node.js</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/push-notification/">push notification</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/shell-script/">shell script</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/travis-ci/">travis ci</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/web-speech-API/">web speech API</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/wedding/">wedding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/windows/">windows</a><span class="tag-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -368,7 +374,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/APNS/" style="font-size: 10px;">APNS</a> <a href="/blog/tags/ASP-NET-Core-2/" style="font-size: 11.67px;">ASP.NET Core 2</a> <a href="/blog/tags/CSS/" style="font-size: 15px;">CSS</a> <a href="/blog/tags/CloudCode/" style="font-size: 15px;">CloudCode</a> <a href="/blog/tags/Facebook/" style="font-size: 16.67px;">Facebook</a> <a href="/blog/tags/Facebook-Graph-API/" style="font-size: 11.67px;">Facebook-Graph-API</a> <a href="/blog/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/blog/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/blog/tags/PHPWord/" style="font-size: 10px;">PHPWord</a> <a href="/blog/tags/Parse-server/" style="font-size: 15px;">Parse server</a> <a href="/blog/tags/Parse-com/" style="font-size: 15px;">Parse.com</a> <a href="/blog/tags/SASS/" style="font-size: 10px;">SASS</a> <a href="/blog/tags/SCSS/" style="font-size: 10px;">SCSS</a> <a href="/blog/tags/SVG/" style="font-size: 10px;">SVG</a> <a href="/blog/tags/batch/" style="font-size: 11.67px;">batch</a> <a href="/blog/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/blog/tags/chrome/" style="font-size: 11.67px;">chrome</a> <a href="/blog/tags/gf-pages/" style="font-size: 10px;">gf-pages</a> <a href="/blog/tags/git/" style="font-size: 10px;">git</a> <a href="/blog/tags/gooey/" style="font-size: 10px;">gooey</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 18.33px;">javascript</a> <a href="/blog/tags/kiosk/" style="font-size: 11.67px;">kiosk</a> <a href="/blog/tags/localization/" style="font-size: 10px;">localization</a> <a href="/blog/tags/logdown/" style="font-size: 10px;">logdown</a> <a href="/blog/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/blog/tags/push-notification/" style="font-size: 13.33px;">push notification</a> <a href="/blog/tags/shell-script/" style="font-size: 10px;">shell script</a> <a href="/blog/tags/travis-ci/" style="font-size: 10px;">travis ci</a> <a href="/blog/tags/web-speech-API/" style="font-size: 10px;">web speech API</a> <a href="/blog/tags/wedding/" style="font-size: 10px;">wedding</a> <a href="/blog/tags/windows/" style="font-size: 15px;">windows</a>
+      <a href="/blog/tags/APNS/" style="font-size: 10px;">APNS</a> <a href="/blog/tags/ASP-NET-Core-2/" style="font-size: 11.67px;">ASP.NET Core 2</a> <a href="/blog/tags/CSS/" style="font-size: 15px;">CSS</a> <a href="/blog/tags/CloudCode/" style="font-size: 15px;">CloudCode</a> <a href="/blog/tags/Facebook/" style="font-size: 16.67px;">Facebook</a> <a href="/blog/tags/Facebook-Graph-API/" style="font-size: 11.67px;">Facebook-Graph-API</a> <a href="/blog/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/blog/tags/PHP/" style="font-size: 11.67px;">PHP</a> <a href="/blog/tags/PHPWord/" style="font-size: 10px;">PHPWord</a> <a href="/blog/tags/Parse-server/" style="font-size: 15px;">Parse server</a> <a href="/blog/tags/Parse-com/" style="font-size: 15px;">Parse.com</a> <a href="/blog/tags/SASS/" style="font-size: 10px;">SASS</a> <a href="/blog/tags/SCSS/" style="font-size: 10px;">SCSS</a> <a href="/blog/tags/SVG/" style="font-size: 10px;">SVG</a> <a href="/blog/tags/Web-Application/" style="font-size: 10px;">Web Application</a> <a href="/blog/tags/batch/" style="font-size: 11.67px;">batch</a> <a href="/blog/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/blog/tags/chrome/" style="font-size: 11.67px;">chrome</a> <a href="/blog/tags/gf-pages/" style="font-size: 10px;">gf-pages</a> <a href="/blog/tags/git/" style="font-size: 10px;">git</a> <a href="/blog/tags/gooey/" style="font-size: 10px;">gooey</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/blog/tags/javascript/" style="font-size: 18.33px;">javascript</a> <a href="/blog/tags/kiosk/" style="font-size: 11.67px;">kiosk</a> <a href="/blog/tags/localization/" style="font-size: 10px;">localization</a> <a href="/blog/tags/logdown/" style="font-size: 10px;">logdown</a> <a href="/blog/tags/node-js/" style="font-size: 20px;">node.js</a> <a href="/blog/tags/push-notification/" style="font-size: 13.33px;">push notification</a> <a href="/blog/tags/shell-script/" style="font-size: 10px;">shell script</a> <a href="/blog/tags/travis-ci/" style="font-size: 10px;">travis ci</a> <a href="/blog/tags/web-speech-API/" style="font-size: 10px;">web speech API</a> <a href="/blog/tags/wedding/" style="font-size: 10px;">wedding</a> <a href="/blog/tags/windows/" style="font-size: 15px;">windows</a>
     </div>
   </div>
 
@@ -377,7 +383,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/03/">March 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/02/">February 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/10/">October 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/06/">June 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/04/">April 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/03/">March 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/01/">January 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/07/">July 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2012/09/">September 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2011/01/">January 2011</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/08/">August 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/03/">March 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/02/">February 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/10/">October 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/06/">June 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/04/">April 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/03/">March 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/01/">January 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/07/">July 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2012/09/">September 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2011/01/">January 2011</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -387,6 +393,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2018/08/27/develop-a-web-app-for-ios/">於 iOS 裝置上開發 Web App 筆記</a>
+          </li>
         
           <li>
             <a href="/blog/2018/08/20/copy-all-files-changed-between-commits-using-batch-script/">利用批次檔複製 git 兩筆 commit 的差異檔案</a>
@@ -402,10 +412,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/blog/2018/02/01/DIY-wedding-chat-system/">自己婚宴自己搞，婚宴彈幕系統</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2016/10/18/canvas-solution-of-implement-iOS-blurry-overlay-view-on-Chrome/">利用 canvas 於 Chrome 實作 iOS 模糊背景效果</a>
           </li>
         
       </ul>

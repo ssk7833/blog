@@ -3,24 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>實作 gooey 膠粘效果 | 北風筆記</title>
+  <title>於 iOS 裝置上開發 Web App 筆記 | 北風筆記</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="最近在試著實作 gooey 效果，看了一些介紹後知道了 gooey 的原理，本以為在實作上可以一路順風，但果然沒有這麼簡單，還好最後有找到解決方法。
-先來談談 gooey 的作法，首先要先有兩層 layer，內層將物件模糊 blur，而外層處理亮度 brightness 跟對比度 contrast，接著神奇的事情就會發生了，可以參考以下範例：
-See the Pen Blur vs Contras">
+  <meta name="description" content="修改案例為一個已營運多年的 Discuz 論壇，聽到使用者的聲音，希望能於手機上用 App 瀏覽論壇，基於考量，開發一個 Native App 及上架是不太可能的，而論壇本身已有一版手機版網站，因此決定以 Web App 的方式來實驗看看，不過坑比想像中的大。
+Apple 有一篇基本上講的蠻清楚的文章：Configuring Web Applications不過實際測試會發現問題蠻多的，以下一一列">
 <meta property="og:type" content="article">
-<meta property="og:title" content="實作 gooey 膠粘效果">
-<meta property="og:url" content="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/index.html">
+<meta property="og:title" content="於 iOS 裝置上開發 Web App 筆記">
+<meta property="og:url" content="http://ssk7833.github.io/blog/2018/08/27/develop-a-web-app-for-ios/index.html">
 <meta property="og:site_name" content="北風筆記">
-<meta property="og:description" content="最近在試著實作 gooey 效果，看了一些介紹後知道了 gooey 的原理，本以為在實作上可以一路順風，但果然沒有這麼簡單，還好最後有找到解決方法。
-先來談談 gooey 的作法，首先要先有兩層 layer，內層將物件模糊 blur，而外層處理亮度 brightness 跟對比度 contrast，接著神奇的事情就會發生了，可以參考以下範例：
-See the Pen Blur vs Contras">
-<meta property="og:updated_time" content="2018-08-27T10:53:54.425Z">
+<meta property="og:description" content="修改案例為一個已營運多年的 Discuz 論壇，聽到使用者的聲音，希望能於手機上用 App 瀏覽論壇，基於考量，開發一個 Native App 及上架是不太可能的，而論壇本身已有一版手機版網站，因此決定以 Web App 的方式來實驗看看，不過坑比想像中的大。
+Apple 有一篇基本上講的蠻清楚的文章：Configuring Web Applications不過實際測試會發現問題蠻多的，以下一一列">
+<meta property="og:updated_time" content="2018-08-27T10:53:54.429Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="實作 gooey 膠粘效果">
-<meta name="twitter:description" content="最近在試著實作 gooey 效果，看了一些介紹後知道了 gooey 的原理，本以為在實作上可以一路順風，但果然沒有這麼簡單，還好最後有找到解決方法。
-先來談談 gooey 的作法，首先要先有兩層 layer，內層將物件模糊 blur，而外層處理亮度 brightness 跟對比度 contrast，接著神奇的事情就會發生了，可以參考以下範例：
-See the Pen Blur vs Contras">
+<meta name="twitter:title" content="於 iOS 裝置上開發 Web App 筆記">
+<meta name="twitter:description" content="修改案例為一個已營運多年的 Discuz 論壇，聽到使用者的聲音，希望能於手機上用 App 瀏覽論壇，基於考量，開發一個 Native App 及上架是不太可能的，而論壇本身已有一版手機版網站，因此決定以 Web App 的方式來實驗看看，不過坑比想像中的大。
+Apple 有一篇基本上講的蠻清楚的文章：Configuring Web Applications不過實際測試會發現問題蠻多的，以下一一列">
   
     <link rel="alternative" href="/blog/atom.xml" title="北風筆記" type="application/atom+xml">
   
@@ -83,10 +80,10 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-implement-gooey-effect" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-develop-a-web-app-for-ios" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/blog/2016/03/09/implement-gooey-effect/" class="article-date">
-  <time datetime="2016-03-09T05:48:05.000Z" itemprop="datePublished">2016-03-09</time>
+    <a href="/blog/2018/08/27/develop-a-web-app-for-ios/" class="article-date">
+  <time datetime="2018-08-27T10:52:10.000Z" itemprop="datePublished">2018-08-27</time>
 </a>
     
   <div class="article-category">
@@ -101,7 +98,7 @@ ga('send', 'pageview');
         
   
     <h1 class="article-title" itemprop="name">
-      實作 gooey 膠粘效果
+      於 iOS 裝置上開發 Web App 筆記
     </h1>
   
 
@@ -109,95 +106,62 @@ ga('send', 'pageview');
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近在試著實作 gooey 效果，看了一些介紹後知道了 gooey 的原理，本以為在實作上可以一路順風，但果然沒有這麼簡單，還好最後有找到解決方法。</p>
-<p>先來談談 gooey 的作法，首先要先有兩層 layer，內層將物件模糊 blur，而外層處理亮度 brightness 跟對比度 contrast，接著神奇的事情就會發生了，可以參考以下範例：</p>
-<p></p><p data-height="380" data-theme-id="0" data-slug-hash="lIBAg" data-default-tab="result" data-user="chriscoyier" class="codepen">See the Pen <a href="http://codepen.io/chriscoyier/pen/lIBAg/" target="_blank" rel="external">Blur vs Contrast</a> by Chris Coyier (<a href="http://codepen.io/chriscoyier" target="_blank" rel="external">@chriscoyier</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
-<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
-
-<p>上層是只加了模糊，可以看到因為模糊的關係，物件間的顏色互相疊加在一起；下層則是調整對比後的結果，將模糊過的結果保留重疊及原本顏色較深的部分，濾掉顏色較淺的部分，物件間的部分就因此連起來了，若是加上動畫，效果就會更好：</p>
-<p></p><p data-height="330" data-theme-id="0" data-slug-hash="lFdHu" data-default-tab="result" data-user="lbebber" class="codepen">See the Pen <a href="http://codepen.io/lbebber/pen/lFdHu/" target="_blank" rel="external">Gooey Pagination</a> by Lucas Bebber (<a href="http://codepen.io/lbebber" target="_blank" rel="external">@lbebber</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
-<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
-
-<p>這樣看似已經完成了，但實際上會遇到兩個問題：</p>
+        <p>修改案例為一個已營運多年的 Discuz 論壇，聽到使用者的聲音，希望能於手機上用 App 瀏覽論壇，基於考量，開發一個 Native App 及上架是不太可能的，而論壇本身已有一版手機版網站，因此決定以 Web App 的方式來實驗看看，不過坑比想像中的大。</p>
+<p>Apple 有一篇基本上講的蠻清楚的文章：<a href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html" target="_blank" rel="external">Configuring Web Applications</a><br>不過實際測試會發現問題蠻多的，以下一一列出自己碰到的狀況：</p>
 <ol>
-<li>內部物件模糊掉，使用了 <code>filter: blur();</code> 後，子元素無一倖免。</li>
-<li>更改顏色，所有更改顏色都會因對比而偏移掉。</li>
-</ol>
-<p>原本就是卡在這裡，不管怎麼調整都沒辦法有效的解決這兩項，後來看到了 <a href="http://tympanus.net/codrops/2015/03/10/creative-gooey-effects/" target="_blank" rel="external">Creative Gooey Effects</a> 這篇才知道可以利用 <code>fliter: url();</code> 配合 SVG filters 來解決這兩個問題，且用法也很簡單。此方法在 <a href="https://css-tricks.com/gooey-effect/" target="_blank" rel="external">The Gooey Effect</a> 中描述的更加清楚，包含在 <code>feColorMatrix</code> 中的 values 為什麼是下表也有描述，若是對他的敘述不清楚的話可以先看 <a href="http://www.oxxostudio.tw/articles/201406/svg-11-filter-feColorMatrix.html" target="_blank" rel="external">SVG 研究之路 (11) - filter:feColorMatrix</a> 稍微釐清一下。</p>
-<p>簡單來說，若是沒有特別需求，就去調整 color matrix 中的 alpha channel (A) 跟 plus(+) 中值來得到自己想要的結果。</p>
-<table>
-<thead>
-<tr>
-<th>*</th>
-<th>R</th>
-<th>G</th>
-<th>B</th>
-<th>A</th>
-<th>+</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>R</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>G</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>B</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>A</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>18</td>
-<td>-7</td>
-</tr>
-</tbody>
-</table>
-<p>以下是我在測試時寫的比較：</p>
-<ol>
-<li>用純 CSS 處理，背景與下一項的顏色設定相同，但呈現出 <code>#0000FF</code> 的藍色。<br><p data-height="200" data-theme-id="0" data-slug-hash="mPeEEG" data-default-tab="result" data-user="ssk7833" class="codepen">See the Pen <a href="http://codepen.io/ssk7833/pen/mPeEEG/" target="_blank" rel="external">Rotate loading (bad with and text)</a> by North (<a href="http://codepen.io/ssk7833" target="_blank" rel="external">@ssk7833</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><script async src="//assets.codepen.io/assets/embed/ei.js"></script></li>
-<li>用 SVG 處理，上一版的改良，在元素中放文字將會正常顯示。<br><p data-height="200" data-theme-id="0" data-slug-hash="dMGpXQ" data-default-tab="result" data-user="ssk7833" class="codepen">See the Pen <a href="http://codepen.io/ssk7833/pen/dMGpXQ/" target="_blank" rel="external">Gooey rotate loading (good with background and text)</a> by North (<a href="http://codepen.io/ssk7833" target="_blank" rel="external">@ssk7833</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><script async src="//assets.codepen.io/assets/embed/ei.js"></script></li>
-<li>將第二版的顏色稍加調整，移除 <code>feBlend</code> 後由於失去 <code>SourceGraphic</code> 的關係，文字將不會正常顯示，但此效果我更喜歡。<br><p data-height="200" data-theme-id="0" data-slug-hash="oxbBRy" data-default-tab="result" data-user="ssk7833" class="codepen">See the Pen <a href="http://codepen.io/ssk7833/pen/oxbBRy/" target="_blank" rel="external">Gooey rotate loading (good with only background)</a> by North (<a href="http://codepen.io/ssk7833" target="_blank" rel="external">@ssk7833</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><script async src="//assets.codepen.io/assets/embed/ei.js"></script>
-
+<li><p>App 圖示<br> 文件中明確的說出有幾個放法：</p>
+<ul>
+<li>要讓整個網站都有 icon，可以將 PNG 格式的圖片放置於根目錄，命名為：<code>apple-touch-icon.png</code></li>
+<li><p>要在特定頁面加上自訂的 icon 可以於 &lt;head&gt; 中加入如：</p>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"apple-touch-icon"</span> <span class="attribute">href</span>=<span class="value">"/custom_icon.png"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>要在不同解析度的裝置上能讀取不同尺寸的圖示，可以於 &lt;head&gt; 中加入如：</p>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"apple-touch-icon"</span> <span class="attribute">href</span>=<span class="value">"touch-icon-iphone.png"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"apple-touch-icon"</span> <span class="attribute">sizes</span>=<span class="value">"152x152"</span> <span class="attribute">href</span>=<span class="value">"touch-icon-ipad.png"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"apple-touch-icon"</span> <span class="attribute">sizes</span>=<span class="value">"180x180"</span> <span class="attribute">href</span>=<span class="value">"touch-icon-iphone-retina.png"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"apple-touch-icon"</span> <span class="attribute">sizes</span>=<span class="value">"167x167"</span> <span class="attribute">href</span>=<span class="value">"touch-icon-ipad-retina.png"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>  圖示大小可參考於 iOS Human Interface Guidelines 的 Graphics 一章，實際上這章已經變成 Icons and Images 內的<a href="https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/" target="_blank" rel="external">一部分</a>了。</p>
+</li>
+</ul>
+<p>在這個區塊文件還特別註明了 iOS 7 以前 Safari 的特殊狀況，因此要特別注意，雖然這點對於 App icon 沒什麼影響，卻讓我對文件下一區塊 <code>Specifying a Launch Screen Image</code> 沒有任何特別註明任何狀況而浪費了很多時間，這區塊理應給個提醒，不過稍後再提。</p>
+<p>App icon 會於首次要加入主畫面時去伺服器要相關檔案，之後基本上便會使用這個 icon 當作 app 的圖示；而問題是若 icon 需要更新時該如何更新？於 iOS 10.3.2 在同一天內測試發現除非移除 Web App 再重新加入主畫面，否則不會更新 App icon，而隨後試了 <a href="https://stackoverflow.com/a/4587917/4968420" target="_blank" rel="external">stackoverflow 這篇</a>的方法發現可行，雖然需要重開機才會更新，但起碼是個應急的方法：</p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">"apple-touch-icon"</span> sizes=<span class="string">"152x152"</span> href=<span class="string">"/static/webapp/icons/icon-152x152.png?m=&lt;?php echo filemtime('apple-touch-icon.png'); ?&gt;"</span>&gt;</span><br><span class="line">&lt;link rel=<span class="string">"apple-touch-icon"</span> sizes=<span class="string">"180x180"</span> href=<span class="string">"/static/webapp/icons/icon-180x180.png?m=&lt;?php echo filemtime('apple-touch-icon.png'); ?&gt;"</span>&gt;</span><br><span class="line">&lt;link rel=<span class="string">"apple-touch-icon"</span> sizes=<span class="string">"167x167"</span> href=<span class="string">"/static/webapp/icons/icon-167x167.pngm=&lt;?php echo filemtime('apple-touch-icon.png'); ?&gt;"</span>&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>App 標題<br> 這個沒遇到什麼狀況，文件提到預設抓 &lt;title&gt;，若需預設於 &lt;head&gt; 加入並修改 content 內容：</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"apple-mobile-web-app-title"</span> <span class="attribute">content</span>=<span class="value">"AppTitle"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>隱藏 Safari UI<br> 將 Web App 視為獨立模式 App (standalone mode)，於 &lt;head&gt; 中加入：</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"apple-mobile-web-app-capable"</span> <span class="attribute">content</span>=<span class="value">"yes"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p> 為獨立 App 時預設所有超連結將會導回至 Safari App 中，因此須注意在 standalone mode 時將站內相關超連結改為用 AJAX 處理或更改 window.location 位置。<br> 可以參考作法：<a href="https://gist.github.com/irae/1042167" target="_blank" rel="external">Stay Standalone: Prevent links in standalone web apps opening Mobile Safari</a></p>
+</li>
+<li><p>改變 Status Bar 外觀<br> 只有為獨立 App 時有效，不過只有三種選擇：預設（淺灰色）、黑色、透明。<br> 以下為黑色範例：</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"apple-mobile-web-app-status-bar-style"</span> <span class="attribute">content</span>=<span class="value">"black"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p> 可參考 <a href="https://stackoverflow.com/a/40786240/4968420" target="_blank" rel="external">stackoverflow 這篇</a> 及 <a href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html" target="_blank" rel="external">Supported Meta Tags</a></p>
+</li>
+<li><p>加上 Launch Screen Image / Splash Screens<br> 於 App 開啟時秀出的畫面，如一般 native App 開啟時的效果一樣，如<a href="https://medium.com/appscope/adding-custom-ios-splash-screens-to-your-progressive-web-app-41a9b18bdca3" target="_blank" rel="external">這篇</a>開頭圖片效果，不過在此需特別提一下 <code>iOS 8 9 10 實測不支援此效果</code>，由於官方文件沒有特別提到，讓我一直以為自己哪邊寫錯了；另外要使用此功能也<code>必須</code>為獨立 App 才行。</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"apple-touch-startup-image"</span> <span class="attribute">href</span>=<span class="value">"/launch.png"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p> 這個也支援不同解析度的圖片：可參考<a href="https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/launch-screen/" target="_blank" rel="external">這篇</a>，不過網路上已經有實用的轉換工具 <a href="https://appsco.pe/developer/splash-screens" target="_blank" rel="external">About splash-screens - Appscope</a> 可供轉換成各種尺寸的圖片及對應的程式碼。<br> 想要先測試手機上支不支援，也可以先上<a href="https://medium.com/@applification/progressive-web-app-splash-screens-80340b45d210" target="_blank" rel="external">這篇</a>最底下的範例 <a href="https://pwa-splash.now.sh/" target="_blank" rel="external">PWA Splash Screens Demo</a> 來檢查手機支援的狀況如何。</p>
 </li>
 </ol>
-<p>在寫上述三項測試時，自己也試過許多不同的組合，對 SVG filters 也多了許多理解，而在 gooey 相關的效果基本上就是 <code>feGaussianBlur</code>、<code>feColorMatrix</code> 和 <code>feBlend</code> 的變化所組成，未來若遇到類似需求時應該都能迎刃而解～</p>
+<p>除這些基本設定外，遇到 web App 切到背景後再切回前景，其行為跟 native App 不一樣，web App 只要到了背景 native App 被 terminated 一樣，什麼狀態都要重來，因此預設情況下開啟 web App → 到了頁面 A → 切換至背景（例如收到推播去看個訊息等等） → 回到 web App，此時會回到預設的首頁，而非最後瀏覽的頁面 A；為了解決這個問題，可以利用 sessionStorage 紀錄是否為本次首次開啟 web App，以及 localStorage 紀錄最後去的連結頁面。<a href="http://www.andymercer.net/blog/2016/02/full-screen-web-apps-on-ios/" target="_blank" rel="external">這篇</a>結合了上面所提的超連結問題及 web App 前景背景切換問題，並有一步一步的解說及範例，相當詳細。</p>
+<p>最後，<a href="https://appetize.io/demo" target="_blank" rel="external">Appetize.io</a> 提供了各種不同機型及 OS 版本的線上模擬功能對於測試 Web App 來說算是蠻方便的工具。<br>相較之下 Android 在這塊的設定上相當方便，也沒遇到什麼大問題，甚至幫 iOS 寫了部分教學範例呢……</p>
 <p>參考資料：</p>
 <ol>
-<li><a href="https://css-tricks.com/shape-blobbing-css/" target="_blank" rel="external">Shape Blobbing in CSS</a></li>
-<li><a href="http://www.oxxostudio.tw/articles/201408/sticky-ball.html" target="_blank" rel="external">噁心黏黏球( 純 CSS )</a></li>
-<li><a href="http://tympanus.net/codrops/2015/03/10/creative-gooey-effects/" target="_blank" rel="external">Creative Gooey Effects</a>  底下有幾個動畫範例值得一看</li>
-<li><a href="https://css-tricks.com/gooey-effect/" target="_blank" rel="external">The Gooey Effect</a></li>
-<li><a href="http://www.oxxostudio.tw/articles/201406/svg-11-filter-feColorMatrix.html" target="_blank" rel="external">SVG 研究之路 (11) - filter:feColorMatrix</a></li>
+<li><a href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html" target="_blank" rel="external">Configuring Web Applications</a></li>
+<li><a href="https://stackoverflow.com/a/4587917/4968420" target="_blank" rel="external">html - Is it possible to force iphone/ipod to update apple-touch-icon once webapp is added to home screen? - Stack Overflow</a></li>
+<li><a href="https://gist.github.com/irae/1042167" target="_blank" rel="external">Stay Standalone: Prevent links in standalone web apps opening Mobile Safari</a></li>
+<li><a href="https://stackoverflow.com/a/40786240/4968420" target="_blank" rel="external">html - apple-mobile-web-app-status-bar-style in ios 10 - Stack Overflow</a></li>
+<li><a href="https://medium.com/appscope/adding-custom-ios-splash-screens-to-your-progressive-web-app-41a9b18bdca3" target="_blank" rel="external">Adding Custom iOS Splash Screens To Your Progressive Web App</a></li>
+<li><a href="https://medium.com/@applification/progressive-web-app-splash-screens-80340b45d210" target="_blank" rel="external">Progressive Web App Splash Screens – Dave Hudson – Medium</a></li>
+<li><a href="http://www.andymercer.net/blog/2016/02/full-screen-web-apps-on-ios/" target="_blank" rel="external">Full Screen Web Apps on iOS - Andy Mercer</a></li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/" data-id="cjlc611da00342m24x2fgaqp0" class="article-share-link">Share</a>
+      <a data-url="http://ssk7833.github.io/blog/2018/08/27/develop-a-web-app-for-ios/" data-id="cjlc611ao00052m2496v433ko" class="article-share-link">Share</a>
       
-        <a href="http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://ssk7833.github.io/blog/2018/08/27/develop-a-web-app-for-ios/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/SVG/">SVG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/gooey/">gooey</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Web-Application/">Web Application</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/iOS/">iOS</a></li></ul>
 
     </footer>
   </div>
@@ -205,19 +169,10 @@ ga('send', 'pageview');
     
 <nav id="article-nav">
   
-    <a href="/blog/2016/03/30/do-it-smart-a-better-way-to-write-CSS/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Do it smart, a better way to write CSS - SASS/SCSS
-        
-      </div>
-    </a>
   
-  
-    <a href="/blog/2016/01/21/using-TravisCI-to-deploy-on-GitHub-pages/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/blog/2018/08/20/copy-all-files-changed-between-commits-using-batch-script/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">使用 Travis CI 自動部署 GitHub Pages</div>
+      <div class="article-nav-title">利用批次檔複製 git 兩筆 commit 的差異檔案</div>
     </a>
   
 </nav>
@@ -326,7 +281,7 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'ssk7833';
   
-  var disqus_url = 'http://ssk7833.github.io/blog/2016/03/09/implement-gooey-effect/';
+  var disqus_url = 'http://ssk7833.github.io/blog/2018/08/27/develop-a-web-app-for-ios/';
   
   (function(){
     var dsq = document.createElement('script');
