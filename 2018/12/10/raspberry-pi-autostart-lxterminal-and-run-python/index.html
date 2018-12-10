@@ -3,17 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2018 | 北風筆記</title>
+  <title>Raspberry pi 開機自動開啟 terminal 並執行 python 程式 | 北風筆記</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="這裡紀錄個人的一些日常心得">
-<meta property="og:type" content="website">
-<meta property="og:title" content="北風筆記">
-<meta property="og:url" content="http://ssk7833.github.io/blog/archives/2018/index.html">
+  <meta name="description" content="最近我有個需求是當我的樹莓派重開機後，要在自動登入 LXDE GUI session 後自動執行終端機 terminal 並執行特定程式，但發現其實並不簡單。由於受限於動作在登入 GUI session 後，crontab 及 /etc/rc.local 都不適用我的情境，必須用 lxsession 才行，經過了多次的登入登出總算成功達到想要的目的，在此作為紀錄。
+在底下假設自動登入使用者為 pi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Raspberry pi 開機自動開啟 terminal 並執行 python 程式">
+<meta property="og:url" content="http://ssk7833.github.io/blog/2018/12/10/raspberry-pi-autostart-lxterminal-and-run-python/index.html">
 <meta property="og:site_name" content="北風筆記">
-<meta property="og:description" content="這裡紀錄個人的一些日常心得">
+<meta property="og:description" content="最近我有個需求是當我的樹莓派重開機後，要在自動登入 LXDE GUI session 後自動執行終端機 terminal 並執行特定程式，但發現其實並不簡單。由於受限於動作在登入 GUI session 後，crontab 及 /etc/rc.local 都不適用我的情境，必須用 lxsession 才行，經過了多次的登入登出總算成功達到想要的目的，在此作為紀錄。
+在底下假設自動登入使用者為 pi">
+<meta property="og:updated_time" content="2018-12-10T06:47:43.137Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="北風筆記">
-<meta name="twitter:description" content="這裡紀錄個人的一些日常心得">
+<meta name="twitter:title" content="Raspberry pi 開機自動開啟 terminal 並執行 python 程式">
+<meta name="twitter:description" content="最近我有個需求是當我的樹莓派重開機後，要在自動登入 LXDE GUI session 後自動執行終端機 terminal 並執行特定程式，但發現其實並不簡單。由於受限於動作在登入 GUI session 後，crontab 及 /etc/rc.local 都不適用我的情境，必須用 lxsession 才行，經過了多次的登入登出總算成功達到想要的目的，在此作為紀錄。
+在底下假設自動登入使用者為 pi">
   
     <link rel="alternative" href="/blog/atom.xml" title="北風筆記" type="application/atom+xml">
   
@@ -76,134 +80,78 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/blog/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/blog/2018/12/10/raspberry-pi-autostart-lxterminal-and-run-python/" class="archive-article-date">
-  <time datetime="2018-12-10T06:41:36.000Z" itemprop="datePublished">Dec 10</time>
+        <section id="main"><article id="post-raspberry-pi-autostart-lxterminal-and-run-python" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018/12/10/raspberry-pi-autostart-lxterminal-and-run-python/" class="article-date">
+  <time datetime="2018-12-10T06:41:36.000Z" itemprop="datePublished">2018-12-10</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/study/">study</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/12/10/raspberry-pi-autostart-lxterminal-and-run-python/">Raspberry pi 開機自動開啟 terminal 並執行 python 程式</a>
+    <h1 class="article-title" itemprop="name">
+      Raspberry pi 開機自動開啟 terminal 並執行 python 程式
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/blog/2018/08/27/develop-a-web-app-for-ios/" class="archive-article-date">
-  <time datetime="2018-08-27T10:52:10.000Z" itemprop="datePublished">Aug 27</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/08/27/develop-a-web-app-for-ios/">於 iOS 裝置上開發 Web App 筆記</a>
-    </h1>
-  
+        <p>最近我有個需求是當我的樹莓派重開機後，要在自動登入 LXDE GUI session 後自動執行終端機 terminal 並執行特定程式，但發現其實並不簡單。<br>由於受限於動作在登入 GUI session 後，<code>crontab</code> 及 <code>/etc/rc.local</code> 都不適用我的情境，必須用 <code>lxsession</code> 才行，經過了多次的登入登出總算成功達到想要的目的，在此作為紀錄。</p>
+<p>在底下假設自動登入使用者為 pi，且 Python 程式放於 <code>/home/pi/Desktop/myScript/main.py</code>，可以編輯 <code>/home/pi/.config/lxsession/LXDE/autostart</code> 文件，於最底下加上 <code>lxterminal --command=&quot;/bin/bash -c &#39;cd /home/pi/Desktop/myScript ; python main.py&#39;&quot;</code>，會發現這行直接於 terminal 執行是沒問題的，但是<strong>在 autostart 會錯</strong>，網路上也有人在問<a href="https://raspberrypi.stackexchange.com/q/89203" target="_blank" rel="external">一樣的問題</a>。</p>
+<p>後來輾轉發現有人將 command 包在 script 中執行後好像可以，我自己試了也發現這樣就行了，<code>/home/pi/autostart.sh</code>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span><br><span class="line"></span></span><br><span class="line"><span class="built_in">cd</span> /home/pi/Desktop/myScript</span><br><span class="line">python main.py</span><br></pre></td></tr></table></figure></p>
+<p>記得給 autostart.sh 執行權限：<code>chmod +x /home/pi/autostart.sh</code><br>並於 <code>/home/pi/.config/lxsession/LXDE/autostart</code> 中新增 <code>lxterminal --command=&quot;/home/pi/autostart.sh&quot;</code>，接著即可重開機／登入登出測試運作情況。</p>
+<p>參考資料：</p>
+<ol>
+<li><a href="https://raspberrypi.stackexchange.com/q/89203" target="_blank" rel="external">bash - open a terminal on boot and auto-run a looping python script - Raspberry Pi Stack Exchange</a></li>
+<li><a href="https://www.raspberrypi.org/forums/viewtopic.php?t=169200" target="_blank" rel="external">How to open a new terminal and run commands in it - Raspberry Pi Forums</a></li>
+<li><a href="https://www.raspberrypi.org/forums/viewtopic.php?t=65607" target="_blank" rel="external">HowTo auto-run LXTerminal from LXDE desktop  at startup - Raspberry Pi Forums</a></li>
+<li><a href="https://www.raspberrypi.org/forums/viewtopic.php?t=132637" target="_blank" rel="external">How to autostart a program on Raspbian? - Raspberry Pi Forums</a></li>
+<li><a href="https://superuser.com/q/1281509/617008" target="_blank" rel="external">terminal - How can I open a lxterminal with a script running in it? - Super User</a></li>
+</ol>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/blog/2018/08/20/copy-all-files-changed-between-commits-using-batch-script/" class="archive-article-date">
-  <time datetime="2018-08-20T07:33:00.000Z" itemprop="datePublished">Aug 20</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/08/20/copy-all-files-changed-between-commits-using-batch-script/">利用批次檔複製 git 兩筆 commit 的差異檔案</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/blog/2018/04/03/aspnet-core-2-use-mysql-as-database/" class="archive-article-date">
-  <time datetime="2018-04-03T08:05:30.000Z" itemprop="datePublished">Apr 3</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ssk7833.github.io/blog/2018/12/10/raspberry-pi-autostart-lxterminal-and-run-python/" data-id="cjphyh0h90005b2qfszlnkgp3" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/04/03/aspnet-core-2-use-mysql-as-database/">ASP.NET Core 2 使用 MySQL 作為資料庫</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/blog/2018/03/28/aspnet-core-2-embed-entire-static-files-folder/" class="archive-article-date">
-  <time datetime="2018-03-28T07:49:02.000Z" itemprop="datePublished">Mar 28</time>
-</a>
+        <a href="http://ssk7833.github.io/blog/2018/12/10/raspberry-pi-autostart-lxterminal-and-run-python/#disqus_thread" class="article-comment-link">Comments</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/03/28/aspnet-core-2-embed-entire-static-files-folder/">ASP.NET Core 2 發行時封裝整個靜態檔案資料夾</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/blog/2018/02/01/DIY-wedding-chat-system/" class="archive-article-date">
-  <time datetime="2018-01-31T16:22:30.000Z" itemprop="datePublished">Feb 1</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/02/01/DIY-wedding-chat-system/">自己婚宴自己搞，婚宴彈幕系統</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Raspberry-pi/">Raspberry pi</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/python/">python</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2018/08/27/develop-a-web-app-for-ios/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">於 iOS 裝置上開發 Web App 筆記</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 </section>
         
           <aside id="sidebar">
@@ -299,11 +247,13 @@ ga('send', 'pageview');
 <script>
   var disqus_shortname = 'ssk7833';
   
+  var disqus_url = 'http://ssk7833.github.io/blog/2018/12/10/raspberry-pi-autostart-lxterminal-and-run-python/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
